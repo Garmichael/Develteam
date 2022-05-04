@@ -1,0 +1,64 @@
+.voting-widget {
+
+	.invisible {
+		visibility: hidden;
+	}
+
+	.vote-button {
+
+		cursor: pointer;
+		padding: 2px;
+		border-radius: 2px;
+
+		&.upvote {
+			color: @colorUpvote;
+		}
+
+		&.downvote {
+			color: @colorDownvote;
+		}
+
+		&.disabled {
+			color: @colorC !important;
+		}
+
+		&.logged-voted, &:hover {
+			background-color: @colorC;
+		}
+	}
+
+	.points {
+		.font-small;
+	}
+
+	.tooltip {
+		position: absolute;
+		z-index: 10;
+		bottom: 0;
+		left: 40px;
+
+		.content {
+			.content-box;
+			max-width: 300px;
+			background-color: @colorC;
+			padding: @spacing-small;
+			margin-bottom: @spacing-medium;
+			min-width: 100px;
+
+			span {
+				margin-right: @spacing-very-small;
+				display: inline-block;
+
+				&:after {
+					content: ',';
+				}
+
+				&:last-of-type {
+					&:after {
+						content: '.';
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,60 @@
+#register-page {
+	#register-form {
+		.content-box;
+		width: 620px;
+		max-width: 100%;
+		margin: 0 auto;
+
+		.register-form-fields {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+
+			h1 {
+				width: 100%;
+			}
+
+			label, input {
+				margin: 0 0 @spacing-medium 0;
+			}
+
+			label {
+				width: 35%;
+				padding-right: @spacing-medium;
+				text-align: right;
+			}
+
+			input {
+				width: 65%;
+			}
+
+			.recaptcha-container {
+				width: 100%;
+
+				.recpatcha-inner-container {
+					width: 304px;
+					display: block;
+					margin: 0 auto @spacing-medium;
+				}
+			}
+
+			.button-container {
+				width: 100%;
+				text-align: center;
+
+				.button {
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	#successful-registration {
+		.content-box;
+		text-align: center;
+
+		p {
+			.font-large;
+		}
+	}
+}

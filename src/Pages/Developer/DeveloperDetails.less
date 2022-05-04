@@ -1,0 +1,327 @@
+#developer-companion-content {
+    .content-box;
+    padding: @spacing-small @spacing-medium;
+
+    background-color: @colorF;
+
+    .main-details {
+        .avatar-container {
+            margin: auto auto @spacing-medium;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ban-button {
+            .button;
+            width: 100%;
+        }
+
+        .special-developer-banners {
+            margin-bottom: @spacing-medium;
+            //background-color: @colorD;
+            border-bottom: 1px @colorD solid;
+            padding: 0 @spacing-medium @spacing-medium;
+
+            .special-developer-banner {
+                text-align: center;
+                display: block;
+
+                border-radius: 2px;
+                margin: 0 auto @spacing-small auto;
+                //text-align: center;
+                width: auto;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .fa, .fas, .fab, .far {
+                    margin-right: @spacing-small;
+                    transform: rotate(0deg) scale(1.2, 1.2);
+
+                    &.mod-icon {
+                        color: gold;
+                    }
+
+                    &.donor-icon {
+                        color: @colorUpvote;
+                    }
+
+                    &.ban-icon {
+                        color: @colorH;
+                    }
+                }
+            }
+        }
+
+        .details-container {
+            .dev-alias {
+                margin-bottom: @spacing-small;
+
+                .fa, .fas, .fab, .far {
+                    margin-right: @spacing-small;
+
+                    &.online {
+                        color: @colorUpvote;
+                    }
+                }
+            }
+
+            .basic-info {
+                margin-bottom: @spacing-medium;
+            }
+
+            .roles, .skills {
+                margin-bottom: @spacing-small;
+
+                h3 {
+                    display: block;
+                    margin: 0 @spacing-small 0 0;
+                    width: 40px;
+                }
+
+                .skill-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    li {
+                        display: inline-block;
+                        background-color: @colorD;
+                        padding: 5px 10px;
+                        border-radius: 2px;
+                        margin: 0 5px 5px 0;
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        .font-small;
+                        color: @colorG;
+                    }
+                }
+
+                .skill-tag {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                }
+            }
+
+            .wants-to-collab {
+                margin-bottom: @spacing-medium;
+
+                .badge {
+                    display: inline-block;
+                    background-color: @colorD;
+                    padding: @spacing-very-small @spacing-small;
+                    border-radius: 2px;
+                    margin-bottom: @spacing-small;
+                    text-align: center;
+                }
+
+                .description {
+                    padding-left: @spacing-medium;
+
+                    h3 {
+                        margin-bottom: @spacing-very-small;
+                    }
+                }
+            }
+
+            .connect-options {
+                .font-large;
+                margin-bottom: @spacing-small;
+                display: flex;
+
+                span {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    color: @colorA;
+                    cursor: pointer;
+                    text-align: center;
+                    padding-right: @spacing-medium;
+
+                    .fa, .fas, .fab, .far {
+                        .font-larger;
+                        display: block;
+                    }
+
+                    &:hover {
+                        color: @colorB;
+
+                        .fa, .fas, .fab, .far {
+                            color: @colorB;
+                        }
+                    }
+
+                }
+            }
+
+            .game-projects {
+                font-size: 0;
+                margin-bottom: @spacing-small;
+
+                h3 {
+                    margin-bottom: 0;
+                }
+
+                .avatar-container {
+                    .font-medium;
+                    display: inline-block;
+                    width: 130px;
+                    vertical-align: top;
+                    text-align: center;
+                    margin-bottom: 0;
+                    padding: @spacing-small;
+
+                    .avatar {
+                        display: block;
+                        margin: 0 auto;
+                    }
+
+                    .icon-container {
+                        display: block;
+                        margin: 0 auto;
+                        width: 66px;
+                        height: 66px;
+                        border: 2px @colorA solid;
+                        border-radius: 100px;
+                        background-color: @colorC;
+                        text-align: center;
+                        padding: 18px 0 0;
+                        margin-bottom: @spacing-very-small;
+
+                        .fa, .fas, .fab, .far {
+                            font-size: 30px;
+                            color: @colorH;
+                        }
+                    }
+
+                    &:hover {
+                        .avatar .inner {
+                            border-color: @colorB;
+                        }
+
+                        .icon-container {
+                            border: 2px @colorB solid;
+                        }
+                    }
+                }
+            }
+
+            .websites {
+                margin-bottom: @spacing-medium;
+
+                h3 {
+                    margin: 0;
+                }
+
+                .fa, .fas, .fab, .far {
+                    margin-right: @spacing-very-small;
+                }
+            }
+
+            .work-history, .education-history {
+                margin-bottom: @spacing-medium;
+
+                h3 {
+                    margin-bottom: 0;
+                }
+
+                ul {
+                    padding-left: @spacing-medium;
+                    margin-bottom: @spacing-medium;
+                }
+            }
+        }
+
+        .edit-options {
+            margin-top: @spacing-large;
+
+            .upload-avatar {
+                .button;
+                margin: 0 0 @spacing-small 0;
+                display: block;
+                width: 100%;
+                text-align: center;
+                position: relative;
+                padding: 0;
+
+                &:after {
+                    content: 'Upload Avatar';
+                }
+
+                [type="file"] {
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
+                    display: block;
+                    background-color: lightblue;
+                    opacity: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 10;
+                    cursor: pointer;
+                }
+            }
+
+            button {
+                .button;
+                margin: 0 0 @spacing-small 0;
+                padding: 0;
+                display: block;
+                width: 100%;
+            }
+        }
+
+        #edit-developer-roles-and-skills {
+            .developer-roles {
+                margin-bottom: @spacing-medium;
+            }
+
+            .existing-skill-list, .matching-skill-list {
+                margin-bottom: @spacing-medium;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .add-skill-form {
+                display: flex;
+
+                input, button {
+                    margin: 0;
+                    margin-bottom: @spacing-small;
+                }
+
+                button {
+                    margin-left: @spacing-very-small;
+                }
+            }
+
+            .matching-skill-tag {
+                display: inline-block;
+                background-color: #3e4246;
+                padding: 5px 10px;
+                border-radius: 2px;
+                margin: 0 5px 5px 0;
+                flex-grow: 1;
+                flex-shrink: 1;
+                cursor: pointer;
+                .font-small;
+
+                .fas {
+                    margin-right: @spacing-small;
+                }
+
+                &:hover {
+                    background-color: @colorA;
+                    color: @colorC;
+                }
+            }
+        }
+    }
+
+}

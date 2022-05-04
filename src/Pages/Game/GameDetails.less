@@ -1,0 +1,134 @@
+#game-companion-content {
+    .content-box;
+    padding: @spacing-small @spacing-medium;
+
+    background-color: @colorF;
+
+    .main-details {
+        .avatar-container {
+            margin: auto auto @spacing-medium;
+            display: flex;
+            justify-content: center;
+        }
+
+        .details-container {
+            .game-alias {
+                margin-bottom: @spacing-small;
+
+                .fa, .fas, .fab, .far {
+                    margin-right: @spacing-small;
+                }
+            }
+
+            .wants-to-collab {
+                display: inline-block;
+                background-color: @colorD;
+                padding: @spacing-very-small @spacing-small;
+                border-radius: 2px;
+                margin-bottom: @spacing-small;
+                text-align: center;
+            }
+
+            .platform, .genre, .rating, .release-date {
+                display: flex;
+                margin-bottom: @spacing-small;
+
+                h3 {
+                    flex: 0 0 60px;
+                    display: inline-block;
+                    margin: 0 @spacing-small 0 0;
+                    width: 60px;
+                }
+
+                span {
+                    flex: 1 1 auto;
+                    display: block;
+                }
+            }
+
+            .release-date {
+                margin-bottom: @spacing-small;
+            }
+
+            .connect-options {
+                .font-large;
+                margin-bottom: @spacing-small;
+                display: flex;
+
+                span {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    color: @colorA;
+                    cursor: pointer;
+                    text-align: center;
+                    padding-right: @spacing-medium;
+
+                    .fa, .fas, .fab, .far {
+                        .font-larger;
+                        display: block;
+                    }
+
+                    &:hover {
+                        color: @colorB;
+
+                        .fa, .fas, .fab, .far {
+                            color: @colorB;
+                        }
+                    }
+
+                }
+            }
+
+            .currently-recruiting {
+                margin-bottom: @spacing-medium;
+                padding-top: @spacing-medium;
+
+				h2{
+					margin-bottom: @spacing-small;
+				}
+
+                h3 {
+                    margin: 0 0 @spacing-small 0;
+                }
+
+                > span {
+                    display: block;
+                    margin: 0 0 @spacing-small 0;
+                }
+
+                ul, .skill-list {
+					display: flex;
+					flex-wrap: wrap;
+					margin-bottom: @spacing-small;
+
+                    li, a {
+						flex-grow: 1;
+						flex-shrink: 1;
+                        display: inline-block;
+                        background-color: @colorD;
+                        padding: @spacing-very-small @spacing-small;
+                        border-radius: 2px;
+                        margin: 0 @spacing-very-small @spacing-very-small 0;
+                    }
+
+					a{
+						.skill-tag;
+					}
+                }
+            }
+        }
+
+        .edit-options {
+            margin-top: @spacing-large;
+
+            button {
+                .button;
+                margin: 0 0 @spacing-small 0;
+                display: block;
+                width: 100%;
+                padding: 0;
+            }
+        }
+    }
+
+}

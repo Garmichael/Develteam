@@ -1,0 +1,13 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+.idea/
+_/
+userdata/
+public/profilePhotos/*
+public/static/*
+public/uploadedFiles/*
+public/userdata/*
+public/src
+modules/module_secretKeys.js

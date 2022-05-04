@@ -1,0 +1,49 @@
+#home-dashboard {
+
+	.intro-pitch {
+		margin-bottom: @spacing-large;
+	}
+
+	.teamup-upsell {
+		margin-bottom: @spacing-large;
+		padding: @spacing-medium;
+		text-align: center;
+
+		h1 {
+
+			vertical-align: middle;
+			padding-right: @spacing-medium;
+		}
+
+		.button-container {
+			display: inline-block;
+			vertical-align: middle;
+
+			.button {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: @spacing-large;
+
+		@media @smartphones {
+			flex-direction: column;
+		}
+
+		#recently-on-forums {
+			flex: 1 1 auto;
+		}
+
+		#develteam-announcements {
+			flex: 1 1 auto;
+
+			@media @smartphones {
+				margin-bottom: @spacing-medium;
+			}
+		}
+	}
+}

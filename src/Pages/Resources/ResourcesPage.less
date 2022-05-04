@@ -1,0 +1,162 @@
+#resources-page {
+	#resource-type-switcher {
+		.tab-list;
+
+		li {
+			.tab-horizontal;
+
+			@media @smartphones {
+				margin-left: 0;
+			}
+
+			&:first-child {
+				margin-left: 180px;
+
+				@media @smartphones {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+
+	#resource-category-switcher {
+
+		font-size: 0;
+		z-index: 1;
+		display: table-cell;
+		vertical-align: top;
+
+		@media @smartphones {
+			display: block;
+		}
+
+		li {
+			.font-medium;
+			display: block;
+			padding: 0;
+			border-left: 3px @colorA solid;
+			background: @colorC;
+			white-space: nowrap;
+			width: 180px;
+			z-index: 1;
+
+			@media @smartphones {
+				display: inline-block;
+				width: auto;
+				border-left: 0;
+			}
+
+			.fa, .fas, .fab, .far {
+				.font-large;
+				margin-right: @spacing-small;
+			}
+
+			&:hover {
+				background-color: @colorE;
+				border-left: 3px @colorB solid;
+
+				a {
+					color: @colorG;
+				}
+
+				.fa, .fas, .fab, .far {
+					color: @colorB;
+				}
+
+				@media @smartphones {
+					border-left: 0;
+				}
+			}
+
+			&.selected {
+				background-color: @colorE;
+				border-left: 3px @colorB solid;
+				padding: @spacing-medium;
+
+				@media @smartphones {
+					padding: @spacing-very-small;
+					border-left: 0;
+				}
+
+				.fa, .fas, .fab, .far {
+					color: @colorB;
+				}
+			}
+
+			a {
+				padding: @spacing-medium;
+				color: @colorG;
+				display: block;
+
+				@media @smartphones {
+					padding: @spacing-very-small;
+					border-left: 0;
+				}
+
+			}
+		}
+
+	}
+
+	#resource-list {
+		border-top: 0;
+		background-color: @colorE;
+		padding: @spacing-large;
+		margin-bottom: @spacing-large;
+		display: table-cell;
+
+		@media @smartphones {
+			display: block;
+			padding: @spacing-small;
+		}
+
+		.resource-items {
+			.resource-item {
+				width: 260px;
+				display: inline-block;
+				vertical-align: top;
+				margin-bottom: @spacing-medium;
+				padding-right: @spacing-medium;
+
+				@media @smartphones {
+					width: 50%
+				}
+
+				h4 {
+					.font-large;
+					.font-medium;
+					margin-bottom: @spacing-very-small;
+				}
+
+			}
+		}
+
+		#submit-link {
+			.button;
+		}
+	}
+
+	#submit-new-resource {
+		.content-box;
+		margin-top: @spacing-large;
+		margin-left: 180px;
+
+		@media @smartphones {
+			margin-left: 0;
+		}
+
+		div.container {
+			display: flex;
+
+			input {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 50%;
+			}
+
+			input.invalid {
+				border: 1px red solid;
+			}
+		}
+	}
+}

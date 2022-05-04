@@ -1,0 +1,84 @@
+#donations-page {
+
+    .donation-pitch {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: @spacing-medium;
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            .font-large;
+            margin-bottom: @spacing-medium;
+            text-align: justify;
+
+            &.disclaimer {
+                .font-small;
+                width: 400px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+
+        form {
+            width: 400px;
+            text-align: center;
+            margin: 0 auto;
+
+            button {
+                .font-larger;
+                margin: 0 0 @spacing-medium;
+
+                .fab {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
+    .donations-list {
+        display: block;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        text-align: center;
+        padding: @spacing-large 0;
+        border-top: 1px @colorE solid;
+
+        .donor {
+            display: inline-flex;
+            text-align: left;
+            background-color: @colorE;
+            padding: @spacing-small;
+            width: 300px;
+            flex-grow: 0;
+            flex-shrink: 0;
+            overflow: hidden;
+            margin: @spacing-small;
+
+            .avatar-container {
+                width: 100px;
+            }
+
+            .donation-details {
+                span {
+                    display: block;
+
+                    &.poster-alias {
+                        .font-large;
+                    }
+
+                    &.donation-amount {
+                        .font-large;
+                        color: @colorUpvote;
+                    }
+
+                    &.donation-date {
+                        .font-medium;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,174 @@
+.media-post {
+	.content-box;
+
+	&.centered {
+		width: 100%;
+	}
+
+	h2 {
+		padding: @spacing-medium 0;
+		margin: 0;
+
+		+ footer {
+			border-top: none;
+		}
+	}
+
+	.content {
+		.post-formatting;
+		padding-bottom: @spacing-medium;
+	}
+
+	footer {
+		padding: 0;
+
+		ul {
+			.font-medium;
+			display: table;
+			width: 100%;
+
+			li {
+				display: table-cell;
+				padding: 0 @spacing-medium 0 0;
+
+				&.social-sharing {
+					width: 130px;
+					text-align: right;
+
+					.fa, .fas, .fab, .far {
+						margin: @spacing-very-small;
+						cursor: pointer;
+
+						&.fa-facebook-f {
+							color: #3b5998;
+						}
+
+						&.fa-twitter {
+							color: #00aced;
+						}
+
+						&.fa-linkedin-in {
+							color: #007bb6;
+						}
+					}
+				}
+
+				&:last-child {
+					padding: 0;
+				}
+
+				.edit-button {
+					cursor: pointer;
+				}
+
+			}
+		}
+	}
+
+	section.comments {
+		padding: 0 @spacing-large;
+
+		.post-comments {
+			flex: 1;
+			padding: 0;
+			overflow: hidden;
+			margin-bottom: @spacing-medium;
+
+			li {
+				margin-bottom: @spacing-medium;
+				display: flex;
+
+				.avatar-container {
+					flex-grow: 0;
+					flex-shrink: 0;
+					width: auto;
+					padding-right: @spacing-small;
+				}
+
+				.comment-details {
+					flex-grow: 1;
+					flex-shrink: 1;
+
+					span.comment-date {
+						.font-small;
+						display: inline-block;
+						padding-left: @spacing-medium;
+					}
+
+					span.comment-from {
+						.font-large;
+						.font-bold;
+
+						display: inline-block;
+						margin-bottom: @spacing-small;
+					}
+
+					section.comment-content {
+						.post-formatting;
+						.font-medium;
+						display: block;
+						padding-left: @spacing-small;
+					}
+
+					span.comment-options {
+						margin-left: @spacing-medium;
+
+						span {
+							.font-small;
+							cursor: pointer;
+							color: @colorA;
+
+							&:hover{
+								color: @colorB;
+							}
+						}
+					}
+
+					div.delete-mode {
+						p {
+							margin-bottom: @spacing-medium;
+						}
+						button {
+							float: none;
+							margin: 0 @spacing-small @spacing-medium 0;
+						}
+					}
+
+					img {
+						margin-right: @spacing-very-small;
+					}
+				}
+			}
+		}
+
+		.new-comment {
+			.submit-row {
+				display: flex;
+				margin-bottom: @spacing-medium;
+
+				span {
+					text-align: right;
+
+					button {
+						margin: 0;
+					}
+				}
+
+				label {
+					display: flex;
+					flex-grow: 1;
+					flex-shrink: 1;
+					align-items: center;
+
+					span {
+
+					}
+
+					select {
+						margin: 0 @spacing-medium;
+					}
+				}
+			}
+		}
+	}
+}

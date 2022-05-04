@@ -1,0 +1,46 @@
+#notifications {
+	.content-box;
+	.font-medium;
+	padding: 0;
+
+	.no-notifications-message {
+		padding: @spacing-medium;
+	}
+
+	h2 {
+		margin: 0;
+		padding: @spacing-medium @spacing-small;
+	}
+
+	a {
+		display: block;
+		padding: @spacing-small @spacing-medium;
+
+		.fa, .fas, .fab, .far {
+			margin-right: @spacing-small;
+		}
+
+		&:hover {
+			background-color: @colorF;
+
+			.fa, .fas, .fab, .far {
+				color: @colorA;
+			}
+		}
+
+		&.new {
+
+		}
+
+		.text {
+
+		}
+
+		.time-stamp {
+			display: block;
+			.font-small;
+			color: @colorG;
+		}
+	}
+
+}

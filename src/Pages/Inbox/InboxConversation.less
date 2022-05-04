@@ -1,0 +1,125 @@
+
+#conversation-view {
+	.content-box;
+	border-radius: 0 0 5px 5px;
+	font-size: 0;
+
+	.return-to-inbox, .leave-conversation, .add-participant {
+		.font-largest;
+		margin-bottom: @spacing-large;
+		display: inline-block;
+		padding-right: @spacing-medium;
+
+		.fa, .fas, .fab, .far {
+			color: @colorA;
+		}
+	}
+
+	.add-participant {
+		margin-bottom: 0;
+		.font-large;
+	}
+
+	.leave-conversation {
+		.font-large;
+	}
+
+	.add-participant-message {
+		margin-bottom: @spacing-small;
+	}
+
+	.new-participant {
+		cursor: pointer;
+		padding-left: @spacing-medium;
+		color: @colorA;
+
+		&:hover {
+			color: @colorB;
+		}
+	}
+
+	.confirm-adding-participant {
+		padding-top: @spacing-medium;
+		margin-top: @spacing-medium;
+		border-top: 1px @colorC solid;
+	}
+
+	.participants {
+		.font-large;
+		border-bottom: 1px @colorC solid;
+		padding-bottom: @spacing-small;
+		margin-bottom: @spacing-medium;
+		line-height: 25px;
+
+		span:not(:last-of-type):after {
+			content: ', ';
+		}
+
+		span:last-of-type {
+			margin-right: @spacing-large;
+		}
+	}
+
+	ul#conversation-messages {
+		flex: 1;
+		padding: @spacing-medium;
+		overflow: auto;
+
+		li {
+			margin-bottom: @spacing-medium;
+			display: flex;
+
+			.avatar-container {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: auto;
+				padding-right: @spacing-small;
+			}
+
+			.message-details {
+				flex: 1;
+
+				span.message-date {
+					.font-small;
+					display: inline-block;
+					padding-left: @spacing-medium;
+				}
+
+				span.message-from {
+					.font-large;
+					.font-bold;
+
+					display: inline-block;
+					margin-bottom: @spacing-small;
+				}
+
+				section.message-message {
+					.post-formatting;
+					.font-medium;
+					display: block;
+					padding-left: @spacing-small;
+				}
+
+				img {
+					margin-right: @spacing-very-small;
+				}
+			}
+		}
+	}
+
+	#new-reply {
+		border-top: 1px @colorC solid;
+		padding-top: @spacing-medium;
+
+		input {
+			margin: 0;
+			float: right;
+		}
+	}
+
+	#leave-conversation-form {
+		border-top: 1px @colorC solid;
+		padding-top: @spacing-medium;
+		.font-large;
+	}
+}

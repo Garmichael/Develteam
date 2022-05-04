@@ -1,0 +1,186 @@
+#classifieds {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .filter-controls {
+
+        &.disabled {
+            opacity: 0.5;
+        }
+
+        .filter-control {
+            margin-top: @spacing-small;
+            margin-bottom: @spacing-medium;
+            align-items: center;
+            background-color: @colorC;
+            padding: @spacing-medium;
+            border-radius: 4px;
+
+            .filter-group {
+                display: flex;
+                margin-bottom: @spacing-small;
+
+                label {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    width: 100px;
+                }
+
+                .skill-input {
+                    flex-grow: 1;
+                    display: flex;
+
+                    input {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        margin: 0;
+                        display: inline-block;
+                    }
+
+                    button {
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        margin: 0;
+                        display: inline-block;
+                    }
+                }
+
+                ul {
+                    flex-grow: 1;
+
+                    li {
+                        display: inline-block;
+                        flex-grow: 1;
+                        margin-right: @spacing-medium;
+                        margin-bottom: @spacing-very-small;
+                        color: @colorA;
+                        border: 2px transparent solid;
+                        border-radius: 2px;
+                        cursor: pointer;
+                        padding: @spacing-very-small @spacing-small;
+
+                        &.selected, &:hover {
+                            color: @colorB;
+                            border-color: @colorB;
+                        }
+
+                        .fas, .fab, .far {
+                            margin-right: @spacing-small;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .loader {
+        padding: @spacing-medium;
+    }
+
+    .classifieds-posts {
+        .classifieds-post {
+            .content-box;
+            .font-large;
+            padding: 0;
+
+            margin: 0 0 @spacing-large 0;
+            vertical-align: top;
+            border-radius: 3px;
+
+            header {
+                .font-larger;
+                width: 100%;
+
+                display: flex;
+
+                margin-bottom: @spacing-small;
+
+                .avatar-container {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    padding-left: @spacing-medium;
+                    padding-right: @spacing-medium;
+                    padding-top: @spacing-small;
+                }
+
+                .text-container {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    overflow: hidden;
+
+                    .title {
+
+                        .font-larger;
+                        padding-top: @spacing-small;
+                        margin-bottom: @spacing-small;
+
+                        .fa, .fas, .fab, .far {
+                            .font-largest;
+                            color: @colorA;
+                            margin: 0 @spacing-small 0 0;
+                        }
+
+                        span {
+                            display: block;
+                        }
+
+                        .sub-title {
+                            .font-normal;
+                            margin-top: @spacing-small;
+                        }
+                    }
+                }
+
+                .post-date {
+                    .font-small;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    width: 120px;
+                    text-align: right;
+                    padding: @spacing-medium;
+
+                    @media @smartphones {
+                        display: none;
+                    }
+
+                    span {
+                        display: block;
+                    }
+                }
+            }
+
+            .sub-header {
+                padding: @spacing-medium @spacing-medium 0;
+
+                span {
+                    .font-bold;
+                }
+
+                .role-list {
+                    li {
+                        .role-tag;
+                    }
+                }
+
+            }
+
+            .content {
+                .post-formatting;
+                padding: @spacing-medium;
+            }
+
+            .edit-container {
+                padding: @spacing-medium;
+            }
+        }
+    }
+}
+
+#classifieds-new {
+    max-width: 800px;
+    margin: 0 auto;
+
+    .new-post-form {
+        .content-box;
+    }
+}

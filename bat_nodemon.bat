@@ -1,0 +1,1 @@
+cmd /k nodemon develteam.js

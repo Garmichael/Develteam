@@ -1,0 +1,167 @@
+#media-page {
+	#media-albums {
+		.content-box;
+		padding: 0;
+		background-color: @colorF;
+		margin-bottom: @spacing-large;
+
+		.loader-container {
+			padding: @spacing-large;
+		}
+
+		.album-list {
+			display: flex;
+			flex-wrap: wrap;
+
+			.no-albums {
+				padding: @spacing-medium;
+			}
+
+			li {
+				flex: 0 0 140px;
+				vertical-align: top;
+				padding: @spacing-small;
+				cursor: pointer;
+				min-width: 0;
+
+				&.selected, &:hover {
+					background-color: @colorB;
+					color: @colorC;
+
+					&.add-album-container{
+						background-color: transparent;
+						color: @colorG;
+					}
+
+					.add-album {
+						border-color: @colorA;
+						color: @colorA;
+					}
+				}
+
+				.media-avatar {
+					border-radius: 10px;
+					width: 120px;
+					height: 120px;
+					margin-bottom: @spacing-medium;
+				}
+
+				.add-album {
+					font-size: 42px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border: 2px @colorA dashed;
+					color: @colorA;
+				}
+
+				.title {
+					display: block;
+					text-align: center;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+	}
+
+	#media-pieces {
+		.no-media-message {
+			padding: @spacing-large;
+		}
+
+		#add-media, #edit-album {
+			border: 4px @colorA dashed;
+			color: @colorA;
+			background: transparent;
+			padding: @spacing-large;
+			box-shadow: none;
+			cursor: pointer;
+			text-align: center;
+
+			.fa, .fas, .fab, .far, span {
+				display: block;
+				margin: @spacing-medium;
+			}
+
+			.fa, .fas, .fab, .far {
+				.font-mega-large;
+			}
+
+			span {
+				.font-large;
+			}
+
+			&:hover {
+				color: @colorB;
+				border-color: @colorB;
+			}
+		}
+	}
+
+	#media-piece {
+		button.show-all {
+			.button;
+
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+
+	#media-add-album, #media-edit-album, #media-add-piece, #media-piece-edit-form {
+		.content-box;
+
+		form {
+			display: flex;
+			flex-wrap: wrap;
+
+			input, button {
+				margin: 0;
+			}
+
+			> label, > fieldset {
+				width: 50%;
+				padding-right: @spacing-large;
+				margin-bottom: @spacing-medium;
+
+				input[type="file"] {
+					display: block;
+					margin-bottom: @spacing-medium;
+				}
+
+				.albumPreview {
+					border-radius: 10px;
+					width: 120px;
+					height: 120px;
+					margin-bottom: @spacing-medium;
+					background-size: cover;
+					background-position: center;
+				}
+			}
+
+			> fieldset {
+				label {
+					display: inline-block;
+					margin-right: @spacing-medium;
+					margin-bottom: @spacing-medium;
+
+					input[type="file"] {
+						margin-bottom: 0;
+					}
+
+					span {
+						.font-medium;
+						display: block;
+						padding-top: @spacing-very-small;
+					}
+				}
+			}
+
+			button {
+				width: auto;
+				margin: 0 @spacing-medium @spacing-medium 0;
+			}
+		}
+	}
+}

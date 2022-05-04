@@ -1,0 +1,39 @@
+.pitch-mission-statement {
+	margin-bottom: @spacing-large;
+
+	h1 {
+		margin-bottom: @spacing-small;
+	}
+
+	.button {
+		border: none;
+	}
+
+	.features {
+		display: flex;
+		flex-wrap: wrap;
+		margin-right: -@spacing-medium;
+
+		.feature {
+			flex: 1 1 300px;
+			max-width: 600px;
+			text-align: justify;
+			vertical-align: top;
+			background-color: @colorC;
+			padding: @spacing-medium;
+			margin: 0 @spacing-medium @spacing-medium 0;
+
+			@media @smartphones {
+				margin-right: 0;
+			}
+
+			h1, h2 {
+				.font-large;
+				margin-bottom: @spacing-small;
+			}
+		}
+	}
+
+	.teamup-upsell {
+	}
+}

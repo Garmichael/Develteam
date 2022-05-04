@@ -1,0 +1,90 @@
+.profile-page-navigation {
+	max-width: 800px;
+    margin: 0 auto @spacing-medium;
+    display: block;
+}
+
+.connections {
+    .content-box;
+    .no-padding;
+
+    h3 {
+        .font-normal;
+        .font-large;
+    }
+
+    section.panels {
+        width: 100%;
+        display: flex;
+
+        section.panel {
+            flex: 1;
+            padding: @spacing-medium;
+
+            ul.follows-list li {
+                .font-large;
+                margin-bottom: @spacing-small;
+
+                .avatar {
+                    display: inline-block;
+                    margin-right: @spacing-small;
+                    vertical-align: middle;
+                }
+            }
+
+            &:only-child {
+                ul.follows-list {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    li {
+                        display: block;
+                        width: 250px;
+                        padding-right: @spacing-medium;
+                        word-break: break-all;
+                    }
+                }
+            }
+        }
+
+        nav.switcher-options {
+            margin: 0 -@spacing-medium;
+
+            ul {
+                .tab-list;
+                .tab-list-full;
+                margin-bottom: @spacing-medium;
+
+                li {
+                    .tab-horizontal;
+                    .tab-horizontal-full;
+                    padding: @spacing-small 0;
+                    text-align: center;
+                    background-color: @colorF;
+                    cursor: pointer;
+
+                    &.selected {
+                        cursor: default;
+                        padding: @spacing-small 0;
+
+                        &:first-child {
+                            border-left: 0;
+                        }
+
+                        &:last-child {
+                            border-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        section.switcher-panel {
+            display: none;
+
+            &.selected {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,178 @@
+#game-content-members {
+	.content-box;
+
+	h2 {
+		display: flex;
+		span {
+			padding-right: @spacing-medium;
+
+			&:last-child {
+				flex-grow: 1;
+				padding-right: 0;
+			}
+
+			&.enter-edit-mode {
+				text-align: right;
+			}
+		}
+	}
+
+	.member-list {
+		display: flex;
+		flex-wrap: wrap;
+		margin-bottom: @spacing-medium;
+		padding: 0 @spacing-medium;
+
+		h3 {
+			.font-larger;
+			width: 100%;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		.member-item {
+			display: flex;
+			width: 300px;
+			flex-grow: 0;
+			flex-shrink: 0;
+			margin-right: @spacing-medium;
+			margin-bottom: @spacing-medium;
+			padding: @spacing-very-small;
+			border-radius: 2px;
+
+			&:hover {
+				background-color: @colorF;
+			}
+
+			.avatar-container {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 100px;
+			}
+
+			.details {
+				h3 {
+					.font-larger;
+					word-break: break-all;
+					margin-bottom: 0;
+				}
+
+				span {
+					display: block;
+					margin-bottom: @spacing-small;
+
+					&.mod-status {
+						color: @colorG;
+						.font-large;
+					}
+
+					&.time {
+						color: @colorG;
+						.font-italic;
+					}
+
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+
+	#game-content-members-edit {
+
+		h2 {
+			display: flex;
+			span {
+				padding-right: @spacing-medium;
+
+				&:last-child {
+					flex-grow: 1;
+					padding-right: 0;
+				}
+
+				&.exit-edit-mode {
+					text-align: right;
+				}
+			}
+		}
+
+		.member-edit-form {
+			display: flex;
+			margin-bottom: @spacing-large;
+
+			.avatar-container {
+				width: 100px;
+				flex-grow: 0;
+				flex-shrink: 0;
+			}
+
+			.member-actions {
+				width: 250px;
+				padding-right: @spacing-medium;
+				flex-grow: 0;
+				flex-shrink: 0;
+
+				.alias {
+					.font-large;
+					display: block;
+					word-break: break-all;
+					margin-bottom: @spacing-medium;
+				}
+
+				.is-moderator {
+					margin-bottom: @spacing-medium;
+				}
+
+				.button {
+					margin: 0 0 @spacing-medium 0;
+				}
+			}
+
+			.member-positions {
+				display: flex;
+				flex-wrap: wrap;
+
+				flex-grow: 1;
+				flex-shrink: 1;
+
+				.position {
+					flex-grow: 0;
+					flex-shrink: 0;
+					width: 50%;
+					min-width: 200px;
+					max-width: 400px;
+					padding: 0 @spacing-large @spacing-large 0;
+
+					label:last-of-type {
+						margin: 0;
+					}
+
+					input {
+						margin: 0;
+					}
+				}
+			}
+
+			.remove-user {
+				.validation-messages;
+				.error;
+
+				text-align: center;
+				width: 100%;
+
+				h1{
+					display: block;
+				}
+			}
+
+		}
+
+		.save-form {
+			.button {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+}

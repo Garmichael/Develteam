@@ -1,0 +1,84 @@
+#invite-to-game {
+
+	form {
+		.content-box;
+
+		.success-message {
+			.font-large;
+		}
+
+		h2 a {
+			.fa, .fas, .fab, .far {
+				margin-left: @spacing-very-small;
+			}
+		}
+
+		.field {
+			display: flex;
+			margin-bottom: @spacing-medium;
+
+			> span, > label {
+				.font-large;
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 200px;
+			}
+		}
+
+		.button-container {
+			text-align: center;
+		}
+
+	}
+}
+
+#invites-page {
+	.invite-list {
+		.content-box;
+
+		.invitation, .request {
+			display: flex;
+			padding-bottom: @spacing-medium;
+			margin-bottom: @spacing-medium;
+			border-bottom: 1px @colorC solid;
+
+			&:last-child {
+				margin-bottom: 0;
+				border-bottom: none;
+			}
+
+			.avatar-container {
+				width: 100px;
+				flex-grow: 0;
+				flex-shrink: 0;
+			}
+
+			.details {
+				flex-grow: 1;
+				flex-shrink: 1;
+
+				> span {
+					.font-large;
+					display: block;
+					margin-bottom: @spacing-medium;
+
+					.position-titles {
+
+					}
+				}
+
+				ul {
+					margin-bottom: @spacing-large;
+
+					li {
+						display: inline-block;
+						background-color: @colorF;
+						padding: @spacing-very-small @spacing-small;
+						border-radius: 2px;
+						margin: 0 @spacing-very-small @spacing-very-small 0;
+					}
+				}
+			}
+		}
+	}
+}

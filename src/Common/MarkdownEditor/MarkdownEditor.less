@@ -1,0 +1,81 @@
+.markdown-editor {
+	.font-medium;
+
+	textarea {
+		height: 120px;
+		margin: 0;
+		margin-bottom: @spacing-medium;
+	}
+
+	.options {
+		width: 100%;
+		background-color: @colorF;
+		border: 1px @colorF solid;
+		border-bottom: 0;
+		margin: 0;
+		overflow: auto;
+		padding: @spacing-small;
+
+		.fa, .fas, .fab, .far {
+			cursor: pointer;
+			color: @colorA;
+			.font-large;
+			margin-right: @spacing-small;
+
+			&:hover {
+				color: @colorB;
+			}
+
+			&.selected {
+				color: @colorB;
+			}
+		}
+	}
+
+	.formatting-help {
+		margin-bottom: @spacing-medium;
+
+		.rule {
+			.font-large;
+			display: flex;
+			margin-bottom: @spacing-small;
+
+			&:first-of-type {
+				.font-bold;
+			}
+
+			.description {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 30%;
+			}
+
+			.syntax {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 70%;
+			}
+		}
+	}
+
+	.preview {
+		.post-formatting !important;
+
+		width: 100%;
+		height: auto;
+		margin-bottom: @spacing-medium;
+		overflow: auto;
+
+		.preview-content {
+			padding-left: @spacing-medium;
+
+			em {
+				font-style: italic;
+			}
+			strong {
+				.font-bold;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,138 @@
+#leave-game-widget {
+    label {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: @spacing-large;
+
+        span {
+            padding-right: @spacing-small;
+        }
+
+        span, select {
+            flex-grow: 0;
+            flex-shrink: 0;
+            width: 50%;
+            margin: 0;
+        }
+    }
+
+    .button-container {
+        display: flex;
+
+        span {
+            margin: 0;
+            text-align: right;
+            flex-grow: 1;
+            flex-shrink: 1;
+
+            &:first-child {
+                padding-right: @spacing-medium;
+                text-align: left;
+            }
+
+            button {
+                display: inline-block;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+#edit-game-vitals {
+    .edit-alias {
+        margin-bottom: @spacing-medium;
+    }
+
+    .edit-avatar {
+        margin-bottom: @spacing-medium;
+
+        .avatar-preview {
+            display: block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            background-size: cover;
+            background-position: 50% 50%;
+            border: 3px @colorA solid;
+            background-repeat: no-repeat;
+            margin: @spacing-medium 0;
+        }
+    }
+}
+
+#edit-game-recruitment {
+
+    .recruiting-roles, .recruiting-role-types {
+        margin-bottom: @spacing-medium;
+
+        input[type="text"] {
+            margin-bottom: 0;
+            margin-right: 0;
+        }
+
+        h1 {
+            margin-bottom: @spacing-small;
+        }
+    }
+
+    .existing-skill-list,.matching-skill-list {
+        display: flex;
+        flex-wrap: wrap;
+
+        .matching-skill-tag {
+            .skill-tag;
+			flex-grow: 1;
+			flex-shrink: 1;
+        }
+    }
+
+	.add-skill-form {
+		display: flex;
+
+		input, button {
+			margin: 0;
+			margin-bottom: @spacing-small;
+		}
+
+		button {
+			margin-left: @spacing-very-small;
+		}
+	}
+}
+
+#edit-game-properties {
+    .edit-platforms, .edit-genres, .edit-rated, .edit-release-date {
+        margin-bottom: @spacing-medium;
+
+        h1 {
+            margin-bottom: @spacing-small;
+
+            .fa-chevron-circle-down, .fa-chevron-circle-up {
+                color: @colorA;
+                cursor: pointer;
+
+                &:hover {
+                    color: @colorB;
+                }
+            }
+        }
+
+        h3 {
+            margin-bottom: @spacing-small;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: @spacing-medium;
+
+            label {
+                flex: 0 0 250px;
+            }
+        }
+    }
+}

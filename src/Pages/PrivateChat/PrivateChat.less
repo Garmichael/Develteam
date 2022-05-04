@@ -1,0 +1,268 @@
+#private-chat {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+
+	h2 {
+		.font-large;
+		flex: 0 0 auto;
+		margin-bottom: 0;
+		background-color: @colorE;
+		border-top: 2px @colorD solid;
+		color: @colorG;
+		padding: @spacing-small;
+	}
+
+	#private-chat-conversations {
+		.font-medium;
+		flex: 1 1 auto;
+		border-bottom: 4px @colorE solid;
+		overflow: auto;
+		background-color: @colorE;
+
+		&::-webkit-scrollbar-thumb {
+			background: @colorC;
+			border: 0 none #ffffff;
+			border-radius: 0;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: @colorC;
+		}
+
+		&::-webkit-scrollbar-thumb:active {
+			background: @colorC;
+		}
+
+		&.shrunk {
+			flex: 0 0 auto;
+			height: 120px;
+		}
+
+		li {
+			cursor: pointer;
+			display: flex;
+			flex-direction: row;
+
+
+			span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				padding: 0 @spacing-very-small;
+
+				&.partner-alias {
+					.fas, .far, .fa {
+						color: @colorA;
+						margin-right: @spacing-small;
+					}
+
+					flex: 0 0 auto;
+					width: 180px;
+				}
+
+				&.timestamp {
+					flex: 1 1 auto;
+					text-align: right;
+				}
+			}
+
+			&:hover, &.selected {
+				background-color: @colorB;
+				color: @colorE;
+
+				span {
+					.fas, .far, .fa {
+						color: @colorC;
+					}
+				}
+			}
+		}
+	}
+
+	#private-chat-conversation-header, #private-chat-conversation-header-new-conversation {
+		flex: 0 0 auto;
+		border-top: 2px @colorD solid;
+		.font-large;
+		background-color: @colorE;
+		color: @colorG;
+		padding: @spacing-small;
+	}
+
+	#private-chat-history-dates {
+		.font-small;
+		.post-formatting;
+		flex: 1 1 auto;
+		overflow: auto;
+		padding-top: @spacing-small;
+		padding-bottom: @spacing-small;
+
+		li {
+			display: flex;
+			padding: @spacing-very-small;
+			cursor: pointer;
+
+			&.loader-container {
+				padding: @spacing-medium;
+			}
+
+			&.history-date-item:hover {
+				background-color: @colorB;
+				color: @colorE;
+			}
+
+			span {
+				&:first-child {
+					flex: 0 0 auto;
+					width: 40px;
+					text-align: right;
+					padding-right: @spacing-small;
+				}
+
+				&:last-child {
+					flex: 1 1 auto;
+				}
+			}
+		}
+	}
+
+	#private-chat-history-header {
+		.font-large;
+		background-color: @colorE;
+		color: @colorG;
+		padding: @spacing-small;
+
+		.fas, .far, .fa {
+			color: @colorA;
+			cursor: pointer;
+
+			&:hover {
+				color: @colorB;
+			}
+		}
+	}
+
+	#private-chat-messages, #private-chat-messages-new-conversation {
+		.font-small;
+		.post-formatting;
+		flex: 1 1 auto;
+		overflow: auto;
+		padding-top: @spacing-small;
+		padding-bottom: @spacing-small;
+		height: 0;
+
+		a {
+			word-break: break-all;
+		}
+
+		li {
+			display: flex;
+			padding-left: @spacing-small;
+			padding-right: @spacing-small;
+			padding-bottom: @spacing-small;
+			word-break: break-word;
+
+			.avatar-container {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: auto;
+				padding-right: @spacing-small;
+			}
+
+			.message-details {
+				display: block;
+				position: relative;
+				width: 100%;
+
+				&:hover {
+					span.message-date {
+						display: inline-block;
+					}
+				}
+
+				span.message-date {
+					.font-small;
+					padding-left: @spacing-medium;
+					display: none;
+				}
+
+				span.message-from {
+					.font-medium;
+
+					display: inline-block;
+					margin-bottom: 0;
+
+					.fa, .fas, .fab, .far {
+						margin-right: @spacing-very-small;
+						transform: rotate(0deg) scale(1.2, 1.2);
+					}
+				}
+
+				img {
+					margin-right: @spacing-very-small;
+				}
+
+				.individual-message {
+					padding-bottom: @spacing-very-small;
+				}
+
+				.system-message {
+					width: 100%;
+					background-color: @colorE;
+					padding: @spacing-small;
+
+					.fa, .fas, .far, .fab {
+						color: @colorA;
+						margin-right: @spacing-very-small;
+					}
+				}
+			}
+		}
+	}
+
+	#private-chat-options {
+		flex: 0 0 auto;
+		border-top: 1px @colorC solid;
+		background-color: @colorE;
+		padding-left: @spacing-medium;
+
+		.option {
+			.font-larger;
+			margin: @spacing-very-small;
+			display: inline-block;
+			color: @colorA;
+			cursor: pointer;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:hover, &.selected {
+				color: @colorB;
+			}
+		}
+	}
+
+	#private-chat-input, #private-chat-input-new-conversation {
+		display: flex;
+		flex: 0 0 auto;
+		width: 100%;
+		background-color: @colorF;
+		left: 0;
+		right: 0;
+		bottom: 0;
+
+		input[type='text'] {
+			flex: 1 1 auto;
+			margin: 0;
+			width: 0;
+		}
+
+		input[type='submit'] {
+			flex: 0 0 auto;
+			width: 100px;
+			margin: 0;
+			border-radius: 0;
+		}
+	}
+}

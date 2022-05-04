@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/Collaboration</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/GameEngines</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/Programming</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/Graphics</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/Audio</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/DevTools/Video</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/Assets/Graphics</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/Assets/Fonts</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/Assets/SoundEffects</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/Resources/Assets/Music</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/TermsAndConditions</loc>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.develteam.com/PrivacyPolicy</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <% for(let i = 0; i < users.length; i++) { %>
+    <url>
+        <loc>https://www.develteam.com/Developer/<%= users[i].stringUrl %></loc>
+        <lastmod><%= lastMod %></lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <% } %>
+
+    <% for(i = 0; i < games.length; i++) { %>
+    <url>
+        <loc>https://www.develteam.com/Game/<%= games[i].stringUrl %></loc>
+        <lastmod><%= lastMod %></lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <% } %>
+
+</urlset>

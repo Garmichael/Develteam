@@ -1,0 +1,122 @@
+#top-content {
+	margin-right: -@spacing-medium;
+	margin-bottom: @spacing-large;
+
+	h1 {
+		margin-bottom: @spacing-small;
+	}
+
+	.items {
+		display: flex;
+		flex-wrap: wrap;
+
+		.item {
+			display: flex;
+			flex-direction: column;
+			background-color: @colorE;
+			margin: 0 @spacing-medium @spacing-medium 0;
+			padding: 0;
+			flex: 1 1 200px;
+			max-width: 300px;
+			min-width: 0;
+
+			.thumb {
+				width: 100%;
+				padding-top: 80%;
+				background-size: cover;
+				background-position: 50% 50%;
+				background-color: @colorC;
+
+				&.icon-thumb {
+					background-color: @colorC;
+
+					.icon-container {
+						position: absolute;
+						top: 0;
+						left: 0;
+						right: 0;
+						bottom: 0;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+
+						.fa, .fas, .fab, .far {
+							color: @colorA;
+							.font-mega-large;
+
+						}
+					}
+				}
+			}
+
+			.audio-container {
+				position: absolute;
+				background-color: transparent;
+
+				audio {
+					position: absolute;
+					bottom: 0;
+					width: 100%;
+				}
+			}
+
+			div.fake-youtube-container {
+				margin-bottom: 0;
+				padding-top: 80%;
+
+				.fa-youtube {
+					padding-top: 40%;
+				}
+			}
+
+			.youtube-iframe-wrapper {
+				margin-bottom: 0;
+				padding-bottom: 80%;
+			}
+
+			.details {
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: column;
+				padding: @spacing-very-small;
+
+				h2 {
+					flex: 0 0 auto;
+					margin-bottom: 0;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: @colorA;
+				}
+
+				.poster {
+					flex: 0 0 auto;
+					margin-bottom: @spacing-small;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: @colorA;
+
+					.fa, .fas, .fab, .far {
+						margin-right: @spacing-very-small;
+					}
+				}
+
+				.media-stats {
+					flex: 1 1 auto;
+					display: flex;
+					align-items: flex-end;
+					padding-bottom: 0;
+
+					a {
+						margin-right: @spacing-medium;
+
+						.fa, .fas, .fab, .far {
+							margin-right: @spacing-very-small;
+						}
+					}
+				}
+			}
+		}
+	}
+}

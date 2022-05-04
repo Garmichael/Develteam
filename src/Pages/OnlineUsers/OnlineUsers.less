@@ -1,0 +1,55 @@
+#online-users {
+	.font-medium;
+
+	h2 {
+		.font-large;
+		flex: 0 0 auto;
+		margin-bottom: 0;
+		background-color: @colorE;
+		border-top: 2px @colorD solid;
+		color: @colorG;
+		padding: @spacing-small;
+	}
+
+	#online-users-list {
+		li {
+			display: flex;
+			flex-direction: row;
+			padding: @spacing-very-small;
+
+			span {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				padding: 0 @spacing-very-small;
+
+				&.message-user {
+					flex: 0 0 auto;
+					color: @colorA;
+					width: 80px;
+					cursor: pointer;
+
+					&:hover {
+						color: @colorB;
+					}
+				}
+
+				&.self-user-message-space {
+					flex: 0 0 auto;
+					width: 80px;
+				}
+
+				&.alias {
+					flex: 1 1 auto;
+					width: 180px;
+					color: @colorA;
+				}
+
+				.far, .fas, .fa {
+					margin-right: @spacing-very-small;
+				}
+			}
+
+		}
+	}
+}

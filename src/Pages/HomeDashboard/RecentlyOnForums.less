@@ -1,0 +1,45 @@
+#recently-on-forums {
+
+	h1 {
+		margin-bottom: @spacing-small;
+	}
+
+	.recent-forum-posts {
+		padding: @spacing-small;
+		background-color: @colorC;
+		margin: 0;
+
+		.recent-forum-post {
+			flex: 1 1 auto;
+			margin-bottom: @spacing-very-small;
+
+			h2 {
+				.font-medium;
+				margin-bottom: 0;
+				margin-right: @spacing-small;
+				white-space: nowrap;
+
+				.fa, .fas, .fab, .far {
+					margin-right: @spacing-very-small;
+				}
+
+				.fa-chevron-right {
+					.font-small;
+					//color: @colorC;
+					margin: 0 @spacing-very-small;
+					transform: scale(0.8);
+				}
+			}
+
+			.posted-by {
+				.font-medium;
+				margin-bottom: 0;
+				padding-left: @spacing-medium;
+
+				.fa, .fas, .fab, .far {
+					margin-right: @spacing-very-small;
+				}
+			}
+		}
+	}
+}

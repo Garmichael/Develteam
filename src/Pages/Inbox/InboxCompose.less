@@ -1,0 +1,42 @@
+#inbox-compose {
+	.content-box;
+	border-radius: 0 0 5px 5px;
+
+	.participants {
+		.font-large;
+		border-bottom: 1px @colorC solid;
+		padding-bottom: @spacing-small;
+		margin-bottom: @spacing-medium;
+		line-height: 25px;
+
+		.participant{
+			cursor: pointer;
+			margin-left: @spacing-medium;
+			color: @colorA;
+
+			&:hover {
+				color: @colorB;
+			}
+		}
+
+		span:not(:last-of-type):after {
+			content: ', ';
+		}
+
+		span:last-of-type {
+			margin-right: @spacing-large;
+		}
+
+		.new-participant {
+			cursor: pointer;
+			padding-left: @spacing-medium;
+			color: @colorA;
+
+			&:hover {
+				color: @colorB;
+			}
+		}
+	}
+
+
+}

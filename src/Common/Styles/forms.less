@@ -1,0 +1,101 @@
+
+input[type='text'], input[type='password'], input[type='email'], input[type='number'], textarea, select {
+	.font-medium;
+	.font-normal;
+	display: inline-block;
+	border: 1px transparent solid;
+	padding: @spacing-small @spacing-medium;
+	color: @colorE;
+	background-color: @colorG;
+	width: 100%;
+	margin: 0 @spacing-small @spacing-small 0;
+
+	&::-webkit-input-placeholder {
+		color: @colorF;
+	}
+	&::-moz-placeholder {
+		color: @colorF;
+		opacity: 1;
+	}
+	&:-moz-placeholder {
+		color: @colorF;
+		opacity: 1;
+	}
+
+	&.hinted {
+		color: @colorB;
+	}
+
+	&:hover, &:focus {
+		border-color: @colorB;
+		outline: none;
+	}
+
+	&.invalid {
+		border-color: red !important;
+	}
+
+	&:disabled {
+		background-color: @colorD;
+	}
+
+}
+
+input[type='submit'] {
+	.button;
+	/*margin: 0 @spacing-small @spacing-small 0;
+
+	&:hover, &:focus {
+		border-color: @colorUndefined;
+		background-color: @colorUndefined;
+		outline: none;
+	}
+
+	&:disabled {
+		background-color: @colorUndefined;
+	}*/
+}
+
+select {
+	.font-medium;
+	.font-normal;
+	padding: @spacing-small @spacing-medium;
+	margin: 0 @spacing-small @spacing-small 0;
+
+	&:hover, &:focus {
+		outline: none;
+	}
+}
+
+textarea {
+	.font-medium;
+
+	width: 100%;
+	min-height: 120px;
+	padding: @spacing-medium;
+	resize: vertical;
+	margin: 0 @spacing-small @spacing-small 0;
+
+	&:hover, &:focus {
+		outline: none;
+	}
+
+}
+
+label {
+	.font-large;
+	display: block;
+	margin-bottom: @spacing-very-small;
+
+	input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		padding: 0;
+		margin: 0 @spacing-small 0 0;
+		vertical-align: bottom;
+		position: relative;
+		top: -1px;
+		*overflow: hidden;
+
+	}
+}

@@ -1,0 +1,64 @@
+
+#login-form {
+	.content-box;
+	width: 620px;
+	max-width: 100%;
+	margin: 0 auto;
+
+	form {
+
+		label {
+			margin-bottom: @spacing-medium;
+		}
+
+		.button-container {
+			border-bottom: 1px @colorC solid;
+			padding-bottom: @spacing-medium;
+			text-align: center;
+		}
+
+		.options {
+			display: flex;
+			padding-top: @spacing-medium;
+
+			span {
+				flex-grow: 0;
+				flex-shrink: 0;
+				width: 50%;
+				text-align: center;
+			}
+		}
+	}
+}
+
+#forgot-password {
+	form {
+		.content-box;
+		width: 620px;
+		max-width: 100%;
+		margin: 0 auto;
+
+	}
+}
+
+#update-password {
+	form, .confirmation {
+		.content-box;
+		width: 620px;
+		max-width: 100%;
+		margin: 0 auto;
+
+		.button-container {
+			text-align: center;
+		}
+	}
+
+	.confirmation {
+		span {
+			.font-large;
+			width: 100%;
+			display: block;
+			text-align: center;
+		}
+	}
+}

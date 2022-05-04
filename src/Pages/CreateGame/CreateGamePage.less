@@ -1,0 +1,112 @@
+#create-game-page {
+	.content-box;
+
+	.validation-messages {
+		.font-large;
+		width: 50%;
+		display: block;
+	}
+
+	.button-container {
+		width: 100%;
+		text-align: center;
+	}
+
+	.project-field {
+		display: flex;
+		margin-bottom: @spacing-large;
+
+		@media @smartphones {
+			flex-direction: column;
+		}
+
+		h1 {
+			width: 200px;
+			flex-grow: 0;
+			flex-shrink: 0;
+		}
+
+		&.genres {
+			h1 {
+				width: 400px;
+			}
+
+			.fields {
+				display: flex;
+				flex-wrap: wrap;
+
+				> label {
+					width: 200px;
+					padding: 0;
+
+					@media @smartphones {
+						flex-direction: row;
+					}
+					
+					span {
+						flex-grow: 0;
+						flex-shrink: 1;
+						width: auto;
+					}
+				}
+			}
+		}
+
+		.fields {
+			flex-grow: 1;
+			flex-shrink: 1;
+
+			> label {
+				display: flex;
+				flex-grow: 0;
+				flex-shrink: 0;
+
+				@media @smartphones {
+					flex-direction: column;
+				}
+
+				span {
+					width: 200px;
+					flex-grow: 0;
+					flex-shrink: 0;
+				}
+
+				input[type="text"], input[type="file"], select {
+					flex-grow: 1;
+					flex-shrink: 1;
+				}
+			}
+
+			.platform-fields {
+				display: flex;
+				width: 100%;
+
+				@media @smartphones {
+					flex-direction: column;
+				}
+
+				h1 {
+					.font-large;
+					width: 200px;
+					flex-grow: 0;
+					flex-shrink: 0;
+					padding-right: @spacing-large;
+				}
+
+				.platforms {
+					flex-grow: 1;
+					flex-shrink: 1;
+					margin-bottom: @spacing-medium;
+					display: flex;
+					flex-wrap: wrap;
+
+					label {
+						display: flex;
+						margin-right: @spacing-medium;
+						margin-bottom: @spacing-medium;
+					}
+				}
+			}
+		}
+	}
+}

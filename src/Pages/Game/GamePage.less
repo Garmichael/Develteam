@@ -1,0 +1,24 @@
+#game-page {
+	display: flex;
+
+	@media @smartphones {
+		flex-direction: column-reverse;
+	}
+
+	#profile-details-container {
+		flex: 0 0 300px;
+		order: 2;
+		width: 300px;
+		margin-left: @spacing-large;
+
+		@media @smartphones {
+			margin-left: 0;
+			width: 100%;
+		}
+	}
+
+	#game-page-content {
+		flex: 1 1 auto;
+		order: 1;
+	}
+}
