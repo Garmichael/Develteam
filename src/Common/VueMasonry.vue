@@ -71,7 +71,7 @@
                 columnCalculatedHeights.push(0);
             }
 
-            i = 0;
+            let i = 0;
 
             this.$slots.default.forEach(function (element) {
                 if (!element.tag) {
