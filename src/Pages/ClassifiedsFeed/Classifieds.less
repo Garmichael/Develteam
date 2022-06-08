@@ -180,6 +180,34 @@
             .edit-container {
                 padding: @spacing-medium;
             }
+
+            .contact-container {
+                .font-large;
+                padding: @spacing-small;
+                text-align: center;
+
+                span {
+                    display: inline-block;
+                    color: @colorA;
+                    cursor: pointer;
+                    text-align: center;
+                    padding-right: @spacing-medium;
+
+                    .fa, .fas, .fab, .far {
+                        .font-larger;
+                        display: block;
+                    }
+
+                    &:hover {
+                        color: @colorB;
+
+                        .fa, .fas, .fab, .far {
+                            color: @colorB;
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

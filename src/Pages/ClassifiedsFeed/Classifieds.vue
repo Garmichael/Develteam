@@ -116,28 +116,36 @@
                 <div class="sub-header">
                     <span v-if="post.posterType === 'game'">Recruiting</span>
                     <ul class="role-list">
-                        <li v-if="post.roleDesigner">Designer<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleDesigner">Designer
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleArtist">Artist<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleArtist">Artist
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleProgrammer">Programmer<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleProgrammer">Programmer
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleWriter">Writer<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleWriter">Writer
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleMusician">Musician<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleMusician">Musician
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleSfxArtist">Sfx Artist<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleSfxArtist">Sfx Artist
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleTester">Tester<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleTester">Tester
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
 
-                        <li v-if="post.roleProducer">Producer<template v-if="post.posterType === 'game'">s</template>
+                        <li v-if="post.roleProducer">Producer
+                            <template v-if="post.posterType === 'game'">s</template>
                         </li>
                     </ul>
 
@@ -152,8 +160,15 @@
 
                 <markdown-content v-if="!editMode" classes="content" :content="post.pitch"></markdown-content>
 
+                <div class="contact-container" v-if="!canEdit(post)">
+                    <span @click="sendMail(post)"><i class="far fa-envelope"></i> Mail</span>
+                    <span @click="openConversation(post)"><i class="far fa-comment-alt"></i> Chat</span>
+                </div>
+
                 <div class="edit-container" v-if="canEdit(post)">
-                    <router-link :to="'/Classifieds/Edit/' + post.id" class="button" v-if="isLoggedIn"><i class="fas fa-pencil-alt"></i> Edit</router-link>
+                    <router-link :to="'/Classifieds/Edit/' + post.id" class="button" v-if="isLoggedIn"><i
+                            class="fas fa-pencil-alt"></i> Edit
+                    </router-link>
                 </div>
 
             </div>
@@ -162,6 +177,8 @@
 </template>
 
 <script>
+    import bus from '../../vueGlobalEventBus';
+
     export default {
         name: "Classifieds",
 
@@ -193,7 +210,7 @@
 
                 if (this.isLoggedIn) {
                     let games = this.$store.state.loggedUserModel.games;
-                    for(let i = 0; i < games.length; i++){
+                    for (let i = 0; i < games.length; i++) {
                         gameIds.push(games[i].id);
                     }
                 }
@@ -286,7 +303,27 @@
                 let isDevEditable = post.posterType === 'developer' && post.posterDetails.id === this.loggedUserId;
                 let isGameEditable = post.posterType === 'game' && this.GameIdsOwned.includes(post.posterDetails.id);
                 return isDevEditable || isGameEditable;
-            }
+            },
+
+            sendMail(post) {
+                let query = {
+                    toId: post.posterType === 'developer' ? post.posterDetails.id : post.posterDetails.ownerId,
+                    toAlias: post.posterType === 'developer' ? post.posterDetails.alias : post.posterDetails.ownerAlias
+                };
+
+                this.$router.push({
+                    path: '/Inbox/Compose',
+                    query: query
+                });
+            },
+
+            openConversation(post) {
+                bus.$emit('privateChatOpenConversation',
+                    {
+                        id: post.posterType === 'developer' ? post.posterDetails.id : post.posterDetails.ownerId,
+                        alias: post.posterType === 'developer' ? post.posterDetails.alias : post.posterDetails.ownerAlias
+                    });
+            },
         },
 
         mounted() {

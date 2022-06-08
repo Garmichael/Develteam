@@ -111,6 +111,11 @@ router.get('/', function (req, res) {
             .field('games.seeking_testers', 'roleTester')
             .field('games.seeking_producers', 'roleProducer')
 
+            .left_join('games_members', null, 'games_members.game_id = games.id and games_members.mod_level = \'owner\'')
+            .left_join('users', null, 'users.id = games_members.member_id')
+            .field('users.id', 'ownerId')
+            .field('users.alias', 'ownerAlias')
+
             .field('IFNULL((SELECT GROUP_CONCAT(skill_id) from game_skills WHERE game_id=games.id group by game_id), \'\')', 'skills')
             .field("(SELECT IFNULL(SUM(gameXp.points),0) FROM community_points gameXp WHERE receiver_id=games.id AND receiver_type='game')", 'xp');
 
@@ -165,6 +170,7 @@ router.get('/', function (req, res) {
 
         records.forEach(function (record) {
 
+            console.log(record);
             if (record.skills) {
                 record.skills = record.skills.split(',');
                 for (let i = 0; i < record.skills.length; i++) {
@@ -181,6 +187,13 @@ router.get('/', function (req, res) {
                 stringUrl: record.posterStringUrl,
                 xpLevelData: getXpLevelData(record.xp)
             };
+
+            if(postType === 'game'){
+                record.posterDetails.ownerId = record.ownerId;
+                record.posterDetails.ownerAlias = record.ownerAlias;
+                delete record.ownerAlias;
+                delete record.ownerId;
+            }
 
             delete record.posterAlias;
             delete record.posterHasAvatar;
