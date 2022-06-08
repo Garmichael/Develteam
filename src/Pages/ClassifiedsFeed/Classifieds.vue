@@ -1,21 +1,24 @@
 <template>
     <article id="classifieds">
 
-        <router-link to="/Classifieds/New" class="button" v-if="isLoggedIn">Submit a Classifieds Post</router-link>
+        <div class="button-container">
+            <router-link to="/Classifieds/New" class="button" v-if="isLoggedIn">Submit a Classifieds Post</router-link>
+        </div>
 
         <section :class="{'filter-controls': true, 'disabled': isFetching}">
-            <div class="classifieds-type-selector">
-                <label class="switch">
-                    <button v-for="(postType, index) in postTypes"
-                            :class="[{active: index === selectedPostTypeId}]"
-                            @click="setPostTypeId(index)"
-                    >
-                        {{postType}}
-                    </button>
-                </label>
-            </div>
-
             <div class="filter-control">
+                <div class="filter-group">
+                    <label>Type</label>
+                    <ul>
+                        <li v-for="(role, index) in postTypes"
+                            :class="[{selected: index === selectedPostTypeId}]"
+                            @click="setPostTypeId(index)"
+                        >
+                            {{role}}
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="filter-group">
                     <label>Roles</label>
                     <ul>
