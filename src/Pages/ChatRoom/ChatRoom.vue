@@ -47,7 +47,8 @@
                                 <span class="message-from">
                                     <router-link :to="'/Developer/' + message.from.stringUrl">
                                         <i class="fas fa-crown mod-icon" v-if="message.from.isModerator"></i>
-                                        <i class="fas fa-heartbeat donor-icon" v-if="message.from.donatedAmount > 0"></i>
+                                        <i class="fas fa-heartbeat donor-icon" v-if="message.from.donatedAmount > 0 && message.from.donatedAmount < 40"></i>
+                                        <i class="fas fa-heartbeat donor-icon gold" v-if="message.from.donatedAmount >= 40"></i>
                                         {{message.from.alias}}
                                     </router-link>
                                     <span class="message-date">{{message.timestamp | formatDateCondensed}}</span>

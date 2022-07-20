@@ -15,8 +15,12 @@
                         <i class="fas fa-crown mod-icon"></i> Site Moderator
                     </div>
 
-                    <div class="special-developer-banner" v-if="developer.donatedAmount > 0">
+                    <div class="special-developer-banner" v-if="developer.donatedAmount > 0 && developer.donatedAmount < 40">
                         <i class="fas fa-heartbeat donor-icon"></i> Develteam Supporter
+                    </div>
+
+                    <div class="special-developer-banner" v-if="developer.donatedAmount >= 40">
+                        <i class="fas fa-heartbeat donor-icon  gold"></i> Develteam Supporter
                     </div>
 
                     <div class="special-developer-banner" v-if="developer.isBanned">
