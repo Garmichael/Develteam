@@ -3,7 +3,7 @@
 
         <div class="donation-pitch">
 
-            <h1>Thank you for considering a donation to Devleteam!</h1>
+            <h1>Thank you for considering a donation to Develteam!</h1>
 
             <p>Develteam is a labor of love, with no on-site ads or subscription fees. Your donation helps keep
                 pay for operation costs, and encourages the continued development of features and fixes.</p>
