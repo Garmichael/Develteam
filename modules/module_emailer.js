@@ -1,5 +1,5 @@
 let nodemailer = require('nodemailer');
-let secretKeys = require('module_secretKeys');
+let secretKeys = require('../modules/module_secretKeys');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -27,6 +27,9 @@ module.exports = {
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 console.log("emailer still not working 555");
+                console.log("Credentials: ");
+                console.log(secretKeys.emailUser);
+                console.log(secretKeys.emailPassword);
                 return console.log(error);
             }
             console.log('Message sent: ' + info.response);
@@ -41,7 +44,7 @@ function getEmailContent(toName, type, message, actionLink) {
         html = `<table style="width: 600px; margin: 0 auto; border: 1px #0e2835 solid; background-color: #ffffff; padding: 0;border-spacing: 0; border-collapse: collapse; font-size: 20px; font-family: Arial, sans-serif">
                 <tr>
                     <td style="">
-                        <img src="http://www.develteam.com:1337/develteamEmailLogo.png">
+                        <img src="http://www.develteam.com/develteamEmailLogo.png">
                     </td>
                 </tr>
         
@@ -69,7 +72,7 @@ function getEmailContent(toName, type, message, actionLink) {
         html = `<table style="width: 600px; margin: 0 auto; border: 1px #0e2835 solid; background-color: #ffffff; padding: 0;border-spacing: 0; border-collapse: collapse; font-size: 20px; font-family: Arial, sans-serif">
                 <tr>
                     <td style="">
-                        <img src="http://www.develteam.com:1337/develteamEmailLogo.png">
+                        <img src="http://www.develteam.com/develteamEmailLogo.png">
                     </td>
                 </tr>
         
@@ -97,7 +100,7 @@ function getEmailContent(toName, type, message, actionLink) {
         html = `<table style="width: 600px; margin: 0 auto; border: 1px #0e2835 solid; background-color: #ffffff; padding: 0;border-spacing: 0; border-collapse: collapse; font-size: 20px; font-family: Arial, sans-serif">
                 <tr>
                     <td style="">
-                        <img src="http://www.develteam.com:1337/develteamEmailLogo.png">
+                        <img src="http://www.develteam.com/develteamEmailLogo.png">
                     </td>
                 </tr>
         
@@ -125,7 +128,7 @@ function getEmailContent(toName, type, message, actionLink) {
         html = `<table style="width: 600px; margin: 0 auto; border: 1px #0e2835 solid; background-color: #ffffff; padding: 0;border-spacing: 0; border-collapse: collapse; font-size: 20px; font-family: Arial, sans-serif">
                 <tr>
                     <td style="">
-                        <img src="http://www.develteam.com:1337/develteamEmailLogo.png">
+                        <img src="http://www.develteam.com/develteamEmailLogo.png">
                     </td>
                 </tr>
         
