@@ -59,6 +59,12 @@
         }
 
         .details-container {
+            .edit-icon {
+                color: @colorA;
+                margin-left: @spacing-small;
+                cursor: pointer;
+            }
+
             .dev-alias {
                 margin-bottom: @spacing-small;
 
@@ -235,6 +241,33 @@
 
                 ul {
                     padding-left: @spacing-medium;
+                    margin-bottom: @spacing-medium;
+                }
+            }
+
+            .edit-container {
+                padding: @spacing-small;
+                background-color: @colorD;
+
+                .button {
+                    &.small-button {
+                        margin-right: @spacing-very-small;
+                        margin-bottom: @spacing-very-small;
+
+                        i {
+                            margin: 0;
+                        }
+
+                        .font-small;
+                    }
+
+                }
+
+                .invalid{
+                    border: 1px red solid;
+                }
+
+                .set {
                     margin-bottom: @spacing-medium;
                 }
             }

@@ -1,43 +1,36 @@
 <template>
     <section id="edit-developer-websites">
-        <div class="websites">
-            <h1>Websites</h1>
+        <div class="edit-container">
+            <div class="website-list">
+                <div class="set entered" v-for="(website, index) in formData.personalWebsites">
+                    <span><input type="text" placeholder="Website Name" v-model="website.name"
+                                 :class="[{invalid: website.name === ''}]"/></span>
+                    <span><input type="text" placeholder="Website URL" v-model="website.url"
+                                 :class="[{invalid: !isValidUrl(website.url)}]"/></span>
 
-            <label>Facebook Url</label>
-            <span><input type="text" placeholder="Facebook URL" v-model="formData.websiteFacebook"/></span>
-            <div v-if="!isUrl(formData.websiteFacebook)" class="validation-messages error">The Facebook URL is not properly formatted</div>
+                    <button class="button small-button" @click.prevent="removePersonalWebsite(index)">
+                        <i class="fa-trash fas"></i>
+                    </button>
 
-            <label>Twitter Url</label>
-            <span><input type="text" placeholder="Twitter URL" v-model="formData.websiteTwitter"/></span>
-            <div v-if="!isUrl(formData.websiteTwitter)" class="validation-messages error">The Twitter URL is not properly formatted</div>
+                    <button v-if="index > 0" class="button small-button" @click.prevent="moveWebsiteUp(index)">
+                        <i class="fa-arrow-up fas"></i>
+                    </button>
 
-            <label>Instagram Url</label>
-            <span><input type="text" placeholder="Instagram URL" v-model="formData.websiteInstagram"/></span>
-            <div v-if="!isUrl(formData.websiteInstagram)" class="validation-messages error">The Instagram URL is not properly formatted</div>
-
-            <label>LinkedIn Url</label>
-            <span><input type="text" placeholder="LinkedIn URL" v-model="formData.websiteLinkedIn"/></span>
-            <div v-if="!isUrl(formData.websiteLinkedIn)" class="validation-messages error">The LinkedIn URL is not properly formatted</div>
-
-            <div class="other-websites">
-                <label>Other Websites</label>
-                <div class="set entered" v-for="(key, value) in formData.personalWebsites">
-                    <span><input type="text" placeholder="Website Name" :value="value"/></span>
-                    <span><input type="text" placeholder="Website URL" :value="key"/></span>
-                    <button class="button" @click.prevent="removePersonalWebsite(value)">Remove this Website</button>
+                    <button v-if="index !== formData.personalWebsites.length -1" class="button small-button"
+                            @click.prevent="moveWebsiteDown(index)">
+                        <i class="fa-arrow-down fas"></i>
+                    </button>
                 </div>
 
                 <div class="set entered">
-                    <span><input type="text" placeholder="Website Name" v-model="newWebsiteName"/></span>
-                    <span><input type="text" placeholder="Website URL" v-model="newWebsiteUrl"/></span>
-
-                    <button class="button" @click.prevent="addAnotherPersonalWebsite">Add another Website</button>
+                    <button class="button small-button" @click.prevent="addAnotherPersonalWebsite"><i
+                            class="fas fa-plus"></i></button>
                 </div>
             </div>
 
             <div class="buttons">
                 <button class="button" @click.prevent="cancelChanges">Cancel</button>
-                <button class="button" @click.prevent="submitChanges">Save</button>
+                <button class="button" @click.prevent="submitChanges" :disabled="!allEntriesAreValid()">Save</button>
             </div>
         </div>
 
@@ -68,45 +61,69 @@
             },
 
             submitChanges() {
-                if (this.newWebsiteName.trim() !== '' && validator.isURL(this.newWebsiteUrl)) {
-                    this.addAnotherPersonalWebsite();
+                let isValid = this.allEntriesAreValid();
+
+                for(let i = 0; i < this.formData.personalWebsites.length; i++){
+                    if(this.formData.personalWebsites[i].url.slice(0, 4).toLowerCase() !== 'http'){
+                        Vue.set(this.formData.personalWebsites[i], 'url', 'https://' + this.formData.personalWebsites[i].url);
+                    }
                 }
 
-                this.$store.dispatch('developerPage/updateWebsites', {
-                    developerId: this.formData.id,
-                    websiteFacebook: this.formData.websiteFacebook,
-                    websiteTwitter: this.formData.websiteTwitter,
-                    websiteInstagram: this.formData.websiteInstagram,
-                    websiteLinkedIn: this.formData.websiteLinkedIn,
-                    personalWebsites: this.formData.personalWebsites
+                this.formData.personalWebsites.forEach((site) => {
+                    if (site.name.trim() === '' || !this.isValidUrl(site.url)) {
+                        isValid = false;
+                    }
                 });
+
+                if (isValid) {
+                    this.$store.dispatch('developerPage/updateWebsites', {
+                        developerId: this.formData.id,
+                        personalWebsites: this.formData.personalWebsites
+                    });
+                }
             },
 
-            isUrl(content){
-                return validator.isURL(content) || content.length <= 3;
+            allEntriesAreValid() {
+                let isValid = true;
+
+                this.formData.personalWebsites.forEach((site) => {
+                    if (site.name.trim() === '' || !this.isValidUrl(site.url)) {
+                        isValid = false;
+                    }
+                });
+
+                console.log('checking validity');
+                return isValid;
             },
 
-            addAnotherPersonalWebsite(){
-                if (this.newWebsiteName.trim() === '' || this.newWebsiteUrl.trim() === '' || !validator.isURL(this.newWebsiteUrl)) {
-                    return;
-                }
-
-                if (!/^(?:f|ht)tps?\:\/\//.test(this.newWebsiteUrl)) {
-                    this.newWebsiteUrl = "http://" + this.newWebsiteUrl;
-                }
-
-                if (!this.formData.personalWebsites) {
-                    this.formData.personalWebsites = {}
-                }
-                Vue.set(this.formData.personalWebsites, this.newWebsiteName, this.newWebsiteUrl);
-
-                this.newWebsiteName = '';
-                this.newWebsiteUrl = '';
+            addAnotherPersonalWebsite() {
+                this.formData.personalWebsites.push({
+                    name: '',
+                    url: ''
+                })
             },
 
-            removePersonalWebsite(entry){
+            removePersonalWebsite(entry) {
                 Vue.delete(this.formData.personalWebsites, entry);
             },
+
+            moveWebsiteUp(entry) {
+                const swapA = this.formData.personalWebsites[entry];
+                const swapB = this.formData.personalWebsites[entry - 1];
+                Vue.set(this.formData.personalWebsites, entry, swapB);
+                Vue.set(this.formData.personalWebsites, entry - 1, swapA);
+            },
+
+            moveWebsiteDown(entry) {
+                const swapA = this.formData.personalWebsites[entry];
+                const swapB = this.formData.personalWebsites[entry + 1];
+                Vue.set(this.formData.personalWebsites, entry, swapB);
+                Vue.set(this.formData.personalWebsites, entry + 1, swapA);
+            },
+
+            isValidUrl(url) {
+                return validator.isURL(url);
+            }
         },
 
         watch: {

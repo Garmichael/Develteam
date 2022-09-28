@@ -314,7 +314,7 @@ a, .c-link {
     .font-bold;
     color: @colorC;
     background-color: @colorA;
-    padding: @spacing-very-small @spacing-medium @spacing-small @spacing-medium;
+    padding: @spacing-very-small @spacing-small;
     display: inline-block;
     font-variant: small-caps;
     text-transform: lowercase;
@@ -324,19 +324,27 @@ a, .c-link {
     cursor: pointer;
     outline: none;
     border-radius: 2px;
+    box-shadow: 0 2px #0000004a;
 
     &:hover {
         background-color: @colorB;
         color: @colorC;
+        box-shadow: 0 2px #0000004a inset;
+        transform: translate(0, 2px);
     }
 
     &:active {
-        box-shadow: none;
+        background-color: @colorB;
+        color: @colorC;
+        box-shadow: 0 2px #0000004a inset;
+        transform: translate(0, 2px);
     }
 
     &:disabled {
-        background-color: @colorH;
-        color: @colorF;
+        background-color: @colorF;
+        color: @colorC;
+        box-shadow: none;
+        transform: translate(0,0);
     }
 }
 

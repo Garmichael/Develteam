@@ -1,4 +1,5 @@
 module.exports = function (app, cache) {
+    app.use('/api/devOps', require('../api/api_devOps'));
     app.use('/api/bugsAndSuggestions', require('../api/api_bugsAndSuggestions'));
     app.use('/api/develteamData', require('../api/api_develteamData'));
     app.use('/api/privateChat', require('../api/api_privateChat'));

@@ -110,28 +110,22 @@
                 </div>
 
                 <div v-if="showWebsites" class="websites companion-content-subsection">
-                    <h3>Websites</h3>
-                    <ul class="website-list">
-                        <li v-if="developer.websiteFacebook">
-                            <a :href="developer.websiteFacebook" target="_blank"><i class="fab fa-fw fa-facebook-f"></i>
-                                {{developer.alias}} on Facebook</a>
-                        </li>
-                        <li v-if="developer.websiteTwitter">
-                            <a :href="developer.websiteTwitter" target="_blank"><i class="fab fa-fw fa-twitter"></i>
-                                {{developer.alias}} on Twitter</a>
-                        </li>
-                        <li v-if="developer.websiteInstagram">
-                            <a :href="developer.websiteInstagram" target="_blank"><i class="fab fa-fw fa-instagram"></i>
-                                {{developer.alias}} on Instagram</a>
-                        </li>
-                        <li v-if="developer.websiteLinkedIn">
-                            <a :href="developer.websiteLinkedIn" target="_blank"><i
-                                    class="fab fa-fw fa-linkedin-in"></i> {{developer.alias}} on LinkedIn</a>
-                        </li>
-                        <li v-for="(key, value) in developer.personalWebsites">
-                            <a :href="key" target="_blank"><i class="fas fa-fw fa-link"></i> {{value}}</a>
-                        </li>
-                    </ul>
+                    <h3>
+                        Websites
+                        <i v-if="isSelf && websiteListMode==='display'" class="fas fa-pencil-alt edit-icon" @click="toggleEditWebsites()"></i>
+                    </h3>
+
+                    <template v-if="websiteListMode==='display'">
+                        <ul class="website-list">
+                            <li v-for="website in developer.personalWebsites">
+                                <a :href="website.url" target="_blank">
+                                    <i :class="['fa-fw', getLinkIcon(website.url)]"></i> {{website.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </template>
+
+                    <edit-websites v-if="websiteListMode==='edit'" v-on:doneEditing="websiteListMode = 'display'"></edit-websites>
                 </div>
 
                 <div v-if="Object.keys(developer.workHistory || {}).length > 0" class="work-history">
@@ -165,7 +159,6 @@
                     <button @click="displayMode = 'editBasicDetails'">Edit Bio Details</button>
                     <button @click="displayMode = 'editRolesAndSkills'">Edit Roles and Skills</button>
                     <button @click="displayMode = 'editNetworking'">Edit Networking Details</button>
-                    <button @click="displayMode = 'editWebsites'">Edit Website List</button>
                     <button @click="displayMode = 'editWorkHistory'">Edit Work History</button>
                     <button @click="displayMode = 'editEducationHistory'">Edit Education History</button>
                 </template>
@@ -179,8 +172,7 @@
                                    v-on:doneEditing="displayMode = 'normal'"></edit-roles-and-skills>
             <edit-networking v-if="displayMode === 'editNetworking'"
                              v-on:doneEditing="displayMode = 'normal'"></edit-networking>
-            <edit-websites v-if="displayMode === 'editWebsites'"
-                           v-on:doneEditing="displayMode = 'normal'"></edit-websites>
+
             <edit-work-history v-if="displayMode === 'editWorkHistory'"
                                v-on:doneEditing="displayMode = 'normal'"></edit-work-history>
             <edit-education-history v-if="displayMode === 'editEducationHistory'"
@@ -223,7 +215,8 @@
         data() {
             return {
                 savingFollowingChange: false,
-                displayMode: 'normal'
+                displayMode: 'normal',
+                websiteListMode: 'display'
             }
         },
 
@@ -314,11 +307,7 @@
                     return false;
                 }
 
-                return developer.websiteFacebook !== '' ||
-                    developer.websiteTwitter !== '' ||
-                    developer.websiteInstagram !== '' ||
-                    developer.websiteLinkedIn !== '' ||
-                    Object.keys(developer.personalWebsites).length > 0;
+                return this.isSelf || Object.keys(developer.personalWebsites).length > 0;
             },
 
             showGames() {
@@ -436,6 +425,38 @@
                 if (!this.avatarTooBig) {
                     this.$store.dispatch('developerPage/SaveAvatar', e.target.files[0]);
                 }
+            },
+
+            toggleEditWebsites(){
+                if(this.websiteListMode === 'display'){
+                    this.websiteListMode = 'edit';
+                } else {
+                    this.websiteListMode = 'display';
+                }
+            },
+
+            getLinkIcon(url){
+                if(url.includes("facebook")){
+                    return 'fab fa-facebook-f';
+                }
+
+                if(url.includes("twitter")){
+                    return 'fab fa-twitter';
+                }
+
+                if(url.includes("discord")){
+                    return 'fab fa-discord';
+                }
+
+                if(url.includes("linkedin")){
+                    return 'fab fa-linkedin';
+                }
+
+                if(url.includes("instagram")){
+                    return 'fab fa-instagram';
+                }
+
+                return 'fas fa-link';
             }
         },
 

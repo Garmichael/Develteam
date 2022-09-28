@@ -52,7 +52,7 @@ router.get('/', function (req, res) {
             .field('users.resume_education', 'educationHistory')
             .field('users.looking_for_game', 'lookingForGame')
             .field('users.looking_desc', 'lookingForDescription')
-            .field('users.contact_websites', 'personalWebsites')
+            .field('users.websites', 'personalWebsites')
             .field('users.contact_twitter', 'websiteTwitter')
             .field('users.contact_facebook', 'websiteFacebook')
             .field('users.contact_instagram', 'websiteInstagram')
@@ -394,48 +394,28 @@ router.post('/networking', function (req, res) {
 
 router.post('/websites', function (req, res) {
     loggedUserBuilder.buildLoggedUserData(req, function (loggedUser) {
-        let query;
-
         if (!loggedUser.isLoggedIn) {
             res.json({error: 'Not Logged In'});
             return;
         }
 
         if (req.body.personalWebsites === undefined || req.body.personalWebsites === null) {
-            req.body.personalWebsites = {};
+            req.body.personalWebsites = [];
         }
 
         let personalWebsites = escape(req.body.personalWebsites);
 
+        console.log(personalWebsites);
+
         try {
             JSON.parse(JSON.stringify(personalWebsites));
         } catch (e) {
-            personalWebsites = '{}';
+            personalWebsites = '[]';
         }
 
-        if (!req.body.websiteFacebook || req.body.websiteFacebook.length <= 3) {
-            req.body.websiteFacebook = '';
-        }
-
-        if (!req.body.websiteTwitter || req.body.websiteTwitter.length <= 3) {
-            req.body.websiteTwitter = '';
-        }
-
-        if (!req.body.websiteInstagram || req.body.websiteInstagram.length <= 3) {
-            req.body.websiteInstagram = '';
-        }
-
-        if (!req.body.websiteLinkedIn || req.body.websiteLinkedIn.length <= 3) {
-            req.body.websiteLinkedIn = '';
-        }
-
-        query = squel.update()
+        let query = squel.update()
             .table('users')
-            .set('contact_facebook', escape(req.body.websiteFacebook))
-            .set('contact_twitter', escape(req.body.websiteTwitter))
-            .set('contact_instagram', escape(req.body.websiteInstagram))
-            .set('contact_linkedin', escape(req.body.websiteLinkedIn))
-            .set('contact_websites', personalWebsites)
+            .set('websites', personalWebsites)
 
             .where('id = ?', loggedUser.info.id)
             .toString();
@@ -450,15 +430,15 @@ router.post('/websites', function (req, res) {
             query = squel.select()
                 .from('users')
                 .field('id', 'id')
-                .field('contact_facebook', 'websiteFacebook')
-                .field('contact_twitter', 'websiteTwitter')
-                .field('contact_instagram', 'websiteInstagram')
-                .field('contact_linkedin', 'websiteLinkedIn')
-                .field('contact_websites', 'personalWebsites')
+                .field('websites', 'personalWebsites')
                 .where('id = ?', loggedUser.info.id)
                 .toString();
 
-            databaseQuery(query, [], function (err, records) {
+            databaseQuery(query, [], function (error, records) {
+                if(error){
+                    console.log(error);
+                }
+
                 socketHandler.getIoInstance().emit('developerInformationUpdated', records[0]);
                 res.json({response: 'success'});
             });

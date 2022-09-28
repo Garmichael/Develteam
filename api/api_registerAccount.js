@@ -234,14 +234,13 @@ function registerAccount(email, alias, password, req, res, callback) {
             .set('alias', alias)
             .set('string_url', stringUrl)
             .set('ip_address', ipAddress)
-            .set('contact_websites', '')
             .set('resume_aboutme', '')
             .set('resume_skills', '')
             .set('resume_interests', '')
             .set('resume_inspirations', '')
             .set('resume_work', '{}')
             .set('resume_education', '{}')
-            .set('contact_websites', '{}')
+            .set('websites', '[]')
             .toString();
 
         databaseQuery(query, [], function (error, response) {
