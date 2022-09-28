@@ -131,12 +131,6 @@
                 position: relative;
                 width: 100%;
 
-                &:hover {
-                    span.message-date {
-                        display: inline-block;
-                    }
-                }
-
                 span.message-date {
                     .font-small;
                     padding-left: @spacing-medium;
@@ -173,6 +167,12 @@
 
                 .individual-message {
                     padding-bottom: @spacing-very-small;
+
+                    &:hover {
+                        span.message-date {
+                            display: inline-block;
+                        }
+                    }
                 }
 
                 .system-message {

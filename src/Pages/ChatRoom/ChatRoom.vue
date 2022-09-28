@@ -51,11 +51,11 @@
                                         <i class="fas fa-heartbeat donor-icon gold" v-if="message.from.donatedAmount >= 40"></i>
                                         {{message.from.alias}}
                                     </router-link>
-                                    <span class="message-date">{{message.timestamp | formatDateCondensed}}</span>
                                 </span>
 
                         <div class="individual-message" v-for="individualMessage in message.messages">
                             <markdown-content classes="message-message" :content="individualMessage.message"></markdown-content>
+                            <span class="message-date">{{individualMessage.timestamp | formatDateCondensed}}</span>
                         </div>
                     </div>
 

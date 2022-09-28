@@ -41,11 +41,11 @@
                         <div class="message-details">
                             <span class="message-from">
                                 <router-link :to="'/Developer/' + message.from.stringUrl">{{message.from.alias}}</router-link>
-                                <span class="message-date">{{message.timestamp | formatDateCondensed}}</span>
                             </span>
 
                             <div class="individual-message" v-for="individualMessage in message.messages">
                                 <markdown-content classes="message-message" :content="individualMessage.message"></markdown-content>
+                                <span class="message-date">{{message.timestamp | formatDateCondensed}}</span>
                             </div>
                         </div>
                     </li>
