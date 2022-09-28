@@ -171,7 +171,7 @@ router.post('/uploadAvatar', function (req, res) {
             }
         });
 
-        upload = multer({storage: storage, limits: {fileSize: 300 * 1024}}).single('avatarFile');
+        upload = multer({storage: storage}).single('avatarFile');
 
         upload(req, res, function (err) {
             if (err) {

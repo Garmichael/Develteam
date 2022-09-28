@@ -418,13 +418,8 @@
                     reader.readAsDataURL(input.files[0]);
                 }
 
-                this.uploadedAvatarName = e.target.files[0].name;
-                this.avatarTooBig = e.target.files[0].size > 300000;
                 this.formErrors = false;
-
-                if (!this.avatarTooBig) {
-                    this.$store.dispatch('developerPage/SaveAvatar', e.target.files[0]);
-                }
+                this.$store.dispatch('developerPage/SaveAvatar', e.target.files[0]);
             },
 
             toggleEditWebsites(){

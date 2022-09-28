@@ -16,8 +16,6 @@
                 <h1>Avatar Image</h1>
                 <input type="file" name="avatar" @change="updateuploadedAvatarName" accept="image/jpeg, image/png"/>
                 <div v-if="uploadedImageSrc" class="avatar-preview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
-
-                <div v-if="avatarTooBig" class="validation-messages error">The uploaded Avatar is too large. Please choose another that is less than 300k</div>
                 <div v-if="localAlias.trim() === ''" class="validation-messages error">Set a Title for this Game</div>
             </div>
 
@@ -40,7 +38,6 @@
                 avatarFile: undefined,
                 uploadedAvatarName: '',
                 uploadedImageSrc: '',
-                avatarTooBig: false,
                 localAlias: this.game.alias,
                 isSaving: false
             }
@@ -80,7 +77,6 @@
 
                 this.uploadedAvatarName = e.target.files[0].name;
                 this.avatarFile = e.target.files[0];
-                this.avatarTooBig = e.target.files[0].size > 300000;
             },
 
             cancelChanges(){
@@ -88,7 +84,7 @@
             },
 
             submitChanges(){
-                if (this.avatarTooBig || this.localAlias.trim() === '') {
+                if (this.localAlias.trim() === '') {
                     return;
                 }
 
@@ -104,7 +100,7 @@
 
         sockets: {
             'gameVitalsWithoutAliasUpdated'(data){
-                if (data.gameId == this.game.id) {
+                if (data.gameId === this.game.id) {
                     this.$emit('doneEditing');
                 }
             }
