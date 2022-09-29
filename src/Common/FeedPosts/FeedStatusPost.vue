@@ -65,6 +65,10 @@
                     <span>{{data.postDate | formatDateWithoutTimeRelative}}</span>
                     <span>{{data.postDate | formatDateWithJustTime}}</span>
                 </div>
+
+                <div v-if="data.isPinned" class="pinned-icon">
+                    <i class="fa fas fa-thumbtack"></i>
+                </div>
             </div>
 
         </section>
@@ -109,7 +113,7 @@
                     <voting-widget v-if="isMedia" parent-type="media" :parent-id="data.mediaData.id"
                                    initial-points="0"></voting-widget>
                 </li>
-                <li><a href="#" :class="['show-comments', {selected: commentsVisible}]" @click.prevent="toggleComments">{{commentCount}}
+                <li class="comments-link-container"><a href="#" :class="['show-comments', {selected: commentsVisible}]" @click.prevent="toggleComments">{{commentCount}}
                     comments</a></li>
 
                 <li class="social-sharing">
@@ -117,7 +121,9 @@
                     <i class="fab fa-twitter" @click="socialShare('twitter')"></i>
                     <i class="fab fa-linkedin-in" @click="socialShare('linkedin')"></i>
                 </li>
-                <li v-if="canEdit && !editMode" @click="enterEditMode"><i class="fas fa-pencil-alt edit-button"></i>
+                <li v-if="canEdit && !editMode" @click="enterEditMode" class="edit-button-container"><i class="fas fa-pencil-alt edit-button"></i>
+                </li>
+                <li v-if="canEdit && !editMode" @click="togglePin" class="edit-button-container"><i :class="['fas','fa-thumbtack', 'edit-button', {tilted: data.isPinned}]"></i>
                 </li>
             </ul>
         </footer>
@@ -350,6 +356,12 @@
                 this.$store.dispatch('feedPosts/deletePost', {id: this.data.id});
                 this.exitDeleteMode();
                 this.exitEditMode();
+            },
+
+            togglePin(){
+                this.$store.dispatch('feedPosts/pinPost', {
+                    id: this.data.id
+                });
             },
 
             socialShare(site) {

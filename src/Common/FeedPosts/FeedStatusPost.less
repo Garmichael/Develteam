@@ -91,6 +91,14 @@ article.feed-post {
 				}
 			}
 
+			.pinned-icon {
+				.font-large;
+				flex-grow: 0;
+				flex-shrink: 0;
+				align-items: center;
+				justify-content: center;
+				padding: @spacing-medium;
+			}
 		}
 	}
 
@@ -109,12 +117,20 @@ article.feed-post {
 
 		ul {
 			.font-medium;
-			display: table;
+			display: flex;
 			width: 100%;
 
 			li {
-				display: table-cell;
+				flex-grow: 0;
+				flex-shrink: 0;
+
 				padding: 0 @spacing-medium 0 0;
+
+				&.comments-link-container {
+					flex-grow: 1;
+					padding: 0;
+					text-align: center;
+				}
 
 				&.social-sharing {
 					width: 130px;
@@ -135,6 +151,12 @@ article.feed-post {
 						&.fa-linkedin-in {
 							color: #007bb6;
 						}
+					}
+				}
+
+				&.edit-button-container{
+					.tilted {
+						transform: rotate(45deg);
 					}
 				}
 

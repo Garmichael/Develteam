@@ -112,21 +112,36 @@
             },
 
             feedPosts(){
-                let developerFeedData = this.$store.state.feedPostsModel.feedPosts[this.feedPostsId];
-                let feedPostArray;
+                let gameFeedData = this.$store.state.feedPostsModel.feedPosts[this.feedPostsId];
 
-                if (!developerFeedData) {
+                if (!gameFeedData) {
                     return {};
                 }
 
-                feedPostArray = _.values(developerFeedData.posts).sort(function (a, b) {
-                    let aDate = new Date(a.postDate),
-                        bDate = new Date(b.postDate);
+                let allPosts = [];
+                let normalPosts = [];
+                let pinnedPosts = [];
 
-                    return bDate - aDate;
+                Object.keys(gameFeedData.posts).forEach((key)=>{
+                    if (gameFeedData.posts[key].isPinned) {
+                        pinnedPosts.push(gameFeedData.posts[key]);
+                    } else {
+                        normalPosts.push(gameFeedData.posts[key]);
+                    }
                 });
 
-                return feedPostArray;
+                normalPosts.sort((a, b) => (new Date(a.postDate) > new Date(b.postDate)) ? -1 : 1);
+                pinnedPosts.sort((a, b) => (new Date(a.postDate) > new Date(b.postDate)) ? -1 : 1);
+
+                pinnedPosts.forEach((post)=>{
+                    allPosts.push(post);
+                });
+
+                normalPosts.forEach((post)=>{
+                    allPosts.push(post);
+                });
+
+                return allPosts;
             },
 
             fetchingStatus(){

@@ -324,19 +324,10 @@ a, .c-link {
     cursor: pointer;
     outline: none;
     border-radius: 2px;
-    box-shadow: 0 2px #0000004a;
 
-    &:hover {
+    &:hover, &.active {
         background-color: @colorB;
         color: @colorC;
-        box-shadow: 0 2px #0000004a inset;
-        transform: translate(0, 2px);
-    }
-
-    &:active {
-        background-color: @colorB;
-        color: @colorC;
-        box-shadow: 0 2px #0000004a inset;
         transform: translate(0, 2px);
     }
 

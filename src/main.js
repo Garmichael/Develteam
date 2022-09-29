@@ -116,6 +116,10 @@ let app = new Vue({
             }
         },
 
+        'pinnedPost'(data){
+            this.$store.commit('feedPosts/pinnedPost', data);
+        },
+
         'newPostComment'(data) {
             this.$store.commit('feedPosts/appendComment', data);
             this.$store.commit('medias/appendComment', data);

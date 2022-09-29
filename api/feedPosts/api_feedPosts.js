@@ -115,4 +115,22 @@ router.post('/delete', function (req, res) {
     })
 });
 
+router.post('/togglePin', function (req, res) {
+    loggedUserBuilder.buildLoggedUserData(req, function (loggedUser) {
+        queries.togglePin({
+            postId: req.body.postId,
+            loggedUser: loggedUser
+        }, function (pinnedPost) {
+            if (pinnedPost.errors) {
+                res.json(pinnedPost);
+                return;
+            }
+
+            res.json({response: 'success'});
+
+            socketHandler.getIoInstance().emit('pinnedPost', pinnedPost);
+        })
+    })
+});
+
 module.exports = router;

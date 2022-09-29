@@ -189,6 +189,7 @@ module.exports = {
             .field('posts.type', 'type')
             .field('posts.created', 'postDate')
             .field('posts.modified', 'modifiedDate')
+            .field('pinned', 'isPinned')
 
             .left_join('media', null, 'posts.type =\'media\' and posts.content = media.id')
             .field('media.id', 'mediaId')
@@ -241,8 +242,13 @@ module.exports = {
             query = query.where('posts.type = ?', 'classifieds')
         }
 
-        query = query.order('posts.created', direction)
-            .limit(postType === 'media' ? limit * 6 : limit)
+        if (data.feedType === 'game' || data.feedType === 'developer') {
+            query = query.order('pinned', 'desc');
+        }
+
+        query = query.order('posts.created', direction);
+
+        query = query.limit(postType === 'media' ? limit * 6 : limit)
             .offset(startResult)
             .toString();
 
@@ -313,8 +319,11 @@ module.exports = {
                 delete record.mediaPosterId;
                 delete record.albumId;
                 delete record.albumStringUrl;
+
+                record.isPinned = record.isPinned === 1;
             });
 
+            console.log(records);
             if (postType === 'media' && records.length > limit) {
                 let groupedPostCount = 0;
                 let lastAcceptedRecord = limit;
@@ -519,7 +528,6 @@ module.exports = {
             });
         });
     },
-
 
     getPostComment: function (data, callback) {
         let errors = [],
@@ -904,6 +912,105 @@ module.exports = {
                     return;
                 }
 
+                callback(record);
+            });
+
+        });
+    },
+
+    togglePin: function (data, callback) {
+        let errors = [],
+            postId = parseInt(data.postId, 10),
+            query;
+
+        (!data.loggedUser || !data.loggedUser.isLoggedIn) && errors.push('Not Logged In');
+        (isNaN(postId) || postId === 0) && errors.push('Post Id not Set');
+
+        if (errors.length > 0) {
+            callback({errors: errors});
+            return;
+        }
+
+        query = squel.select()
+            .from('posts')
+            .field('posts.id', 'id')
+            .field('posts.type', 'type')
+            .field('posts.parent_type', 'parentType')
+            .field('posts.parent_id', 'parentId')
+            .field('posts.poster_id', 'posterId')
+            .field('posts.subposter_type', 'subPosterType')
+            .field('posts.subposter_id', 'subPosterId')
+            .field('posts.pinned', 'isPinned')
+
+            .left_join('posts', 'parentPost', '(posts.parent_type = \'status\' AND posts.parent_id = parentPost.id) OR (posts.parent_type = \'media\' AND parentPost.content = posts.parent_id)')
+            .field('parentPost.id', 'parentPostId')
+            .field('parentPost.parent_type', 'parentPostParentType')
+            .field('parentPost.parent_id', 'parentPostParentId')
+
+            .left_join('media', 'piece', 'piece.id = posts.parent_id')
+            .field('piece.id', 'pieceId')
+
+            .left_join('media', 'album', 'album.id = piece.parent_id')
+            .field('album.id', 'albumId')
+
+            .where('posts.id = ?', postId)
+            .toString();
+
+        databaseQuery(query, [], function (error, records) {
+            if (error) {
+                errorLogger(error, 'DTE_0149', query, null, data.loggedUser);
+                callback({errors: [error]});
+                return;
+            }
+
+            if (records.length === 0) {
+                callback({errors: ['No matching Id exists']});
+                return;
+            }
+
+            let record = records[0];
+
+            if (record.posterId !== data.loggedUser.info.id) {
+                callback({errors: ['Not your post to delete']});
+                return;
+            }
+
+            record.parentData = {
+                id: record.parentPostId,
+                parentType: record.parentPostParentType,
+                parentId: record.parentPostParentId
+            };
+
+            delete record.parentPostId;
+            delete record.parentPostParentType;
+            delete record.parentPostParentId;
+
+            record.albumData = {
+                id: record.albumId
+            };
+
+            delete record.albumId;
+
+            record.pieceData = {
+                id: record.pieceId
+            };
+
+            delete record.pieceId;
+
+            query = squel.update()
+                .table('posts')
+                .set('pinned', record.isPinned === 0 ? 1 : 0)
+                .where('id = ?', postId)
+                .toString();
+
+            databaseQuery(query, [], function (error, updateResponse) {
+                if (error) {
+                    errorLogger(error, 'DTE_0150p', query, null, data.loggedUser);
+                    callback({errors: [error]});
+                    return;
+                }
+
+                record.isPinned = record.isPinned === 0 ? 1 : 0;
                 callback(record);
             });
 

@@ -157,6 +157,12 @@ export default {
             });
         },
 
+        'feedPosts/pinPost': function (context, data) {
+            Axios.post('/api/feedPosts/togglePin', {
+                postId: data.id
+            });
+        },
+
         'feedPosts/getComments': function (context, postData) {
             const isMediaPost = postData.type === 'media';
 
@@ -273,6 +279,20 @@ export default {
             publicFeeds.forEach(function (feed) {
                 if (state.feedPosts[feed] && state.feedPosts[feed].posts[data.id]) {
                     Vue.delete(state.feedPosts[feed].posts, data.id);
+                }
+            });
+        },
+
+        'feedPosts/pinnedPost':function (state, data) {
+            const feedPostsId = data.subPosterType + '.' + data.parentId;
+
+            if (state.feedPosts[feedPostsId] && state.feedPosts[feedPostsId].posts[data.id]) {
+                Vue.set(state.feedPosts[feedPostsId].posts[data.id], 'isPinned', data.isPinned);
+            }
+
+            publicFeeds.forEach(function (feed) {
+                if (state.feedPosts[feed] && state.feedPosts[feed].posts[data.id]) {
+                    Vue.set(state.feedPosts[feed].posts[data.id], 'isPinned', data.isPinned);
                 }
             });
         },

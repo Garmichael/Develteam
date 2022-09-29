@@ -8,7 +8,9 @@
 
         <div id="feed-post-collection">
             <vue-masonry :min-width="450" :horizontal-gutter="40" :vertical-gutter="40" v-if="layout === 'masonry'">
-                <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a New Post</button>
+                <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a New
+                    Post
+                </button>
                 <div v-if="isOwner && showNewPostForm" id="feed-add-new" class="feed-post">
                     <h2>Submit a new Post</h2>
                     <form>
@@ -20,12 +22,15 @@
                 </div>
 
                 <template v-if="Object.keys(feedPosts || {}).length > 0">
-                    <feed-status-post v-for="feedPost in feedPosts" :data="feedPost" :key="feedPost.id"></feed-status-post>
+                    <feed-status-post v-for="feedPost in feedPosts" :data="feedPost"
+                                      :key="feedPost.id"></feed-status-post>
                 </template>
             </vue-masonry>
 
             <div class="single-column-container" v-if="layout === 'single'">
-                <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a New Post</button>
+                <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a New
+                    Post
+                </button>
                 <div v-if="isOwner && showNewPostForm" id="feed-add-new" class="feed-post">
                     <h2>Submit a new Post</h2>
                     <form>
@@ -37,13 +42,16 @@
                 </div>
 
                 <template v-if="Object.keys(feedPosts || {}).length > 0">
-                    <feed-status-post v-for="feedPost in feedPosts" :data="feedPost" :key="feedPost.id"></feed-status-post>
+                    <feed-status-post v-for="feedPost in feedPosts" :data="feedPost"
+                                      :key="feedPost.id"></feed-status-post>
                 </template>
             </div>
 
             <div class="double-column-container" v-if="layout === 'double'">
                 <vue-masonry :min-width="500" :horizontal-gutter="40" :vertical-gutter="40">
-                    <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a New Post</button>
+                    <button class="button" @click="showNewPostForm = true" v-if="isOwner && !showNewPostForm">Submit a
+                        New Post
+                    </button>
                     <div v-if="isOwner && showNewPostForm" id="feed-add-new" class="feed-post">
                         <h2>Submit a new Post</h2>
                         <form>
@@ -55,14 +63,17 @@
                     </div>
 
                     <template v-if="Object.keys(feedPosts || {}).length > 0">
-                        <feed-status-post v-for="feedPost in feedPosts" :data="feedPost" :key="feedPost.id"></feed-status-post>
+                        <feed-status-post v-for="feedPost in feedPosts" :data="feedPost"
+                                          :key="feedPost.id"></feed-status-post>
                     </template>
                 </vue-masonry>
             </div>
         </div>
 
         <div class="load-more-button-container">
-            <button v-if="fetchingStatus === 'fetched' && Object.keys(feedPosts || {}).length > 0 && !hasFetchedAll" id="feed-fetch-more" @click="fetchMore">Load more posts</button>
+            <button v-if="fetchingStatus === 'fetched' && Object.keys(feedPosts || {}).length > 0 && !hasFetchedAll"
+                    id="feed-fetch-more" @click="fetchMore">Load more posts
+            </button>
         </div>
     </article>
 </template>
@@ -73,7 +84,7 @@
 
     export default {
         name: 'DeveloperFeed',
-        data(){
+        data() {
             return {
                 showNewPostForm: false,
                 postCountToFetch: 10,
@@ -89,11 +100,11 @@
         },
 
         computed: {
-            isLoggedIn(){
+            isLoggedIn() {
                 return this.$store.state.loggedUserModel.isLoggedIn;
             },
 
-            layout(){
+            layout() {
                 return 'single';
                 if (!this.isLoggedIn) {
                     return 'masonry';
@@ -102,15 +113,15 @@
                 return this.$store.state.loggedUserModel.options.feedLayoutStyle;
             },
 
-            isOwner(){
+            isOwner() {
                 return this.$store.state.loggedUserModel.isLoggedIn && this.$store.state.loggedUserModel.info.id === this.developerId;
             },
 
-            feedPostsId(){
+            feedPostsId() {
                 return 'developer.' + this.developerId;
             },
 
-            developerId(){
+            developerId() {
                 let pageData = this.$store.state.developerPageModel.developerInformation;
 
                 if (pageData && pageData.id) {
@@ -118,37 +129,52 @@
                 }
             },
 
-            feedPosts(){
+            feedPosts() {
                 let developerFeedData = this.$store.state.feedPostsModel.feedPosts[this.feedPostsId];
-                let feedPostArray;
 
                 if (!developerFeedData) {
                     return {};
                 }
 
-                feedPostArray = _.values(developerFeedData.posts).sort(function (a, b) {
-                    let aDate = new Date(a.postDate),
-                        bDate = new Date(b.postDate);
+                let allPosts = [];
+                let normalPosts = [];
+                let pinnedPosts = [];
 
-                    return bDate - aDate;
+                Object.keys(developerFeedData.posts).forEach((key)=>{
+                    if (developerFeedData.posts[key].isPinned) {
+                        pinnedPosts.push(developerFeedData.posts[key]);
+                    } else {
+                        normalPosts.push(developerFeedData.posts[key]);
+                    }
                 });
 
-                return feedPostArray;
+                normalPosts.sort((a, b) => (new Date(a.postDate) > new Date(b.postDate)) ? -1 : 1);
+                pinnedPosts.sort((a, b) => (new Date(a.postDate) > new Date(b.postDate)) ? -1 : 1);
+
+                pinnedPosts.forEach((post)=>{
+                    allPosts.push(post);
+                });
+
+                normalPosts.forEach((post)=>{
+                    allPosts.push(post);
+                });
+
+                return allPosts;
             },
 
-            fetchingStatus(){
+            fetchingStatus() {
                 let developerFeedData = this.$store.state.feedPostsModel.feedPosts[this.feedPostsId];
                 return developerFeedData ? developerFeedData.fetchingStatus : 'fetching'
             },
 
-            hasFetchedAll(){
+            hasFetchedAll() {
                 let developerFeedData = this.$store.state.feedPostsModel.feedPosts[this.feedPostsId];
                 return developerFeedData ? developerFeedData.hasFetchedAll : true
             }
         },
 
         methods: {
-            getPosts(){
+            getPosts() {
                 this.$store.dispatch('feedPosts/getFeedPosts', {
                     feedPostsId: this.feedPostsId,
                     feedType: 'developer',
@@ -157,7 +183,7 @@
                 });
             },
 
-            submitNewPost(){
+            submitNewPost() {
                 if (this.newPostContent.trim() !== '') {
                     this.$store.dispatch('feedPosts/postNewPost', {
                         subject: this.newPostSubject,
@@ -172,7 +198,7 @@
                 }
             },
 
-            fetchMore(){
+            fetchMore() {
                 this.$store.dispatch('feedPosts/getFeedPosts', {
                     feedPostsId: this.feedPostsId,
                     feedType: 'developer',
@@ -180,7 +206,7 @@
                 });
             },
 
-            changeLayout(style){
+            changeLayout(style) {
                 if (!this.isLoggedIn) {
                     return;
                 }
@@ -194,7 +220,7 @@
         },
 
         watch: {
-            '$store.state.developerPageModel.developerInformation'(){
+            '$store.state.developerPageModel.developerInformation'() {
                 this.getPosts();
             }
         }

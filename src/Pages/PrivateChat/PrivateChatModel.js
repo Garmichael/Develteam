@@ -139,7 +139,6 @@ export default {
         },
 
         'privateChat/addTemporaryConversation'(state, data) {
-            console.log(data);
             let x = state.temporaryConversations;
             let z = {
                 chatId: data.self.id + "." + data.participant.id,
@@ -147,7 +146,6 @@ export default {
                 lastMessageTime: new Date().getTime()
             };
 
-            console.log(z);
             x.push(z);
             Vue.set(state, 'temporaryConversations', x);
         }
