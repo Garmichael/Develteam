@@ -10,6 +10,7 @@
                 <div v-if="albumImageTooBig" class="validation-messages error">The uploaded art is too large. Please choose another that is less than 300k</div>
             </label>
 
+            <button class="button" @click.prevent="editAlbum">Cancel</button>
             <button class="button" @click.prevent="enterDeleteMode">Delete Album</button>
             <button class="button" @click.prevent="editAlbum">Save Changes</button>
         </form>
