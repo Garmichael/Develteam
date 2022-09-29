@@ -14,7 +14,7 @@ let squel = require('squel'),
 
 module.exports = {
 
-    getAlbum(data, callback){
+    getAlbum(data, callback) {
         let query = squel.select()
             .from('media')
             .field('id', 'id')
@@ -58,12 +58,14 @@ module.exports = {
         query = squel.select()
             .from('media')
             .field('id', 'id')
+            .field('rank', 'rank')
             .field('title', 'title')
             .field('has_avatar', 'hasAvatar')
             .field('string_url', 'stringUrl')
             .where('media_category = ?', 'album')
             .where('parent_type = ?', escape(data.pageType))
             .where('poster_id = ?', escape(data.pageId))
+            .order('rank', 'asc')
             .toString();
 
         databaseQuery(query, [], function (error, records) {
@@ -77,7 +79,7 @@ module.exports = {
         });
     },
 
-    postAlbum(data, callback){
+    postAlbum(data, callback) {
         let errors = [],
             query,
             storage = multer.memoryStorage(),
@@ -206,7 +208,7 @@ module.exports = {
         });
     },
 
-    editAlbum(data, callback){
+    editAlbum(data, callback) {
         let errors = [],
             query,
             storage = multer.memoryStorage(),
@@ -358,7 +360,7 @@ module.exports = {
 
     },
 
-    deleteAlbum(data, callback){
+    deleteAlbum(data, callback) {
         let errors = [],
             query;
 
@@ -431,8 +433,90 @@ module.exports = {
         });
     },
 
+    reorderAlbums(data, callback) {
+        let errors = [];
 
-    getPiece(data, callback){
+        !data.pageType && errors.push('No Page Type set');
+        (data.pageType !== 'developer' && data.pageType !== 'game') && errors.push('Invalid Page Type')
+        !data.pageId && errors.push('No Page Id set');
+        !data.albums && errors.push('No Album List set');
+        !data.loggedUser.isLoggedIn && errors.push('Not Logged In');
+        !Array.isArray(data.albums) && errors.push('Album List is not an Array');
+
+        if (Array.isArray(data.albums)) {
+            data.albums.length === 0 && errors.push('Album length is 0');
+
+            data.albums.forEach((albumId) => {
+                !Number.isInteger(albumId) && errors.push('album Id is not an integer')
+            });
+        }
+
+        if (errors.length > 0) {
+            callback({errors: errors});
+            return;
+        }
+
+        let query = squel.select()
+            .from('media')
+            .field('id', 'id')
+            .field('id', 'id')
+            .where('parent_type = ?', data.pageType)
+            .where('poster_id = ?', data.pageId)
+            .where('id IN ?', data.albums)
+            .toString();
+
+        databaseQuery(query, [], function (error, records) {
+            if (error) {
+                errorLogger(error, 'DTE_0262', query);
+                callback({errors: [error]});
+                return;
+            }
+
+            if (records.length !== data.albums.length) {
+                callback({errors: ['These albums do not belong to the same profile']});
+                return;
+            }
+
+            if (data.pageType === 'developer' && data.loggedUser.info.id !== data.pageId) {
+                callback({errors: ['Not validated as a User']});
+                return;
+            }
+
+            if(data.pageType === 'game'){
+                let validated = false;
+                data.loggedUser.games.forEach((game)=>{
+                    if(game.id === data.pageId){
+                        validated = true;
+                    }
+                });
+
+                if(!validated){
+                    callback({errors: ['Not validated as a User']});
+                    return;
+                }
+            }
+
+            let updateQuery = "UPDATE media SET rank = (case ";
+
+            for(let index = 0; index < data.albums.length; index++){
+                updateQuery += ' WHEN id = ' + data.albums[index] + ' THEN ' + index;
+            }
+
+            updateQuery += " ELSE rank end)";
+
+            databaseQuery(updateQuery, [], function (error, records) {
+                if (error) {
+                    errorLogger(error, 'DTE_026e', query);
+                    callback({errors: [error]});
+                    return;
+                }
+
+                callback({response: 'success'});
+            });
+        });
+    },
+
+    getPiece(data, callback) {
         let errors = [],
             mediaId = parseInt(data.mediaId, 10),
             query;
@@ -490,7 +574,7 @@ module.exports = {
         });
     },
 
-    getPieces(data, callback){
+    getPieces(data, callback) {
         let errors = [],
             query;
 
@@ -542,7 +626,7 @@ module.exports = {
         });
     },
 
-    postPiece(data, callback, callbackForPost){
+    postPiece(data, callback, callbackForPost) {
         let errors = [],
             query,
             queries = this,
@@ -555,7 +639,10 @@ module.exports = {
                     cb(null, Date.now() + userId + '.' + file.filename)
                 }
             }),
-            upload = multer({storage: storage, limits: {fileSize: 10 * 1024 * 1024}}).fields([{name: 'previewFile'}, {name: 'mediaFile'}]);
+            upload = multer({
+                storage: storage,
+                limits: {fileSize: 10 * 1024 * 1024}
+            }).fields([{name: 'previewFile'}, {name: 'mediaFile'}]);
 
         if (!data.loggedUser.isLoggedIn) {
             callback({errors: ['Not Logged In']});
@@ -772,7 +859,7 @@ module.exports = {
 
                                                         fs.rename('tempuploads/' + newMediaFileName, 'public/userdata/media/' + newMediaFileName, function () {
                                                             builtMediaFile = true;
-                                                            if(builtMediaFile && builtPreviewImage){
+                                                            if (builtMediaFile && builtPreviewImage) {
                                                                 finalizeMediaEntry();
                                                             }
                                                         });
@@ -782,7 +869,7 @@ module.exports = {
                                 } else {
                                     fs.rename('tempuploads/' + newMediaFileName, 'public/userdata/media/' + newMediaFileName, function () {
                                         builtMediaFile = true;
-                                        if(builtMediaFile && builtPreviewImage){
+                                        if (builtMediaFile && builtPreviewImage) {
                                             finalizeMediaEntry();
                                         }
                                     });
@@ -790,7 +877,7 @@ module.exports = {
                             });
                         } else {
                             builtMediaFile = true;
-                            if(builtMediaFile && builtPreviewImage){
+                            if (builtMediaFile && builtPreviewImage) {
                                 finalizeMediaEntry();
                             }
                         }
@@ -812,7 +899,7 @@ module.exports = {
                                                     if (!err) {
                                                         fs.rename('tempuploads/' + newPreviewFileName, 'public/userdata/media/' + newPreviewFileName, function () {
                                                             builtPreviewImage = true;
-                                                            if(builtMediaFile && builtPreviewImage){
+                                                            if (builtMediaFile && builtPreviewImage) {
                                                                 finalizeMediaEntry();
                                                             }
                                                         });
@@ -823,12 +910,12 @@ module.exports = {
                             });
                         } else {
                             builtPreviewImage = true;
-                            if(builtMediaFile && builtPreviewImage){
+                            if (builtMediaFile && builtPreviewImage) {
                                 finalizeMediaEntry();
                             }
                         }
 
-                        function finalizeMediaEntry (){
+                        function finalizeMediaEntry() {
                             query = squel.update().table('media');
 
                             if (data.req.files.mediaFile) {
@@ -897,7 +984,7 @@ module.exports = {
 
     },
 
-    editPiece(data, callback, callbackForPost){
+    editPiece(data, callback, callbackForPost) {
         let errors = [],
             id = parseInt(data.id, 10),
             title = data.title,
@@ -1037,7 +1124,7 @@ module.exports = {
 
     },
 
-    deletePiece(data, callback, callbackForPost){
+    deletePiece(data, callback, callbackForPost) {
         let errors = [],
             pieceId = parseInt(data.id, 10),
             query,
@@ -1178,7 +1265,7 @@ module.exports = {
         });
     },
 
-    getComment(data, callback){
+    getComment(data, callback) {
         let errors = [],
             query;
 
@@ -1301,7 +1388,7 @@ module.exports = {
         });
     },
 
-    getComments(data, callback){
+    getComments(data, callback) {
         let errors = [],
             query;
 
@@ -1383,7 +1470,7 @@ module.exports = {
         })
     },
 
-    postComment(data, callback){
+    postComment(data, callback) {
         let errors = [],
             query;
 

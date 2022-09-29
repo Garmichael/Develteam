@@ -634,6 +634,7 @@ CREATE TABLE IF NOT EXISTS `ip2loc` (
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE IF NOT EXISTS `media` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rank` varchar(32) NOT NULL DEFAULT '0',
   `media_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `poster_id` int(10) NOT NULL,
   `poster_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,

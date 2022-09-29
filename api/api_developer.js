@@ -53,10 +53,6 @@ router.get('/', function (req, res) {
             .field('users.looking_for_game', 'lookingForGame')
             .field('users.looking_desc', 'lookingForDescription')
             .field('users.websites', 'personalWebsites')
-            .field('users.contact_twitter', 'websiteTwitter')
-            .field('users.contact_facebook', 'websiteFacebook')
-            .field('users.contact_instagram', 'websiteInstagram')
-            .field('users.contact_linkedin', 'websiteLinkedIn')
             .field('users.banned', 'isBanned')
             .field('users.sitemod_can_ban', 'siteModCanBan')
             .field("(SELECT IFNULL(SUM(amount),0) FROM donations WHERE email_address=users.email)", 'donatedAmount')
@@ -404,8 +400,6 @@ router.post('/websites', function (req, res) {
         }
 
         let personalWebsites = escape(req.body.personalWebsites);
-
-        console.log(personalWebsites);
 
         try {
             JSON.parse(JSON.stringify(personalWebsites));

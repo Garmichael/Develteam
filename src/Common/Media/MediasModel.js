@@ -134,6 +134,20 @@ export default {
             )
         },
 
+        'medias/reorderAlbums': function (context, data) {
+            axios.post('/api/media/albums/reorder', {
+                albums: data.albums,
+                pageType: data.pageType,
+                pageId: data.pageId
+            }).then(
+                (response) => {
+                },
+                (response) => {
+                }
+            )
+        },
+
+
         'medias/addPiece': function (context, data) {
             let formData = new FormData();
             formData.append('albumId', data.albumId);

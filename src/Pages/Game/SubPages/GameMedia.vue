@@ -8,13 +8,15 @@
                     <loader-large></loader-large>
                 </div>
 
-                <ul v-else class="album-list">
+                <ul v-if="fetchingAlbumStatus !== 'fetching' && !reorderAlbumMode && !addAlbumMode" class="album-list">
                     <router-link tag="li" v-for="album in albums"
                                  :to="`/Game/${$route.params.game}/Media/${album.stringUrl}`"
-                                 :class="{selected: album.stringUrl == $route.params.album}">
-                        <img v-if="album.hasAvatar" :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg`"
+                                 :class="{selected: album.stringUrl === $route.params.album}">
+                        <img v-if="album.hasAvatar"
+                             :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg`"
                              class="media-avatar" :alt="album.title + ' album'" :title="album.title + ' album'"/>
-                        <img v-else :src="`https://www.develteam.com/userdata/avatar_blank_100.jpg`" class="media-avatar"
+                        <img v-else :src="`https://www.develteam.com/userdata/avatar_blank_100.jpg`"
+                             class="media-avatar"
                              :alt="album.title + ' album'" :title="album.title + ' album'"/>
                         <span class="title">{{album.title}}</span>
                     </router-link>
@@ -23,16 +25,27 @@
                         This Game Project has not Uploaded any Media
                     </div>
 
-                    <li v-if="canEdit" @click="enterAddAlbumMode" :class="{selected: addAlbumMode}">
+                    <li v-if="canEdit" @click="enterAddAlbumMode"
+                        :class="[{selected: addAlbumMode},'add-album-container']">
                         <div class="media-avatar add-album"><i class="fas fa-plus"></i></div>
                         <span class="title">Add Album</span>
+                    </li>
+
+                    <li v-if="canEdit" @click="enterReorderAlbumMode"
+                        :class="[{selected: reorderAlbumMode}, 'reorder-album-container']">
+                        <div class="media-avatar reorder-album"><i class="fas fa-pencil-alt"></i></div>
+                        <span class="title">Reorder Albums</span>
                     </li>
                 </ul>
 
             </transition>
         </section>
 
-        <new-album-form v-if="addAlbumMode" page-type="game" :page-id="gameId"></new-album-form>
+        <new-album-form v-if="addAlbumMode" v-on:doneEditing="addAlbumMode = false" page-type="game"
+                        :page-id="gameId"></new-album-form>
+
+        <reorder-album-form v-if="reorderAlbumMode" v-on:doneEditing="reorderAlbumMode = false" page-type="game"
+                            :page-id="gameId"></reorder-album-form>
 
         <media-piece-list v-if="$route.params.album" page-type="game" :page-id="gameId" :medias-id="mediasId"
                           :can-edit="canEdit"></media-piece-list>
@@ -44,7 +57,8 @@
 
 <script>
     import NewAlbumForm from '../../../Common/Media/FormNewMediaAlbum.vue';
-    import MediaPieceList from '../../../Common/Media/MediaPieceList.vue'
+    import ReorderAlbumsForm from '../../../Common/Media/FormReorderMediaAlbums.vue';
+    import MediaPieceList from '../../../Common/Media/MediaPieceList.vue';
 
     export default {
         name: 'GameMedia',
@@ -55,12 +69,14 @@
                 imageLoader: undefined,
                 selectedAlbum: undefined,
                 addAlbumMode: false,
-                editAlbumMode: false
+                editAlbumMode: false,
+                reorderAlbumMode: false
             }
         },
 
         components: {
             'new-album-form': NewAlbumForm,
+            'reorder-album-form': ReorderAlbumsForm,
             'media-piece-list': MediaPieceList
         },
 
@@ -99,9 +115,17 @@
             albums() {
                 let gameMediaData = this.$store.state.mediasModel.medias[this.mediasId];
 
+                let albums = [];
+
                 if (gameMediaData) {
-                    return gameMediaData.albums;
+                    Object.keys(gameMediaData.albums).forEach(key => {
+                        albums.push(gameMediaData.albums[key])
+                    });
                 }
+
+                albums.sort((a, b) => (a.rank > b.rank) ? 1 : -1);
+
+                return albums;
             }
         },
 
@@ -123,7 +147,16 @@
 
             exitSinglePieceView() {
                 this.$router.push(`/Game/${this.$route.params.game}/Media/`);
-            }
+            },
+
+            enterReorderAlbumMode() {
+                this.reorderAlbumMode = true;
+                this.$router.push(`/Game/${this.$route.params.game}/Media/`);
+            },
+
+            exitReorderAlbumMode() {
+                this.reorderAlbumMode = false;
+            },
         },
 
         watch: {
@@ -141,6 +174,11 @@
         sockets: {
             'mediaAlbumAddOrEdit'(data) {
                 this.exitAddAlbumMode();
+            },
+
+            'mediaAlbumReorder'(data) {
+                this.getAlbums();
+                this.exitReorderAlbumMode();
             }
         }
     }

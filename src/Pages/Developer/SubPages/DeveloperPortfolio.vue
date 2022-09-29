@@ -8,10 +8,16 @@
                     <loader-large></loader-large>
                 </div>
 
-                <ul v-else class="album-list">
-                    <router-link tag="li" v-for="album in albums" :to="`/Developer/${$route.params.developer}/Portfolio/${album.stringUrl}`" :class="{selected: album.stringUrl == $route.params.album}">
-                        <img v-if="album.hasAvatar" :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg`" class="media-avatar" :alt="album.title + ' album'" :title="album.title + ' album'"/>
-                        <img v-else :src="`https://www.develteam.com/userdata/avatar_blank_100.jpg`" class="media-avatar" :alt="album.title + ' album'" :title="album.title + ' album'"/>
+                <ul v-if="fetchingAlbumStatus !== 'fetching' && !reorderAlbumMode && !addAlbumMode" class="album-list">
+                    <router-link tag="li" v-for="album in albums"
+                                 :to="`/Developer/${$route.params.developer}/Portfolio/${album.stringUrl}`"
+                                 :class="{selected: album.stringUrl === $route.params.album}">
+
+                        <img v-if="album.hasAvatar" :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg`"
+                             class="media-avatar" :alt="album.title + ' album'" :title="album.title + ' album'"/>
+                        <img v-else :src="`https://www.develteam.com/userdata/avatar_blank_100.jpg`"
+                             class="media-avatar" :alt="album.title + ' album'" :title="album.title + ' album'"/>
+
                         <span class="title">{{album.title}}</span>
                     </router-link>
 
@@ -21,15 +27,21 @@
                         <div class="media-avatar add-album"><i class="fas fa-plus"></i></div>
                         <span class="title">Add Album</span>
                     </li>
+
+                    <li v-if="canEdit" @click="enterReorderAlbumMode" :class="[{selected: reorderAlbumMode}, 'reorder-album-container']">
+                        <div class="media-avatar reorder-album"><i class="fas fa-pencil-alt"></i></div>
+                        <span class="title">Reorder Albums</span>
+                    </li>
                 </ul>
 
             </transition>
         </section>
 
-        <new-album-form v-if="addAlbumMode" page-type="developer" :page-id="developerId"></new-album-form>
+        <new-album-form v-if="addAlbumMode" v-on:doneEditing="addAlbumMode = false"  page-type="developer" :page-id="developerId"></new-album-form>
+
+        <reorder-album-form v-if="reorderAlbumMode" v-on:doneEditing="reorderAlbumMode = false"  page-type="developer" :page-id="developerId"></reorder-album-form>
 
         <media-piece-list v-if="$route.params.album" page-type="developer" :page-id="developerId" :medias-id="mediasId" :can-edit="canEdit"></media-piece-list>
-
 
         <button class="button" v-if="$route.params.piece" @click="exitSinglePieceView">View Entire Portfolio</button>
 
@@ -40,7 +52,8 @@
 
 <script>
     import NewAlbumForm from '../../../Common/Media/FormNewMediaAlbum.vue';
-    import MediaPieceList from '../../../Common/Media/MediaPieceList.vue'
+    import ReorderAlbumMode from '../../../Common/Media/FormReorderMediaAlbums.vue';
+    import MediaPieceList from '../../../Common/Media/MediaPieceList.vue';
 
     export default {
         name: 'DeveloperPortfolio',
@@ -50,12 +63,14 @@
                 imageLoader: undefined,
                 selectedAlbum: undefined,
                 addAlbumMode: false,
-                editAlbumMode: false
+                editAlbumMode: false,
+                reorderAlbumMode: false
             }
         },
 
         components: {
             'new-album-form': NewAlbumForm,
+            'reorder-album-form': ReorderAlbumMode,
             'media-piece-list': MediaPieceList
         },
 
@@ -90,9 +105,16 @@
             albums(){
                 let developerPortfolioData = this.$store.state.mediasModel.medias[this.mediasId];
 
+                let albums = [];
                 if (developerPortfolioData) {
-                    return developerPortfolioData.albums;
+                    Object.keys(developerPortfolioData.albums).forEach(key => {
+                        albums.push(developerPortfolioData.albums[key])
+                    });
                 }
+
+                albums.sort((a, b) => (a.rank > b.rank) ? 1 : -1);
+
+                return albums;
             }
         },
 
@@ -114,7 +136,16 @@
 
             exitSinglePieceView(){
                 this.$router.push(`/Developer/${this.$route.params.developer}/Portfolio/`);
-            }
+            },
+
+            enterReorderAlbumMode(){
+                this.reorderAlbumMode = true;
+                this.$router.push(`/Developer/${this.$route.params.developer}/Portfolio/`);
+            },
+
+            exitReorderAlbumMode(){
+                this.reorderAlbumMode = false;
+            },
         },
 
         watch: {
@@ -132,6 +163,11 @@
         sockets: {
             'mediaAlbumAddOrEdit'(data){
                 this.exitAddAlbumMode();
+            },
+
+            'mediaAlbumReorder'(data){
+                this.getAlbums();
+                this.exitReorderAlbumMode();
             }
         }
     }

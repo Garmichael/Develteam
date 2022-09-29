@@ -5,11 +5,12 @@
             <label><input type="text" placeholder="Album Name" v-model="albumName"/></label>
 
             <label>
-                Album Cover Art <input type="file" name="avatar" @change="updateuploadedAlbumName" accept="image/jpeg, image/png"/>
+                Album Cover Art <input type="file" name="avatar" @change="updateUploadedAlbumName" accept="image/jpeg, image/png"/>
                 <div v-if="uploadedImageSrc" class="albumPreview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
                 <div v-if="albumImageTooBig" class="validation-messages error">The uploaded art is too large. Please choose another that is less than 300k</div>
             </label>
 
+            <button class="button" @click.prevent="cancel">Cancel</button>
             <button class="button" @click.prevent="addAlbum">Create</button>
         </form>
 
@@ -56,7 +57,7 @@
                 });
             },
 
-            updateuploadedAlbumName(e){
+            updateUploadedAlbumName(e){
                 let input = e.target;
                 let reader;
                 let self = this;
@@ -78,6 +79,10 @@
                 this.uploadedAlbumName = e.target.files[0].name;
                 this.albumFile = e.target.files[0];
                 this.albumImageTooBig = e.target.files[0].size > 300000;
+            },
+
+            cancel(){
+                this.$emit('doneEditing');
             }
         }
     }
