@@ -83,7 +83,7 @@ module.exports = {
         let errors = [],
             query,
             storage = multer.memoryStorage(),
-            upload = multer({storage: storage, limits: {fileSize: 300 * 1024}}).single('albumAvatar');
+            upload = multer({storage: storage}).single('albumAvatar');
 
         !data.loggedUser.isLoggedIn && errors.push('Not Logged In');
 
@@ -212,7 +212,7 @@ module.exports = {
         let errors = [],
             query,
             storage = multer.memoryStorage(),
-            upload = multer({storage: storage, limits: {fileSize: 300 * 1024}}).single('albumAvatar');
+            upload = multer({storage: storage}).single('albumAvatar');
 
         !data.loggedUser.isLoggedIn && errors.push('Not Logged In');
 

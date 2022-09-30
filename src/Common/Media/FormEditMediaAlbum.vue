@@ -7,7 +7,6 @@
             <label>
                 Album Cover Art <input type="file" name="avatar" @change="updateuploadedAlbumName" accept="image/*"/>
                 <div v-if="uploadedImageSrc" class="albumPreview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
-                <div v-if="albumImageTooBig" class="validation-messages error">The uploaded art is too large. Please choose another that is less than 300k</div>
             </label>
 
             <button class="button" @click.prevent="editAlbum">Cancel</button>
@@ -34,7 +33,6 @@
         data(){
             return {
                 albumFile: undefined,
-                albumImageTooBig: false,
                 uploadedAlbumName: '',
                 uploadedImageSrc: '',
                 savingAlbum: false,
@@ -54,7 +52,7 @@
         methods: {
 
             editAlbum(){
-                if (this.albumImageTooBig || this.albumName.trim() === '') {
+                if (this.albumName.trim() === '') {
                     return;
                 }
 
@@ -89,7 +87,6 @@
 
                 this.uploadedAlbumName = e.target.files[0].name;
                 this.albumFile = e.target.files[0];
-                this.albumImageTooBig = e.target.files[0].size > 300000;
             },
 
             enterDeleteMode(){
