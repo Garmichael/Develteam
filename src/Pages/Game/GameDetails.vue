@@ -48,16 +48,39 @@
                     <h3>Roles</h3>
                     <span v-if="game.seekingRoles" class="info">{{game.seekingRoles}}</span>
 
-                    <ul>
-                        <li v-if="game.seekingProducers"><span>Producers</span></li>
-                        <li v-if="game.seekingDesigners"><span>Designers</span></li>
-                        <li v-if="game.seekingArtists"><span>Artists</span></li>
-                        <li v-if="game.seekingProgrammers"><span>Programmers</span></li>
-                        <li v-if="game.seekingWriters"><span>Writers</span></li>
-                        <li v-if="game.seekingMusicians"><span>Musicians</span></li>
-                        <li v-if="game.seekingSfxArtists"><span>SFX Artists</span></li>
-                        <li v-if="game.seekingTesters"><span>Testers</span></li>
-                    </ul>
+                    <div class="role-list">
+                        <router-link v-if="game.seekingProducers" :to="'/Browse/Developers?seekingRole=producers'" class="role-tag">
+                            <span>Producers</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingDesigners" :to="'/Browse/Developers?seekingRole=designers'" class="role-tag">
+                            <span>Designers</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingArtists" :to="'/Browse/Developers?seekingRole=artists'" class="role-tag">
+                            <span>Artists</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingProgrammers" :to="'/Browse/Developers?seekingRole=programmers'" class="role-tag">
+                            <span>Programmers</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingWriters" :to="'/Browse/Developers?seekingRole=writers'" class="role-tag">
+                            <span>Writers</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingMusicians" :to="'/Browse/Developers?seekingRole=musicians'" class="role-tag">
+                            <span>Musicians</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingSfxArtists" :to="'/Browse/Developers?seekingRole=sfx'" class="role-tag">
+                            <span>SFX Artists</span>
+                        </router-link>
+
+                        <router-link v-if="game.seekingTesters" :to="'/Browse/Developers?seekingRole=testers'" class="role-tag">
+                            <span>Testers</span>
+                        </router-link>
+                    </div>
 
                     <template v-if="game.skills.length > 0">
                         <h3>Skills</h3>

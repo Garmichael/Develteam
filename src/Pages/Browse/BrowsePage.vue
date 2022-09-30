@@ -254,6 +254,7 @@
 
                 if (seekingRole) {
                     this.$store.dispatch('browsePage/initializeFilterOption', 'recruiting|' + seekingRole);
+                    this.$store.dispatch('browsePage/initializeFilterOption', 'show|' + seekingRole);
                 }
 
                 if (seekingSkill) {

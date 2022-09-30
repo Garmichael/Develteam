@@ -52,16 +52,39 @@
 
                 <div class="roles" v-if="showRoleTags">
                     <h3>Roles</h3>
-                    <ul>
-                        <li v-if="developer.isProducer"><span>Producer</span></li>
-                        <li v-if="developer.isDesigner"><span>Designer</span></li>
-                        <li v-if="developer.isArtist"><span>Artist</span></li>
-                        <li v-if="developer.isProgrammer"><span>Programmer</span></li>
-                        <li v-if="developer.isWriter"><span>Writer</span></li>
-                        <li v-if="developer.isMusician"><span>Musician</span></li>
-                        <li v-if="developer.isSfxArtist"><span>SFX Artist</span></li>
-                        <li v-if="developer.isTester"><span>Tester</span></li>
-                    </ul>
+                    <div class="role-list">
+                        <router-link v-if="developer.isProducer" :to="'/Browse/Developers?seekingRole=producers'" class="role-tag">
+                            <span>Producer</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isDesigner" :to="'/Browse/Developers?seekingRole=designers'" class="role-tag">
+                            <span>Designer</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isArtist" :to="'/Browse/Developers?seekingRole=artists'" class="role-tag">
+                            <span>Artist</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isProgrammer" :to="'/Browse/Developers?seekingRole=programmers'" class="role-tag">
+                            <span>Programmer</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isWriter" :to="'/Browse/Developers?seekingRole=writers'" class="role-tag">
+                            <span>Writer</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isMusician" :to="'/Browse/Developers?seekingRole=musicians'" class="role-tag">
+                            <span>Musician</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isSfxArtist" :to="'/Browse/Developers?seekingRole=sfx'" class="role-tag">
+                            <span>SFX Artist</span>
+                        </router-link>
+
+                        <router-link v-if="developer.isTester" :to="'/Browse/Developers?seekingRole=testers'" class="role-tag">
+                            <span>Tester</span>
+                        </router-link>
+                    </div>
                 </div>
 
                 <div class="skills" v-if="showSkillTags">

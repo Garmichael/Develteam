@@ -30,6 +30,7 @@
             <ul class="skills">
                 <router-link
                         v-for="skill in details.skills"
+                        v-if="skillList[skill]"
                         :to="'/Browse/Developers?seekingSkill=' + skillList[skill].id"
                         class="role-or-skill-item"
                 >

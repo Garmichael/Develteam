@@ -115,39 +115,47 @@
 
                 <div class="sub-header">
                     <span v-if="post.posterType === 'game'">Recruiting</span>
-                    <ul class="role-list">
-                        <li v-if="post.roleDesigner">Designer
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                    <div class="role-list">
+                        <router-link v-if="post.roleDesigner" :to="'/Browse/Developers?seekingRole=designers'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Designers</template>
+                            <template v-else>Designer</template>
+                        </router-link>
 
-                        <li v-if="post.roleArtist">Artist
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleArtist" :to="'/Browse/Developers?seekingRole=artists'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Artists</template>
+                            <template v-else>Artist</template>
+                        </router-link>
 
-                        <li v-if="post.roleProgrammer">Programmer
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleProgrammer" :to="'/Browse/Developers?seekingRole=programmers'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Programmers</template>
+                            <template v-else>Programmer</template>
+                        </router-link>
 
-                        <li v-if="post.roleWriter">Writer
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleWriter" :to="'/Browse/Developers?seekingRole=writers'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Writers</template>
+                            <template v-else>Writer</template>
+                        </router-link>
 
-                        <li v-if="post.roleMusician">Musician
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleMusician" :to="'/Browse/Developers?seekingRole=musicians'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Musicians</template>
+                            <template v-else>Musician</template>
+                        </router-link>
 
-                        <li v-if="post.roleSfxArtist">Sfx Artist
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleSfxArtist" :to="'/Browse/Developers?seekingRole=sfx'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Sfx Artists</template>
+                            <template v-else>Sfx Artist</template>
+                        </router-link>
 
-                        <li v-if="post.roleTester">Tester
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
+                        <router-link v-if="post.roleTester" :to="'/Browse/Developers?seekingRole=testers'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Testers</template>
+                            <template v-else>Tester</template>
+                        </router-link>
 
-                        <li v-if="post.roleProducer">Producer
-                            <template v-if="post.posterType === 'game'">s</template>
-                        </li>
-                    </ul>
+                        <router-link v-if="post.roleProducer" :to="'/Browse/Developers?seekingRole=producers'" class="role-tag">
+                            <template v-if="post.posterType === 'game'">Producers</template>
+                            <template v-else>Producer</template>
+                        </router-link>
+                    </div>
 
                     <div class="skill-list">
                         <router-link v-for="skillId in post.skills"
