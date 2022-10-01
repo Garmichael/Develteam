@@ -15,7 +15,11 @@ router.get('/', function (req, res) {
         }
 
         console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        ApplyRankToMedia();
+        ApplyRankToMedia(function () {
+            ApplyWorkHistory((function () {
+
+            }))
+        });
         res.json({status: 'success'});
     });
 
@@ -34,7 +38,62 @@ function ApplyRankToMedia(callback) {
             console.log("ALTER TABLE ERROR: " + error);
         }
 
+        callback();
     });
+}
+
+function ApplyWorkHistory(callback) {
+    console.log(">> Applying Work History")
+
+    databaseQuery("ALTER TABLE users ADD COLUMN work_history mediumtext AFTER websites;", [], (error, results) => {
+        if (error) {
+            console.log("ALTER TABLE ERROR: " + error);
+        }
+
+        let query = squel.select()
+            .from('users')
+            .field('id', 'id')
+            .field('resume_work', 'workHistory')
+            .toString();
+
+        databaseQuery(query, [], (error, records) => {
+            let updateQuery = "UPDATE users SET work_history = (case ";
+
+            records.forEach((record) => {
+                let newWorkHistory = [];
+                if (_.isEmpty(record.workHistory)) {
+                    record.workHistory = {};
+                }
+
+                try {
+                    JSON.parse(record.workHistory);
+                } catch (e) {
+                    record.workHistory = '{}';
+                }
+
+                let parsedWorkHistory = JSON.parse(record.workHistory);
+
+                Object.keys(parsedWorkHistory).forEach(key => {
+                    newWorkHistory.push(parsedWorkHistory[key]);
+                });
+
+                let insertJson = JSON.stringify(newWorkHistory);
+                updateQuery += " when id = " + record.id + " then '" + escape(insertJson) + "'";
+
+                // Object.keys(workHistory).forEach(key => {
+                //
+                // });
+            });
+
+            updateQuery += " end)";
+
+            databaseQuery(updateQuery, [], (error, results)=>{
+                callback();
+            });
+
+        });
+    });
+
 }
 
 module.exports = router;

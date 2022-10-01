@@ -16,15 +16,13 @@
                         <i class="fa-arrow-up fas"></i>
                     </button>
 
-                    <button v-if="index !== formData.personalWebsites.length -1" class="button small-button"
-                            @click.prevent="moveWebsiteDown(index)">
+                    <button v-if="index !== formData.personalWebsites.length -1" class="button small-button" @click.prevent="moveWebsiteDown(index)">
                         <i class="fa-arrow-down fas"></i>
                     </button>
                 </div>
 
                 <div class="set entered">
-                    <button class="button small-button" @click.prevent="addAnotherPersonalWebsite"><i
-                            class="fas fa-plus"></i></button>
+                    <button class="button small-button" @click.prevent="addAnotherPersonalWebsite"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 

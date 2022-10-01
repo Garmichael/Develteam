@@ -161,13 +161,19 @@
                     <edit-websites v-if="websiteListMode==='edit'" v-on:doneEditing="websiteListMode = 'display'"></edit-websites>
                 </div>
 
-                <div v-if="Object.keys(developer.workHistory || {}).length > 0" class="work-history">
-                    <h3>Work History</h3>
-                    <ul v-for="workItem in developer.workHistory">
+                <div v-if="isSelf || Object.keys(developer.workHistory || []).length > 0" class="work-history">
+                    <h3>
+                        Work History
+                        <i v-if="isSelf && workHistoryMode === 'display'" class="fas fa-pencil-alt edit-icon" @click="toggleEditWorkHistory()"></i>
+                    </h3>
+
+                    <ul v-if="workHistoryMode === 'display'" v-for="workItem in developer.workHistory">
                         <li>{{workItem.place}}</li>
                         <li>{{workItem.title}}</li>
-                        <li>{{workItem.start}} - {{workItem.end}}</li>
+                        <li>{{workItem.start}} <template v-if="workItem.end">- {{workItem.end}}</template></li>
                     </ul>
+
+                    <edit-work-history v-if="workHistoryMode === 'edit'" v-on:doneEditing="workHistoryMode = 'display'"></edit-work-history>
                 </div>
 
                 <div v-if="Object.keys(developer.educationHistory || {}).length > 0" class="education-history">
@@ -203,8 +209,7 @@
             <edit-networking v-if="displayMode === 'editNetworking'"
                              v-on:doneEditing="displayMode = 'normal'"></edit-networking>
 
-            <edit-work-history v-if="displayMode === 'editWorkHistory'"
-                               v-on:doneEditing="displayMode = 'normal'"></edit-work-history>
+
             <edit-education-history v-if="displayMode === 'editEducationHistory'"
                                     v-on:doneEditing="displayMode = 'normal'"></edit-education-history>
 
@@ -247,7 +252,8 @@
                 savingFollowingChange: false,
                 displayMode: 'normal',
                 websiteListMode: 'display',
-                roleSkillListMode: 'display'
+                roleSkillListMode: 'display',
+                workHistoryMode: 'display'
             }
         },
 
@@ -462,6 +468,12 @@
 
             toggleEditRolesSkills() {
                 this.roleSkillListMode = this.roleSkillListMode === 'display'
+                    ? 'edit'
+                    : 'display';
+            },
+
+            toggleEditWorkHistory(){
+                this.workHistoryMode = this.workHistoryMode === 'display'
                     ? 'edit'
                     : 'display';
             },

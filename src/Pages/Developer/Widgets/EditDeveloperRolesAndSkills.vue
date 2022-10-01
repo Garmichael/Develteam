@@ -1,7 +1,7 @@
 <template>
     <section id="edit-developer-roles-and-skills">
         <div class="edit-container roles-and-skills">
-            <h1>Developer Role</h1>
+            <label>Developer Role</label>
 
             <input type="text" placeholder="Developer Roles (e.x: Pixel Artist, Engine Programmer, 3D Modeler...)"
                    v-model="formData.role"/>

@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
             .field('users.is_tester', 'isTester')
             .field('users.is_producer', 'isProducer')
             .field('users.role', 'role')
-            .field('users.resume_work', 'workHistory')
+            .field('users.work_history', 'workHistory')
             .field('users.resume_education', 'educationHistory')
             .field('users.looking_for_game', 'lookingForGame')
             .field('users.looking_desc', 'lookingForDescription')
@@ -87,9 +87,12 @@ router.get('/', function (req, res) {
 
             records.forEach(function (record) {
 
-                if (_.isEmpty(record.workHistory)) {
-                    record.workHistory = {};
+                try {
+                    JSON.parse(record.workHistory);
+                } catch (e) {
+                    record.workHistory = '[]';
                 }
+
 
                 if (_.isEmpty(record.educationHistory)) {
                     record.educationHistory = {};
@@ -450,7 +453,7 @@ router.post('/workHistory', function (req, res) {
         }
 
         if (req.body.workHistory === undefined || req.body.workHistory === null) {
-            req.body.workHistory = {};
+            req.body.workHistory = [];
         }
 
 
@@ -459,12 +462,12 @@ router.post('/workHistory', function (req, res) {
         try {
             JSON.parse(JSON.stringify(workHistory));
         } catch (e) {
-            workHistory = '{}';
+            workHistory = '[]';
         }
 
         query = squel.update()
             .table('users')
-            .set('resume_work', workHistory)
+            .set('work_history', workHistory)
 
             .where('id = ?', loggedUser.info.id)
             .toString();
@@ -479,7 +482,7 @@ router.post('/workHistory', function (req, res) {
             query = squel.select()
                 .from('users')
                 .field('id', 'id')
-                .field('resume_work', 'workHistory')
+                .field('work_history', 'workHistory')
                 .where('id = ?', loggedUser.info.id)
                 .toString();
 
