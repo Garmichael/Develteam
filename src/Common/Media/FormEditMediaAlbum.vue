@@ -5,13 +5,14 @@
             <label><input type="text" placeholder="Album Name" v-model="albumName"/></label>
 
             <label>
-                Album Cover Art <input type="file" name="avatar" @change="updateuploadedAlbumName" accept="image/*"/>
+                Album Cover Art <input type="file" name="avatar" @change="updateUploadedAlbumName" accept="image/*"/>
                 <div v-if="uploadedImageSrc" class="albumPreview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
+                <div v-if="albumImageTooBig" class="validation-messages error">Maximum filesize of an Album Icon is 10Mb</div>
             </label>
 
             <button class="button" @click.prevent="editAlbum">Cancel</button>
             <button class="button" @click.prevent="enterDeleteMode">Delete Album</button>
-            <button class="button" @click.prevent="editAlbum">Save Changes</button>
+            <button class="button" @click.prevent="editAlbum" :disabled="!isValidated()">Save Changes</button>
         </form>
 
         <template v-if="deleteMode">
@@ -37,7 +38,8 @@
                 uploadedImageSrc: '',
                 savingAlbum: false,
                 albumName: this.album.title,
-                deleteMode: false
+                deleteMode: false,
+                albumImageTooBig: false
             }
         },
 
@@ -50,9 +52,12 @@
         computed: {},
 
         methods: {
+            isValidated() {
+                return !this.albumImageTooBig &&  this.albumName.trim() !== ''
+            },
 
             editAlbum(){
-                if (this.albumName.trim() === '') {
+                if (!this.isValidated()) {
                     return;
                 }
 
@@ -66,7 +71,7 @@
                 });
             },
 
-            updateuploadedAlbumName(e){
+            updateUploadedAlbumName(e){
                 let input = e.target;
                 let reader;
                 let self = this;
@@ -87,6 +92,7 @@
 
                 this.uploadedAlbumName = e.target.files[0].name;
                 this.albumFile = e.target.files[0];
+                this.albumImageTooBig = e.target.files[0].size > 10 * 1024 * 1024;
             },
 
             enterDeleteMode(){

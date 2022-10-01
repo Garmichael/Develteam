@@ -461,8 +461,14 @@
                     reader.readAsDataURL(input.files[0]);
                 }
 
+                let avatarTooBig = e.target.files[0].size > 10 * 1024 * 1024;
                 this.formErrors = false;
-                this.$store.dispatch('developerPage/SaveAvatar', e.target.files[0]);
+
+                if (avatarTooBig) {
+                    alert("Maximum filesize for an Avatar is 10MB");
+                } else {
+                    this.$store.dispatch('developerPage/SaveAvatar', e.target.files[0]);
+                }
             },
 
             toggleEditWebsites(){

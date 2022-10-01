@@ -7,10 +7,11 @@
             <label>
                 Album Cover Art <input type="file" name="avatar" @change="updateUploadedAlbumName" accept="image/jpeg, image/png"/>
                 <div v-if="uploadedImageSrc" class="albumPreview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
+                <div v-if="albumImageTooBig" class="validation-messages error">Maximum filesize of an Album Icon is 10Mb</div>
             </label>
 
             <button class="button" @click.prevent="cancel">Cancel</button>
-            <button class="button" @click.prevent="addAlbum">Create</button>
+            <button class="button" @click.prevent="addAlbum" :disabled="!isValidated()">Create</button>
         </form>
 
         <saver-large v-else></saver-large>
@@ -28,7 +29,8 @@
                 albumFile: undefined,
                 uploadedAlbumName: '',
                 uploadedImageSrc: '',
-                savingAlbum: false
+                savingAlbum: false,
+                albumImageTooBig: false
             }
         },
 
@@ -39,8 +41,12 @@
         computed: {},
 
         methods: {
+            isValidated(){
+                return !this.albumImageTooBig && this.albumName.trim() !== '';
+            },
+
             addAlbum(){
-                if (this.albumName.trim() === '') {
+                if (!this.isValidated()) {
                     return;
                 }
 
@@ -76,6 +82,7 @@
 
                 this.uploadedAlbumName = e.target.files[0].name;
                 this.albumFile = e.target.files[0];
+                this.albumImageTooBig = e.target.files[0].size > 10 * 1024 * 1024;
             },
 
             cancel(){

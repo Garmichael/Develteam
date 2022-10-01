@@ -16,12 +16,14 @@
                 <h1>Avatar Image</h1>
                 <input type="file" name="avatar" @change="updateuploadedAvatarName" accept="image/jpeg, image/png"/>
                 <div v-if="uploadedImageSrc" class="avatar-preview" :style="`background-image: url('${uploadedImageSrc}')`"></div>
+
+                <div v-if="avatarTooBig" class="validation-messages error">Maximum filesize for an Avatar is 10Mb</div>
                 <div v-if="localAlias.trim() === ''" class="validation-messages error">Set a Title for this Game</div>
             </div>
 
             <div class="buttons">
                 <button class="button" @click.prevent="cancelChanges">Cancel</button>
-                <button class="button" @click.prevent="submitChanges">Save</button>
+                <button class="button" @click.prevent="submitChanges" :disabled="!isValidated()">Save</button>
             </div>
         </div>
     </section>
@@ -39,7 +41,8 @@
                 uploadedAvatarName: '',
                 uploadedImageSrc: '',
                 localAlias: this.game.alias,
-                isSaving: false
+                isSaving: false,
+                avatarTooBig: false
             }
         },
 
@@ -75,6 +78,7 @@
                     reader.readAsDataURL(input.files[0]);
                 }
 
+                this.avatarTooBig = e.target.files[0].size > 10 * 1024 * 1024;
                 this.uploadedAvatarName = e.target.files[0].name;
                 this.avatarFile = e.target.files[0];
             },
@@ -83,8 +87,12 @@
                 this.$emit('doneEditing');
             },
 
+            isValidated(){
+                return !this.avatarTooBig && this.localAlias.trim() !== '';
+            },
+
             submitChanges(){
-                if (this.localAlias.trim() === '') {
+                if (!this.isValidated()) {
                     return;
                 }
 

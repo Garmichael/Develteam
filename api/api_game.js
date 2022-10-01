@@ -439,7 +439,7 @@ router.post('/updateVitals', function (req, res) {
             }
         });
 
-        upload = multer({storage: storage}).single('avatarFile');
+        upload = multer({storage: storage, limits: {fileSize: 10 * 1024 * 1024}}).single('avatarFile');
 
         upload(req, res, function (err) {
             if (err) {

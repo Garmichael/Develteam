@@ -61,7 +61,11 @@ export default {
 
             axios.post('/api/developer/uploadAvatar', formData).then(
                 (response) => {
-                    context.dispatch('developerPage/getDeveloperInformation', context.state.developerInformation.stringUrl);
+                    if(response.data.response === 'unsuccessful'){
+                        alert("Maximum filesize for an Avatar is 10MB")
+                    } else {
+                        context.dispatch('developerPage/getDeveloperInformation', context.state.developerInformation.stringUrl);
+                    }
                 },
                 (response) => {
                 }
