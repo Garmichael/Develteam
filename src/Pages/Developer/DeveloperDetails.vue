@@ -28,8 +28,12 @@
                     </div>
                 </div>
 
-                <h1 class="dev-alias"><i :class="[{'fas fa-user': true, 'online': developerIsOnline}]"></i>{{developer.alias}}
+                <h1 class="dev-alias">
+                    <i :class="[{'fas fa-user': true, 'online': developerIsOnline}]"></i>{{developer.alias}}
                 </h1>
+
+                <div v-if="developerIsOnline" class="last-online"><i class="fa fa-circle online"></i> Online</div>
+                <div v-if="!developerIsOnline" class="last-online"><i class="fa fa-circle"></i> Offline ({{developer.lastOnline| formatDate}})</div>
 
                 <ul v-if="showBasicInfo" class="basic-info">
                     <li v-if="developerFullName!==''">{{developerFullName}}</li>
