@@ -37,6 +37,7 @@
             </fieldset>
 
             <fieldset>
+                <button class="button" @click.prevent="cancelPiece">Cancel</button>
                 <button class="button" @click.prevent="submitNewPiece">Submit</button>
             </fieldset>
 
@@ -218,6 +219,10 @@
                         this.formErrors.push('Uploaded preview image is not an acceptable type');
                     }
                 }
+            },
+
+            cancelPiece(){
+                this.$emit('doneEditing');
             }
         },
 

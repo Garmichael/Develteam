@@ -20,7 +20,7 @@
 
             </vue-masonry>
 
-            <new-piece-form v-if="addPieceMode" :album="album" :page-type="pageType" :page-id="pageId"></new-piece-form>
+            <new-piece-form v-if="addPieceMode" v-on:doneEditing="addPieceMode = false" :album="album" :page-type="pageType" :page-id="pageId"></new-piece-form>
         </template>
 
         <single-piece-listing v-if="singlePieceMode" :album="album" :pieces="pieces" :medias-id="mediasId" :can-edit="canEdit"></single-piece-listing>
