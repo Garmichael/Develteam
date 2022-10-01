@@ -30,7 +30,7 @@
                 <div v-if="editForumErrorMessage" class="validation-messages error">{{editForumErrorMessage}}</div>
                 <input type="text" placeholder="Forum Title" v-model="editForumTitle" @input="editForumErrorMessage = ''"/>
                 <textarea v-model="editForumDescription"></textarea>
-                <button class="button" @click="editMode = false">Cancel</button>
+                <button class="button minor" @click="editMode = false">Cancel</button>
                 <button class="button" @click="saveForum">Save</button>
             </div>
         </template>

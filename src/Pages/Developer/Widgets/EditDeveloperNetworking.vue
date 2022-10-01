@@ -6,7 +6,7 @@
             <textarea placeholder="What I'm looking for in a team" v-model="formData.lookingForDescription"></textarea>
 
             <div class="buttons">
-                <button class="button" @click.prevent="cancelChanges">Cancel</button>
+                <button class="button minor" @click.prevent="cancelChanges">Cancel</button>
                 <button class="button" @click.prevent="submitChanges">Save</button>
             </div>
         </div>

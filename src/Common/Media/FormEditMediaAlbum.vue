@@ -10,14 +10,14 @@
                 <div v-if="albumImageTooBig" class="validation-messages error">Maximum filesize of an Album Icon is 10Mb</div>
             </label>
 
-            <button class="button" @click.prevent="editAlbum">Cancel</button>
+            <button class="button minor" @click.prevent="editAlbum">Cancel</button>
             <button class="button" @click.prevent="enterDeleteMode">Delete Album</button>
             <button class="button" @click.prevent="editAlbum" :disabled="!isValidated()">Save Changes</button>
         </form>
 
         <template v-if="deleteMode">
             <h1>Are you sure you want to delete this album and all the media pieces inside it?</h1>
-            <button class="button" @click.prevent="exitDeleteMode">Cancel</button>
+            <button class="button minor" @click.prevent="exitDeleteMode">Cancel</button>
             <button class="button" @click.prevent="deleteAlbum">Delete Album</button>
         </template>
 

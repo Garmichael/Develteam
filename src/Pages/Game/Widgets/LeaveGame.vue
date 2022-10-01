@@ -25,7 +25,7 @@
             </div>
 
             <div class="button-container">
-                <span><button class="button" @click.prevent="cancelLeaving">Cancel</button></span>
+                <span><button class="button minor" @click.prevent="cancelLeaving">Cancel</button></span>
 
                 <span v-if="members.length > 1"><button class="button" @click.prevent="leaveProject">Yes, leave Project</button></span>
                 <span v-if="members.length === 1"><button class="button" @click.prevent="leaveProject">Yes, Delete Project</button></span>

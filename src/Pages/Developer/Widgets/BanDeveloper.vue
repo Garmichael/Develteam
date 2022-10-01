@@ -6,7 +6,7 @@
             <label v-if="!formData.isBanned">Ban this developer?</label>
 
             <div class="buttons">
-                <button class="button" @click.prevent="cancelChanges">Cancel</button>
+                <button class="button minor" @click.prevent="cancelChanges">Cancel</button>
                 <button class="button" v-if="!formData.isBanned" @click.prevent="submitBan">Yes, Ban</button>
                 <button class="button" v-if="formData.isBanned" @click.prevent="submitUnBan">Un-Ban</button>
             </div>

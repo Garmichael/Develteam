@@ -26,13 +26,13 @@
 
             <template v-if="!isSaving">
                 <markdown-editor v-model="editPostContent"></markdown-editor>
-                <button class="button" @click="editPostMode = false">Cancel</button>
+                <button class="button minor" @click="editPostMode = false">Cancel</button>
                 <button class="button" @click="saveEditedPost">Save Changes</button>
             </template>
         </div>
 
         <div class="delete-post-form" v-if="deletePostMode">
-            <button class="button" @click="deletePostMode = false">Cancel</button>
+            <button class="button minor" @click="deletePostMode = false">Cancel</button>
             <button class="button" @click="deletePost">Delete Post</button>
         </div>
     </section>

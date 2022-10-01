@@ -22,7 +22,7 @@
                 <option value="suggestion">Suggestion</option>
             </select>
 
-            <button class="button" @click.prevent="showSubmitForm = false" :disable="submitIsSaving">Cancel</button>
+            <button class="button minor" @click.prevent="showSubmitForm = false" :disable="submitIsSaving">Cancel</button>
             <button class="button" @click.prevent="submitWorkItem" :disable="submitIsSaving">Submit</button>
         </section>
 

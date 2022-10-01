@@ -28,13 +28,13 @@
 
             <section v-if="editMode" class="thread-controls-form">
                 <input type="text" placeholder="Thread Subject" v-model="editThreadTitle"/>
-                <button class="button" @click="editMode = false">Cancel</button>
+                <button class="button minor" @click="editMode = false">Cancel</button>
                 <button class="button" @click="saveEditThread">Save</button>
             </section>
 
             <section v-if="deleteMode" class="thread-controls-form">
                 <h3>Are you sure you want to delete this thread and all the posts in it?</h3>
-                <button class="button" @click="deleteMode = false">Cancel</button>
+                <button class="button minor" @click="deleteMode = false">Cancel</button>
                 <button class="button" @click="deleteThread">Delete</button>
             </section>
 
@@ -44,7 +44,7 @@
                 <select v-model="moveToForumId" @change="moveToForumErrorMessage = ''">
                     <option v-for="moveToForum in moveModeForumsList" :value="moveToForum.id" v-if="moveToForum.id !== forum.id">{{moveToForum.label}}</option>
                 </select>
-                <button class="button" @click="moveMode = false">Cancel</button>
+                <button class="button minor" @click="moveMode = false">Cancel</button>
                 <button class="button" @click="moveThread">Move</button>
             </section>
 

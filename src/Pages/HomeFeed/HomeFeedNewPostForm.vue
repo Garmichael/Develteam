@@ -16,7 +16,7 @@
                 <input type="text" placeholder="Subject (optional)" v-model="newPostSubject"/>
                 <markdown-editor v-model="newPostContent" placeholder="Post Content"></markdown-editor>
                 <button class="button" @click.prevent="submitNewPost">Submit</button>
-                <button class="button" @click.prevent="expanded = false">Cancel</button>
+                <button class="button minor" @click.prevent="expanded = false">Cancel</button>
             </form>
         </div>
     </div>

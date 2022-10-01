@@ -10,7 +10,7 @@
                 <div v-if="albumImageTooBig" class="validation-messages error">Maximum filesize of an Album Icon is 10Mb</div>
             </label>
 
-            <button class="button" @click.prevent="cancel">Cancel</button>
+            <button class="button minor" @click.prevent="cancel">Cancel</button>
             <button class="button" @click.prevent="addAlbum" :disabled="!isValidated()">Create</button>
         </form>
 

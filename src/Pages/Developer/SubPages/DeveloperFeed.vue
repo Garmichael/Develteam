@@ -17,7 +17,7 @@
                         <input type="text" placeholder="Subject (optional)" v-model="newPostSubject"/>
                         <markdown-editor v-model="newPostContent" placeholder="Post Content"></markdown-editor>
                         <button class="button" @click.prevent="submitNewPost">Submit</button>
-                        <button class="button" @click.prevent="showNewPostForm = false">Cancel</button>
+                        <button class="button minor" @click.prevent="showNewPostForm = false">Cancel</button>
                     </form>
                 </div>
 
@@ -37,7 +37,7 @@
                         <input type="text" placeholder="Subject (optional)" v-model="newPostSubject"/>
                         <markdown-editor v-model="newPostContent" placeholder="Post Content"></markdown-editor>
                         <button class="button" @click.prevent="submitNewPost">Submit</button>
-                        <button class="button" @click.prevent="showNewPostForm = false">Cancel</button>
+                        <button class="button minor" @click.prevent="showNewPostForm = false">Cancel</button>
                     </form>
                 </div>
 
@@ -58,7 +58,7 @@
                             <input type="text" placeholder="Subject (optional)" v-model="newPostSubject"/>
                             <markdown-editor v-model="newPostContent" placeholder="Post Content"></markdown-editor>
                             <button class="button" @click.prevent="submitNewPost">Submit</button>
-                            <button class="button" @click.prevent="showNewPostForm = false">Cancel</button>
+                            <button class="button minor" @click.prevent="showNewPostForm = false">Cancel</button>
                         </form>
                     </div>
 

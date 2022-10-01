@@ -15,7 +15,7 @@
                 <div v-if="addForumError" class="validation-messages error">{{addForumError}}</div>
                 <input type="text" placeholder="Forum Title" v-model="addForumTitle"/>
                 <textarea placeholder="Forum Description" v-model="addForumDescription"></textarea>
-                <button class="button" @click="addForumMode = false">Cancel</button>
+                <button class="button minor" @click="addForumMode = false">Cancel</button>
                 <button class="button" @click="addForum">Add Forum</button>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div v-if="editCategoryError" class="validation-messages error">{{editCategoryError}}</div>
             <input type="text" placeholder="Category Title" v-model="newCategoryTitle" @focus="editCategoryError = ''"/>
             <label><input type="checkbox" v-model="isPrivate"/> Members Only Category</label>
-            <button class="button" @click.prevent="editMode = false">Cancel</button>
+            <button class="button minor" @click.prevent="editMode = false">Cancel</button>
             <button class="button" @click.prevent="editCategory">Edit Category</button>
         </section>
 

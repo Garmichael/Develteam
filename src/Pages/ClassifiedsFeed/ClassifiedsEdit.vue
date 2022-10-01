@@ -13,7 +13,7 @@
 
                     <div class="validation-messages error" v-for="error in saveErrors">{{error}}</div>
 
-                    <button class="button" @click="cancelPost">Cancel</button>
+                    <button class="button minor" @click="cancelPost">Cancel</button>
                     <button class="button" @click="deletePost">Delete</button>
                     <button class="button" @click="submitPost">Submit</button>
                 </template>

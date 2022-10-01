@@ -65,7 +65,7 @@
             </div>
 
             <div class="buttons">
-                <button class="button" :disabled="isSaving" @click.prevent="cancelChanges">Cancel</button>
+                <button class="button minor" :disabled="isSaving" @click.prevent="cancelChanges">Cancel</button>
                 <button class="button" :disabled="isSaving" @click.prevent="submitChanges">Save</button>
             </div>
         </div>

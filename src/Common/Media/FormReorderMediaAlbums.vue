@@ -30,7 +30,7 @@
                 </li>
             </ul>
 
-            <button class="button" @click.prevent="cancel">Cancel</button>
+            <button class="button minor" @click.prevent="cancel">Cancel</button>
             <button class="button" @click.prevent="save">Save</button>
         </form>
 

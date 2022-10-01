@@ -328,7 +328,6 @@ a, .c-link {
     &:hover, &.active {
         background-color: @colorB;
         color: @colorC;
-        transform: translate(0, 2px);
     }
 
     &:disabled {
@@ -336,6 +335,11 @@ a, .c-link {
         color: @colorC;
         box-shadow: none;
         transform: translate(0,0);
+    }
+
+    &.minor {
+        background-color: darken(@colorA, 50%);
+        color: @colorA;
     }
 }
 

@@ -37,7 +37,7 @@
             </fieldset>
 
             <fieldset>
-                <button class="button" @click.prevent="cancelPiece">Cancel</button>
+                <button class="button minor" @click.prevent="cancelPiece">Cancel</button>
                 <button class="button" @click.prevent="submitNewPiece">Submit</button>
             </fieldset>
 

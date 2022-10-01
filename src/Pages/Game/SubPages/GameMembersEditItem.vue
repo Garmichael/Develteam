@@ -27,7 +27,7 @@
         <template v-if="!isSaving && removeMode">
             <section class="remove-user">
                 <h1>Remove {{member.alias}} from this game project?</h1>
-                <button class="button" @click="removeMode = false">Cancel</button>
+                <button class="button minor" @click="removeMode = false">Cancel</button>
                 <button class="button" @click="removeMember">Yes, Remove This User</button>
             </section>
         </template>

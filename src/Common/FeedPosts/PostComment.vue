@@ -23,13 +23,13 @@
 
             <div v-if="editMode && canEdit" class="edit-mode">
                 <markdown-editor classes="comment-content" v-model="editedContent"></markdown-editor>
-                <button class="button" @click="exitEditMode">Cancel</button>
+                <button class="button minor" @click="exitEditMode">Cancel</button>
                 <button class="button" @click="saveEditedComment">Save</button>
             </div>
 
             <div v-if="deleteMode && canEdit" class="delete-mode">
                 <div class="validation-messages friendly">Are you sure you want to delete this comment?</div>
-                <button class="button" @click="exitDeleteMode">Cancel</button>
+                <button class="button minor" @click="exitDeleteMode">Cancel</button>
                 <button class="button" @click="deleteComment">Delete</button>
             </div>
 

@@ -25,7 +25,7 @@
                     <div v-if="newThreadErrorMessage" class="validation-messages error">{{newThreadErrorMessage}}</div>
                     <input type="text" v-model="newThreadTitle" placeholder="Thread Subject"/>
                     <markdown-editor v-model="newThreadContent" placeholder="Post Content"></markdown-editor>
-                    <button class="button" @click="addThreadMode = false">Cancel</button>
+                    <button class="button minor" @click="addThreadMode = false">Cancel</button>
                     <button class="button" @click="saveNewThread">Save</button>
                 </template>
             </section>

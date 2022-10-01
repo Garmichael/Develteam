@@ -27,7 +27,7 @@
                     </fieldset>
 
                     <fieldset>
-                        <button class="button" @click.prevent="exitEditMode">Cancel</button>
+                        <button class="button minor" @click.prevent="exitEditMode">Cancel</button>
                         <button class="button" @click.prevent="enterDeleteMode">Delete</button>
                         <button class="button" @click.prevent="submitEditedPiece">Save</button>
                     </fieldset>
@@ -42,7 +42,7 @@
                 <template v-if="deleteMode">
                     <fieldset>
                         <h1>Are you sure you want to delete this piece?</h1>
-                        <button class="button" @click.prevent="exitDeleteMode">Cancel</button>
+                        <button class="button minor" @click.prevent="exitDeleteMode">Cancel</button>
                         <button class="button" @click.prevent="deletePiece">Delete</button>
                     </fieldset>
                 </template>

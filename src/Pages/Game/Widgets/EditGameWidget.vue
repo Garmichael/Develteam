@@ -58,7 +58,7 @@
             <div v-if="errorMessage" class="validation-messages error">{{errorMessage}}</div>
 
             <div class="companion-content-subsection buttons">
-                <button class="button" @click.prevent="cancelChanges">Cancel</button>
+                <button class="button minor" @click.prevent="cancelChanges">Cancel</button>
                 <button class="button" @click.prevent="saveChanges">Save</button>
             </div>
         </template>

@@ -78,14 +78,14 @@
         <form v-if="!isMedia && editMode && !deleteMode" class="content">
             <input type="text" placeholder="Subject (optional)" v-model="editPostTitle"/>
             <markdown-editor v-model="editPostContent" placeholder="Add a new post"></markdown-editor>
-            <button class="button" @click.prevent="cancelEditPost">Cancel</button>
+            <button class="button minor" @click.prevent="cancelEditPost">Cancel</button>
             <button class="button" @click.prevent="enterDeleteMode">Delete Post</button>
             <button class="button" @click.prevent="saveEditPost">Save</button>
         </form>
 
         <form v-if="!isMedia && editMode && deleteMode" class="content">
             <h1>Delete this post?</h1>
-            <button class="button" @click.prevent="exitDeleteMode">Cancel</button>
+            <button class="button minor" @click.prevent="exitDeleteMode">Cancel</button>
             <button class="button" @click.prevent="deletePost">Delete</button>
         </form>
 
