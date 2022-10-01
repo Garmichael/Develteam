@@ -112,14 +112,12 @@ router.post('/album/delete', function (req, res) {
 
 router.post('/albums/reorder', function (req, res) {
     loggedUserBuilder.buildLoggedUserData(req, function (loggedUser) {
-        console.log(req.body);
         queries.reorderAlbums({
             loggedUser: loggedUser,
             pageType: req.body.pageType,
             pageId: req.body.pageId,
             albums: req.body.albums
         }, function (response) {
-            console.log(response);
             if (response.errors) {
                 res.json({errors: response.errors});
                 return;

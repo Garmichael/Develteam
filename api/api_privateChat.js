@@ -406,7 +406,6 @@ router.get('/historyMessages', function (req, res) {
                     return;
                 }
 
-                console.log(records);
                 _.each(records, function (record) {
                     record.from = {
                         'id': record.senderId,
