@@ -50,8 +50,20 @@
                     <span v-if="savingFollowingChange"><i class="fas fa-sync fa-spin"></i></span>
                 </div>
 
-                <div class="roles" v-if="showRoleTags">
-                    <h3>Roles</h3>
+                <div v-if="developer.lookingForGame" class="wants-to-collab">
+                    <div class="badge">Wants to join a Game Project</div>
+                    <div class="description" v-if="developer.lookingForDescription">
+                        <h3>What I'm looking for in a team</h3>
+                        {{developer.lookingForDescription}}
+                    </div>
+                </div>
+
+                <div class="roles" v-if="showRoleTags && roleSkillListMode==='display'">
+                    <h3>
+                        Roles
+                        <i v-if="isSelf" class="fas fa-pencil-alt edit-icon" @click="toggleEditRolesSkills()"></i>
+                    </h3>
+
                     <div class="role-list">
                         <router-link v-if="developer.isProducer" :to="'/Browse/Developers?seekingRole=producers'" class="role-tag">
                             <span>Producer</span>
@@ -87,9 +99,13 @@
                     </div>
                 </div>
 
-                <div class="skills" v-if="showSkillTags">
-                    <h3>Skills</h3>
-                    <div v-if="developer.skills" class="skill-list">
+                <div class="skills" v-if="showSkillTags && roleSkillListMode==='display'">
+                    <h3>
+                        Skills
+                        <i v-if="isSelf" class="fas fa-pencil-alt edit-icon" @click="toggleEditRolesSkills()"></i>
+                    </h3>
+
+                    <div v-if="roleSkillListMode==='display' && developer.skills" class="skill-list">
                         <router-link :to="'/Browse/Developers?seekingSkill=' + skillId"
                                      v-for="skillId in developer.skills" class="skill-tag">
                             {{getSkill(skillId)}}
@@ -97,13 +113,7 @@
                     </div>
                 </div>
 
-                <div v-if="developer.lookingForGame" class="wants-to-collab">
-                    <div class="badge">Wants to join a Game Project</div>
-                    <div class="description" v-if="developer.lookingForDescription">
-                        <h3>What I'm looking for in a team</h3>
-                        {{developer.lookingForDescription}}
-                    </div>
-                </div>
+                <edit-roles-and-skills v-if="roleSkillListMode === 'edit'" v-on:doneEditing="roleSkillListMode = 'display'"></edit-roles-and-skills>
 
                 <div v-if="showGames || isSelf" class="game-projects companion-content-subsection">
                     <h3>{{developer.alias}}'s Game Projects</h3>
@@ -180,7 +190,6 @@
 
                     <button @click="displayMode = 'editAccountInformation'">Edit Account Information</button>
                     <button @click="displayMode = 'editBasicDetails'">Edit Bio Details</button>
-                    <button @click="displayMode = 'editRolesAndSkills'">Edit Roles and Skills</button>
                     <button @click="displayMode = 'editNetworking'">Edit Networking Details</button>
                     <button @click="displayMode = 'editWorkHistory'">Edit Work History</button>
                     <button @click="displayMode = 'editEducationHistory'">Edit Education History</button>
@@ -191,8 +200,6 @@
                                v-on:doneEditing="displayMode = 'normal'"></edit-account-info>
             <edit-basic-details v-if="displayMode === 'editBasicDetails'"
                                 v-on:doneEditing="displayMode = 'normal'"></edit-basic-details>
-            <edit-roles-and-skills v-if="displayMode === 'editRolesAndSkills'"
-                                   v-on:doneEditing="displayMode = 'normal'"></edit-roles-and-skills>
             <edit-networking v-if="displayMode === 'editNetworking'"
                              v-on:doneEditing="displayMode = 'normal'"></edit-networking>
 
@@ -239,7 +246,8 @@
             return {
                 savingFollowingChange: false,
                 displayMode: 'normal',
-                websiteListMode: 'display'
+                websiteListMode: 'display',
+                roleSkillListMode: 'display'
             }
         },
 
@@ -305,7 +313,8 @@
             },
 
             showRoleTags() {
-                return this.developer.isProducer ||
+                return this.isSelf ||
+                    this.developer.isProducer ||
                     this.developer.isDesigner ||
                     this.developer.isArtist ||
                     this.developer.isProgrammer ||
@@ -316,7 +325,7 @@
             },
 
             showSkillTags() {
-                return this.developer.skills.length > 0;
+                return this.isSelf || this.developer.skills.length > 0;
             },
 
             showContactOptions() {
@@ -446,11 +455,15 @@
             },
 
             toggleEditWebsites(){
-                if(this.websiteListMode === 'display'){
-                    this.websiteListMode = 'edit';
-                } else {
-                    this.websiteListMode = 'display';
-                }
+                this.websiteListMode = this.websiteListMode === 'display'
+                    ? 'edit'
+                    : 'display';
+            },
+
+            toggleEditRolesSkills() {
+                this.roleSkillListMode = this.roleSkillListMode === 'display'
+                    ? 'edit'
+                    : 'display';
             },
 
             getLinkIcon(url){

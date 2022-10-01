@@ -322,7 +322,7 @@ module.exports = {
 
                 record.isPinned = record.isPinned === 1;
             });
-            
+
             if (postType === 'media' && records.length > limit) {
                 let groupedPostCount = 0;
                 let lastAcceptedRecord = limit;

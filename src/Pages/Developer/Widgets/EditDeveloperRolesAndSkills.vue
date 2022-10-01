@@ -1,6 +1,6 @@
 <template>
     <section id="edit-developer-roles-and-skills">
-        <div class="roles-and-skills">
+        <div class="edit-container roles-and-skills">
             <h1>Developer Role</h1>
 
             <input type="text" placeholder="Developer Roles (e.x: Pixel Artist, Engine Programmer, 3D Modeler...)"
