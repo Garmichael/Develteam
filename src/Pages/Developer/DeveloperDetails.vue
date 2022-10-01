@@ -312,7 +312,7 @@
                     details.push(this.developerAge);
                 }
 
-                if (['male', 'female'].indexOf(this.developer.gender) > -1) {
+                if (['male', 'female', 'nonbinary'].indexOf(this.developer.gender) > -1) {
                     details.push(capitalizeFirstLetter(this.developer.gender));
                 }
 

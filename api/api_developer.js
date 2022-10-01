@@ -213,7 +213,7 @@ router.post('/basicInfo', function (req, res) {
             return;
         }
 
-        let gender = ['male', 'female'].indexOf(req.body.gender) > -1
+        let gender = ['male', 'female', 'nonbinary'].indexOf(req.body.gender) > -1
             ? req.body.gender
             : 'nospec';
 
