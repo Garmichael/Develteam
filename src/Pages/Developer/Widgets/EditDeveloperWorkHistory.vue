@@ -9,17 +9,18 @@
                     <input type="text" placeholder="Start Date" v-model="workItem.start"/>
                     <input type="text" placeholder="End Date" v-model="workItem.end"/>
 
-                <button class="button small-button" @click.prevent="removeWorkHistory(index)">
-                    <i class="fa-trash fas"></i>
-                </button>
+                    <button class="button small-button" @click.prevent="removeWorkHistory(index)">
+                        <i class="fa-trash fas"></i>
+                    </button>
 
-                <button v-if="index > 0" class="button small-button" @click.prevent="moveWorkHistoryUp(index)">
-                    <i class="fa-arrow-up fas"></i>
-                </button>
 
-                <button v-if="index !== formData.workHistory.length - 1" class="button small-button" @click.prevent="moveWorkHistoryDown(index)">
-                    <i class="fa-arrow-down fas"></i>
-                </button>
+                    <button v-if="index > 0" class="button small-button" @click.prevent="moveWorkHistoryUp(index)">
+                        <i class="fa-arrow-up fas"></i>
+                    </button>
+
+                    <button v-if="index !== formData.workHistory.length - 1" class="button small-button" @click.prevent="moveWorkHistoryDown(index)">
+                        <i class="fa-arrow-down fas"></i>
+                    </button>
                 </div>
             </div>
 

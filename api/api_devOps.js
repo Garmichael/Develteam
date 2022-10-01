@@ -17,7 +17,9 @@ router.get('/', function (req, res) {
         console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         ApplyRankToMedia(function () {
             ApplyWorkHistory((function () {
+                ApplyEducationHistory((function () {
 
+                }))
             }))
         });
         res.json({status: 'success'});
@@ -79,10 +81,6 @@ function ApplyWorkHistory(callback) {
 
                 let insertJson = JSON.stringify(newWorkHistory);
                 updateQuery += " when id = " + record.id + " then '" + escape(insertJson) + "'";
-
-                // Object.keys(workHistory).forEach(key => {
-                //
-                // });
             });
 
             updateQuery += " end)";
@@ -93,7 +91,56 @@ function ApplyWorkHistory(callback) {
 
         });
     });
+}
 
+
+function ApplyEducationHistory(callback) {
+    console.log(">> Applying Education History");
+
+    databaseQuery("ALTER TABLE users ADD COLUMN education mediumtext AFTER work_history;", [], (error, results) => {
+        if (error) {
+            console.log("ALTER TABLE ERROR: " + error);
+        }
+
+        let query = squel.select()
+            .from('users')
+            .field('id', 'id')
+            .field('resume_education', 'educationHistory')
+            .toString();
+
+        databaseQuery(query, [], (error, records) => {
+            let updateQuery = "UPDATE users SET education = (case ";
+
+            records.forEach((record) => {
+                let newEducationHistory = [];
+                if (_.isEmpty(record.educationHistory)) {
+                    record.educationHistory = {};
+                }
+
+                try {
+                    JSON.parse(record.educationHistory);
+                } catch (e) {
+                    record.educationHistory = '{}';
+                }
+
+                let parsedEducationHistory = JSON.parse(record.educationHistory);
+
+                Object.keys(parsedEducationHistory).forEach(key => {
+                    newEducationHistory.push(parsedEducationHistory[key]);
+                });
+
+                let insertJson = JSON.stringify(newEducationHistory);
+                updateQuery += " when id = " + record.id + " then '" + escape(insertJson) + "'";
+            });
+
+            updateQuery += " end)";
+
+            databaseQuery(updateQuery, [], (error, results)=>{
+                callback();
+            });
+
+        });
+    });
 }
 
 module.exports = router;

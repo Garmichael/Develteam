@@ -238,9 +238,9 @@ function registerAccount(email, alias, password, req, res, callback) {
             .set('resume_skills', '')
             .set('resume_interests', '')
             .set('resume_inspirations', '')
-            .set('resume_education', '{}')
             .set('websites', '[]')
             .set('work_history', '[]')
+            .set('education', '[]')
             .toString();
 
         databaseQuery(query, [], function (error, response) {

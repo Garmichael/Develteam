@@ -49,7 +49,7 @@ router.get('/', function (req, res) {
             .field('users.is_producer', 'isProducer')
             .field('users.role', 'role')
             .field('users.work_history', 'workHistory')
-            .field('users.resume_education', 'educationHistory')
+            .field('users.education', 'educationHistory')
             .field('users.looking_for_game', 'lookingForGame')
             .field('users.looking_desc', 'lookingForDescription')
             .field('users.websites', 'personalWebsites')
@@ -504,21 +504,22 @@ router.post('/educationHistory', function (req, res) {
         }
 
         if (req.body.educationHistory === undefined || req.body.educationHistory === null) {
-            req.body.educationHistory = {};
+            req.body.educationHistory = [];
         }
 
-
         let educationHistory = escape(req.body.educationHistory);
+
+        console.log(educationHistory);
 
         try {
             JSON.parse(JSON.stringify(educationHistory));
         } catch (e) {
-            educationHistory = '{}';
+            educationHistory = '[]';
         }
 
         query = squel.update()
             .table('users')
-            .set('resume_education', educationHistory)
+            .set('education', educationHistory)
 
             .where('id = ?', loggedUser.info.id)
             .toString();
@@ -533,7 +534,7 @@ router.post('/educationHistory', function (req, res) {
             query = squel.select()
                 .from('users')
                 .field('id', 'id')
-                .field('resume_education', 'educationHistory')
+                .field('education', 'educationHistory')
                 .where('id = ?', loggedUser.info.id)
                 .toString();
 

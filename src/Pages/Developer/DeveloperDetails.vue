@@ -169,20 +169,26 @@
 
                     <ul v-if="workHistoryMode === 'display'" v-for="workItem in developer.workHistory">
                         <li>{{workItem.place}}</li>
-                        <li>{{workItem.title}}</li>
-                        <li>{{workItem.start}} <template v-if="workItem.end">- {{workItem.end}}</template></li>
+                        <li v-if="workItem.title">{{workItem.title}}</li>
+                        <li v-if="workItem.start">{{workItem.start}} <template v-if="workItem.end">- {{workItem.end}}</template></li>
                     </ul>
 
                     <edit-work-history v-if="workHistoryMode === 'edit'" v-on:doneEditing="workHistoryMode = 'display'"></edit-work-history>
                 </div>
 
-                <div v-if="Object.keys(developer.educationHistory || {}).length > 0" class="education-history">
-                    <h3>Education History</h3>
-                    <ul v-for="educationItem in developer.educationHistory">
+                <div v-if="isSelf || Object.keys(developer.educationHistory || {}).length > 0" class="education-history">
+                    <h3>
+                        Education History
+                        <i v-if="isSelf && educationMode === 'display'" class="fas fa-pencil-alt edit-icon" @click="toggleEditEducation()"></i>
+                    </h3>
+
+                    <ul v-if="educationMode === 'display'" v-for="educationItem in developer.educationHistory">
                         <li>{{educationItem.place}}</li>
-                        <li>{{educationItem.title}}</li>
-                        <li>{{educationItem.start}} - {{educationItem.end}}</li>
+                        <li v-if="educationItem.title">{{educationItem.title}}</li>
+                        <li v-if="educationItem.start">{{educationItem.start}} <template v-if="educationItem.end">- {{educationItem.end}}</template></li>
                     </ul>
+
+                    <edit-education-history v-if="educationMode === 'edit'" v-on:doneEditing="educationMode = 'display'"></edit-education-history>
                 </div>
             </div>
 
@@ -197,8 +203,6 @@
                     <button @click="displayMode = 'editAccountInformation'">Edit Account Information</button>
                     <button @click="displayMode = 'editBasicDetails'">Edit Bio Details</button>
                     <button @click="displayMode = 'editNetworking'">Edit Networking Details</button>
-                    <button @click="displayMode = 'editWorkHistory'">Edit Work History</button>
-                    <button @click="displayMode = 'editEducationHistory'">Edit Education History</button>
                 </template>
             </div>
 
@@ -208,10 +212,6 @@
                                 v-on:doneEditing="displayMode = 'normal'"></edit-basic-details>
             <edit-networking v-if="displayMode === 'editNetworking'"
                              v-on:doneEditing="displayMode = 'normal'"></edit-networking>
-
-
-            <edit-education-history v-if="displayMode === 'editEducationHistory'"
-                                    v-on:doneEditing="displayMode = 'normal'"></edit-education-history>
 
 
             <template v-if="displayMode !== 'banDeveloper'">
@@ -253,7 +253,8 @@
                 displayMode: 'normal',
                 websiteListMode: 'display',
                 roleSkillListMode: 'display',
-                workHistoryMode: 'display'
+                workHistoryMode: 'display',
+                educationMode: 'display'
             }
         },
 
@@ -474,6 +475,12 @@
 
             toggleEditWorkHistory(){
                 this.workHistoryMode = this.workHistoryMode === 'display'
+                    ? 'edit'
+                    : 'display';
+            },
+
+            toggleEditEducation(){
+                this.educationMode = this.educationMode === 'display'
                     ? 'edit'
                     : 'display';
             },

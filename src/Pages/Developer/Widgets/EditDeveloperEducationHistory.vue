@@ -1,36 +1,35 @@
 <template>
     <section id="edit-developer-education-history">
-        <div class="education-history">
-            <h1>Education History</h1>
-
+        <div class="education-history edit-container">
             <div class="container" v-for="(educationItem, index) in formData.educationHistory">
                 <div class="set">
-                    <input type="text" placeholder="School" v-model="educationItem.place"/>
+                    <input type="text" placeholder="School" v-model="educationItem.place" :class="[{invalid: educationItem.place.trim() === ''}]"/>
                     <input type="text" placeholder="Field of Study / Degree" v-model="educationItem.title"/>
-                </div>
-                <div class="set">
                     <input type="text" placeholder="Start Date" v-model="educationItem.start"/>
                     <input type="text" placeholder="End Date" v-model="educationItem.end"/>
+
+                    <button class="button small-button" @click.prevent="removeEducationHistory(index)">
+                        <i class="fa-trash fas"></i>
+                    </button>
+
+                    <button v-if="index > 0" class="button small-button" @click.prevent="moveEducationUp(index)">
+                        <i class="fa-arrow-up fas"></i>
+                    </button>
+
+                    <button v-if="index !== formData.educationHistory.length - 1" class="button small-button" @click.prevent="moveEducationDown(index)">
+                        <i class="fa-arrow-down fas"></i>
+                    </button>
+
                 </div>
-                <button class="button" @click="removeEducationHistory(index)">Remove this Degree</button>
             </div>
 
-            <div class="container">
-                <div class="set">
-                    <input type="text" placeholder="School" v-model="newEducationSchool"/>
-                    <input type="text" placeholder="Field of Study / Degree" v-model="newEducationMajor"/>
-                </div>
-                <div class="set">
-                    <input type="text" placeholder="Start Date" v-model="newEducationStart"/>
-                    <input type="text" placeholder="End Date" v-model="newEducationEnd"/>
-                </div>
-
-                <button class="button" @click="addEducationHistory">Add another Degree</button>
+            <div class="set container">
+                <button class="button small-button" @click.prevent="addEducationHistory"><i class="fas fa-plus"></i></button>
             </div>
 
             <div class="buttons">
                 <button class="button" @click.prevent="cancelChanges">Cancel</button>
-                <button class="button" @click.prevent="submitChanges">Save</button>
+                <button class="button" @click.prevent="submitChanges" :disabled="!validateAllEntries()">Save</button>
             </div>
         </div>
 
@@ -47,10 +46,6 @@
         data() {
             return {
                 formData: _.clone(this.$store.state.developerPageModel.developerInformation),
-                newEducationSchool: '',
-                newEducationMajor: '',
-                newEducationStart: '',
-                newEducationEnd: ''
             }
         },
 
@@ -61,14 +56,21 @@
                 this.$emit('doneEditing');
             },
 
-            submitChanges() {
+            validateAllEntries(){
+                let isValid = true;
 
-                if (this.newEducationSchool.trim() !== '' ||
-                    this.newEducationMajor.trim() !== '' ||
-                    this.newEducationStart.trim() !== '' ||
-                    this.newEducationEnd.trim() !== ''
-                ) {
-                    this.addEducationHistory();
+                this.formData.educationHistory.forEach((educationItem)=>{
+                    if(educationItem.place.trim() === ''){
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            },
+
+            submitChanges() {
+                if(!this.validateAllEntries()){
+                    return;
                 }
 
                 this.$store.dispatch('developerPage/updateEducationHistory', {
@@ -78,37 +80,31 @@
             },
 
             addEducationHistory() {
-                let key = this.newEducationSchool;
-
-                if (this.newEducationSchool.trim() === '' ||
-                    this.newEducationMajor.trim() === '' ||
-                    this.newEducationStart.trim() === '' ||
-                    this.newEducationEnd.trim() === ''
-                ) {
-                    return;
-                }
-
-                if (!this.formData.newEducationSchool) {
-                    this.formData.newEducationSchool = {}
-                }
-
-                if (this.formData.educationHistory[key]) {
-                    key = key + Date.now();
-                }
-
-                Vue.set(this.formData.educationHistory, key,
-                    {place: this.newEducationSchool, title: this.newEducationMajor, start: this.newEducationStart, end: this.newEducationEnd}
-                );
-
-                this.newEducationSchool = '';
-                this.newEducationMajor = '';
-                this.newEducationStart = '';
-                this.newEducationEnd = '';
+                this.formData.educationHistory.push({
+                    place: '',
+                    title: '',
+                    start: '',
+                    end: ''
+                });
             },
 
             removeEducationHistory(index) {
                 Vue.delete(this.formData.educationHistory, index);
             },
+
+            moveEducationUp(index) {
+                const swapA = this.formData.educationHistory[index];
+                const swapB = this.formData.educationHistory[index - 1];
+                Vue.set(this.formData.educationHistory, index, swapB);
+                Vue.set(this.formData.educationHistory, index - 1, swapA);
+            },
+
+            moveEducationDown(index) {
+                const swapA = this.formData.educationHistory[index];
+                const swapB = this.formData.educationHistory[index + 1];
+                Vue.set(this.formData.educationHistory, index, swapB);
+                Vue.set(this.formData.educationHistory, index + 1, swapA);
+            }
         },
 
         watch: {
