@@ -90,7 +90,6 @@
                     }
                 });
 
-                console.log('checking validity');
                 return isValid;
             },
 

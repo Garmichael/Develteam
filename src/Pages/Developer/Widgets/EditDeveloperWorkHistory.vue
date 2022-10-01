@@ -29,7 +29,7 @@
 
             <div class="buttons">
                 <button class="button" @click.prevent="cancelChanges">Cancel</button>
-                <button class="button" @click.prevent="submitChanges">Save</button>
+                <button class="button" :disabled="!allEntriesAreValid()" @click.prevent="submitChanges">Save</button>
             </div>
         </div>
 
@@ -56,15 +56,19 @@
                 this.$emit('doneEditing');
             },
 
-            submitChanges() {
+            allEntriesAreValid() {
                 let isValid = true;
-                this.formData.workHistory.forEach((workHistory)=>{
-                    if(workHistory.place.trim() === ''){
+                this.formData.workHistory.forEach((workHistory) => {
+                    if (workHistory.place.trim() === '') {
                         isValid = false;
                     }
                 });
 
-                if(isValid) {
+                return isValid;
+            },
+
+            submitChanges() {
+                if(this.allEntriesAreValid()) {
                     this.$store.dispatch('developerPage/updateWorkHistory', {
                         developerId: this.formData.id,
                         workHistory: this.formData.workHistory
