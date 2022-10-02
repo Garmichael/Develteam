@@ -93,7 +93,13 @@ router.post('/', function (req, res) {
                             .where('id = ?', loggedUser.info.id)
                             .set('alias', updatedAlias)
                             .set('email', updatedEmail)
-                            .set('string_url', stringUrl);
+                            .set('string_url', stringUrl)
+                            .set('receive_user_email',
+                                !newInfo.receiveEmailNotifications || newInfo.receiveEmailNotifications === 'false' || newInfo.receiveEmailNotifications === '0' ? 0 : 1
+                            )
+                            .set('receive_promo_email',
+                                !newInfo.receivePromoEmails || newInfo.receivePromoEmails === 'false' || newInfo.receivePromoEmails === '0' ? 0 : 1
+                            );
 
                         if (updatedPassword !== '') {
                             query = query.set('password', updatedPassword)

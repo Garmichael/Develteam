@@ -1,44 +1,54 @@
 <template>
     <section id="edit-developer-basic-info">
-        <div class="basic-info">
+        <div class="basic-info edit-container">
             <template v-if="formData.delete !== 'DELETE'">
-                <h1>Account Information</h1>
+                <h1>Account Settings</h1>
 
-                <label>Username</label>
-                <div class="container">
-                    <div><input type="text" placeholder="Username" :disabled="isSaving" v-model="formData.alias"/></div>
-                </div>
+                <div class="set">
+                    <label>Username</label>
+                    <div class="container">
+                        <div><input type="text" placeholder="Username" :disabled="isSaving" v-model="formData.alias"/></div>
+                    </div>
 
-                <label>Email Address</label>
-                <div class="container">
-                    <div><input type="text" placeholder="Email Address" :disabled="isSaving" v-model="formData.email"/>
+                    <label>Email Address</label>
+                    <div class="container">
+                        <div><input type="text" placeholder="Email Address" :disabled="isSaving" v-model="formData.email"/>
+                        </div>
+                    </div>
+
+                    <div class="validation-messages friendly" v-if="showEmailError">
+                        Not a valid Email Address
                     </div>
                 </div>
 
-                <div class="validation-messages friendly" v-if="showEmailError">
-                    Not a valid Email Address
+                <div class="set">
+                    <label>Emails</label>
+                    <label><input type="checkbox" v-model="formData.receiveEmailNotifications" :disabled="isSaving" />Receive Email Notifications</label>
+                    <label><input type="checkbox" v-model="formData.receivePromoEmails" :disabled="isSaving" />Receive Official Emails</label>
                 </div>
 
-                <label>Change Password
-                    <a @click="passwordsShown = true" v-if="!passwordsShown">Show</a>
-                    <a @click="passwordsShown = false" v-if="passwordsShown">Hide</a>
-                </label>
+                <div class="set">
+                    <label>Change Password
+                        <a @click="passwordsShown = true" v-if="!passwordsShown">Show</a>
+                        <a @click="passwordsShown = false" v-if="passwordsShown">Hide</a>
+                    </label>
 
-                <div class="container">
-                    <div><input v-if="!passwordsShown" type="password" placeholder="New Password"
-                                :disabled="isSaving" v-model="formData.password" autocomplete="new-password"/>
-                    </div>
+                    <div class="container">
+                        <div><input v-if="!passwordsShown" type="password" placeholder="New Password"
+                                    :disabled="isSaving" v-model="formData.password" autocomplete="new-password"/>
+                        </div>
 
-                    <div><input v-if="passwordsShown" type="text" placeholder="New Password" v-model="formData.password"
-                                :disabled="isSaving" autocomplete="new-password"/>
-                    </div>
+                        <div><input v-if="passwordsShown" type="text" placeholder="New Password" v-model="formData.password"
+                                    :disabled="isSaving" autocomplete="new-password"/>
+                        </div>
 
-                    <div><input v-if="!passwordsShown" type="password" placeholder="New Password Again"
-                                :disabled="isSaving" v-model="formData.passwordAgain" autocomplete="new-password"/>
-                    </div>
+                        <div><input v-if="!passwordsShown" type="password" placeholder="New Password Again"
+                                    :disabled="isSaving" v-model="formData.passwordAgain" autocomplete="new-password"/>
+                        </div>
 
-                    <div><input v-if="passwordsShown" type="text" placeholder="New Password Again"
-                                :disabled="isSaving" v-model="formData.passwordAgain" autocomplete="new-password"/>
+                        <div><input v-if="passwordsShown" type="text" placeholder="New Password Again"
+                                    :disabled="isSaving" v-model="formData.passwordAgain" autocomplete="new-password"/>
+                        </div>
                     </div>
                 </div>
 
@@ -49,19 +59,21 @@
 
             </template>
 
-            <label>Delete Account</label>
+            <div class="set">
+                <label>Delete Account</label>
 
-            <div class="container">
-                <div>Type DELETE and press Save</div>
-                <div><input type="text" placeholder="delete?" :disabled="isSaving" v-model="formData.delete"/></div>
-            </div>
+                <div class="container">
+                    <div>Type DELETE and press Save</div>
+                    <div><input type="text" placeholder="delete?" :disabled="isSaving" v-model="formData.delete"/></div>
+                </div>
 
-            <div class="validation-messages friendly" :disabled="isSaving" v-if="formData.delete === 'DELETE'">
-                If you press SAVE, your account will be deleted. This cannot be undone.
-            </div>
+                <div class="validation-messages friendly" :disabled="isSaving" v-if="formData.delete === 'DELETE'">
+                    If you press SAVE, your account will be deleted. This cannot be undone.
+                </div>
 
-            <div class="validation-messages error" v-if="responseErrors.length > 0">
-                <span v-for="error in responseErrors">{{error}}</span>
+                <div class="validation-messages error" v-if="responseErrors.length > 0">
+                    <span v-for="error in responseErrors">{{error}}</span>
+                </div>
             </div>
 
             <div class="buttons">
@@ -87,7 +99,9 @@
                     email: this.$store.state.loggedUserModel.info.email,
                     password: '',
                     passwordAgain: '',
-                    delete: ''
+                    delete: '',
+                    receiveEmailNotifications: this.$store.state.loggedUserModel.info.receiveEmailNotifications,
+                    receivePromoEmails: this.$store.state.loggedUserModel.info.receivePromoEmails,
                 },
                 passwordsShown: false,
                 isSaving: false,

@@ -1,6 +1,6 @@
 <template>
     <section id="edit-networking">
-        <div class="networking">
+        <div class="networking edit-container">
             <h1>Networking</h1>
             <label><input type="checkbox" v-model="formData.lookingForGame"/>I want to join a Game Project</label>
             <textarea placeholder="What I'm looking for in a team" v-model="formData.lookingForDescription"></textarea>

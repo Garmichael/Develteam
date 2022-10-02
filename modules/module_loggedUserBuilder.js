@@ -66,6 +66,8 @@ module.exports = {
                     .field('caughtUpOnDevlogs', 'caughtUpOnDevlogs')
                     .field('caughtUpOnClassifieds', 'caughtUpOnClassifieds')
                     .field('caughtUpOnForums', 'caughtUpOnForums')
+                    .field('receive_user_email', 'receiveEmailNotifications')
+                    .field('receive_promo_email', 'receivePromoEmails')
                     .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
                     .where('passkey = ? AND password = ?', passKey, password)
                     .where('banned = 0')

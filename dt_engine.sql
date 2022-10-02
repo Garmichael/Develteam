@@ -934,6 +934,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `caughtUpOnClassifieds` int(1) NOT NULL DEFAULT '0',
   `caughtUpOnForums` int(1) NOT NULL DEFAULT '0',
   `hasSkillFactored` int(1) NOT NULL DEFAULT '0',
+  `receive_user_email` int(1) NOT NULL DEFAULT '1',
+  `receive_promo_email` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `string_url` (`string_url`),

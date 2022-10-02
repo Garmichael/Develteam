@@ -204,7 +204,7 @@
                                accept="image/jpeg, image/png"/>
                     </div>
 
-                    <button @click="displayMode = 'editAccountInformation'">Edit Account Information</button>
+                    <button @click="displayMode = 'editAccountInformation'">Edit Account Settings</button>
                     <button @click="displayMode = 'editBasicDetails'">Edit Bio Details</button>
                     <button @click="displayMode = 'editNetworking'">Edit Networking Details</button>
                 </template>

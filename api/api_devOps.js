@@ -15,12 +15,14 @@ router.get('/', function (req, res) {
         }
 
         console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-        ApplyRankToMedia(function () {
-            ApplyWorkHistory((function () {
-                ApplyEducationHistory((function () {
+        ApplyRankToMedia(() => {
+            ApplyWorkHistory(() => {
+                ApplyEducationHistory(() => {
+                    ApplyEmailPreferences(() => {
 
-                }))
-            }))
+                    });
+                });
+            })
         });
         res.json({status: 'success'});
     });
@@ -85,7 +87,7 @@ function ApplyWorkHistory(callback) {
 
             updateQuery += " end)";
 
-            databaseQuery(updateQuery, [], (error, results)=>{
+            databaseQuery(updateQuery, [], (error, results) => {
                 callback();
             });
 
@@ -135,11 +137,28 @@ function ApplyEducationHistory(callback) {
 
             updateQuery += " end)";
 
-            databaseQuery(updateQuery, [], (error, results)=>{
+            databaseQuery(updateQuery, [], (error, results) => {
                 callback();
             });
 
         });
+    });
+}
+
+function ApplyEmailPreferences(callback) {
+    console.log(">> Applying Email Preferences");
+
+    databaseQuery("ALTER TABLE users ADD COLUMN receive_user_email int(1) DEFAULT 1 AFTER hasSkillFactored;", [], (error, results) => {
+        if (error) {
+            console.log("ALTER TABLE ERROR: " + error);
+        }
+
+        databaseQuery("ALTER TABLE users ADD COLUMN receive_promo_email int(1) DEFAULT 1 AFTER receive_user_email;", [], (error, results) => {
+            if (error) {
+                callback();
+            }
+        });
+
     });
 }
 

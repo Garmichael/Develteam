@@ -1,6 +1,6 @@
 <template>
     <section id="edit-developer-basic-info">
-        <div class="basic-info">
+        <div class="basic-info edit-container">
             <h1>Bio Details</h1>
 
             <label>Name</label>
