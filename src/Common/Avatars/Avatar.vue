@@ -11,7 +11,7 @@
             </circle>
         </svg>
 
-        <img class="inner" :src="imgSrc" :alt="altText" :title="altText"/>
+        <img class="inner" :src="imgSrc + '?v=' + profileData.avatarId" :alt="altText" :title="altText"/>
         <div v-if="showXpInfo" class="level">{{profileData.xpLevelData.xpLevel}}</div>
     </router-link>
 
@@ -25,7 +25,7 @@
 
         computed: {
             imgSrc() {
-                return this.profileData.hasAvatar ?
+                return this.profileData.hasAvatarhasAvatar ?
                     `https://www.develteam.com/userdata/avatars/${this.profileType}_${this.profileData.id}.jpg` :
                     `https://www.develteam.com/userdata/avatar_blank_100.jpg`;
             },

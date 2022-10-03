@@ -112,6 +112,7 @@ router.get('/', function (req, res) {
             .field("(SELECT IFNULL(SUM(amount),0) FROM donations WHERE email_address=users.email)", 'donatedAmount')
             .field('users.sitemod_can_ban', 'canBan')
             .field('users.has_avatar', 'hasAvatar')
+            .field('users.avatarId', 'avatarId')
             .field('is_system_message', 'isSystemMessage')
             .field('system_message_type', 'systemMessageType')
             .field('system_message_target_id', 'systemMessageTargetId')
@@ -149,7 +150,8 @@ router.get('/', function (req, res) {
                     donatedAmount: record.donatedAmount,
                     isModerator: record.canBan,
                     stringUrl: record.stringUrl,
-                    hasAvatar: record.hasAvatar
+                    hasAvatar: record.hasAvatar,
+                    avatarId: record.avatarId
                 };
 
                 // record.messages.reverse();
@@ -160,6 +162,7 @@ router.get('/', function (req, res) {
                 delete record.canBan;
                 delete record.stringUrl;
                 delete record.hasAvatar;
+                delete record.avatarId;
             });
 
             res.json(records);

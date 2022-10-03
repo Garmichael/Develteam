@@ -38,6 +38,7 @@ let getDeveloperSearchQuery = function (filteredConditions, pagination, loggedUs
         .field('alias', 'alias')
         .field('users.string_url', 'stringUrl')
         .field('users.has_avatar', 'hasAvatar')
+        .field('users.avatarId', 'avatarId')
         .field('last_active', 'lastOnline')
         .field('registrationDate', 'registrationDate')
         .field('location', 'location')
@@ -123,6 +124,7 @@ let getGameSearchQuery = function (filteredConditions, pagination) {
         .field('games.alias', 'alias')
         .field('games.string_url', 'stringUrl')
         .field('games.has_avatar', 'hasAvatar')
+        .field('games.avatarId', 'avatarId')
         .field('games.seeking_is', 'lookingForMembers')
         .field('seeking_designers', 'seekingDesigners')
         .field('seeking_artists', 'seekingArtists')
@@ -212,6 +214,7 @@ let getGroupMembersQuery = function (groupType, parentIds) {
         .field(`IFNULL(users.alias, 'DELETED USER')`, 'alias')
         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'stringUrl')
         .field('users.has_avatar', 'hasAvatar')
+        .field('users.avatarId', 'avatarId')
         .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
         .left_join('users', null, 'users.id = ' + groupType + '_members.member_id');
 

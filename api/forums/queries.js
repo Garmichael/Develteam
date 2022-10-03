@@ -437,6 +437,7 @@ module.exports = {
             .field(`IFNULL(users.alias, 'DELETED USER')`, 'posterAlias')
             .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'posterStringUrl')
             .field('users.has_avatar', 'posterHasAvatar')
+            .field('users.avatarId', 'posterAvatarId')
             .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'posterXp')
 
             .where('parent_id = ?', threadId)
@@ -462,6 +463,7 @@ module.exports = {
                     alias: record.posterAlias,
                     stringUrl: record.posterStringUrl,
                     hasAvatar: record.posterHasAvatar,
+                    avatarId: record.posterAvatarId,
                     xpLevelData: xpLevelData(record.posterXp)
                 };
 

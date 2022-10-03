@@ -19,7 +19,9 @@ router.get('/', function (req, res) {
             ApplyWorkHistory(() => {
                 ApplyEducationHistory(() => {
                     ApplyEmailPreferences(() => {
+                        ApplyAvatarCaching(()=>{
 
+                        });
                     });
                 });
             })
@@ -155,11 +157,37 @@ function ApplyEmailPreferences(callback) {
 
         databaseQuery("ALTER TABLE users ADD COLUMN receive_promo_email int(1) DEFAULT 1 AFTER receive_user_email;", [], (error, results) => {
             if (error) {
-                callback();
+                console.log("ALTER TABLE ERROR: " + error);
             }
+
+            callback();
         });
 
     });
 }
 
+function ApplyAvatarCaching(callback){
+    console.log(">> Applying Avatar Caching");
+
+    databaseQuery("ALTER TABLE users ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+        if (error) {
+            console.log("ALTER TABLE ERROR: " + error);
+        }
+
+        databaseQuery("ALTER TABLE games ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+            if (error) {
+                console.log("ALTER TABLE ERROR: " + error);
+            }
+
+            databaseQuery("ALTER TABLE media ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+                if (error) {
+                    console.log("ALTER TABLE ERROR: " + error);
+                }
+
+                callback();
+            });
+        });
+
+    });
+}
 module.exports = router;

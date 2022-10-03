@@ -17,6 +17,7 @@ router.get('/', function (req, res) {
         .field('IFNULL(users.alias, \'Anonymous\')', 'alias')
         .field('users.string_url', 'stringUrl')
         .field('users.has_avatar', 'hasAvatar')
+        .field('users.avatarId', 'avatarId')
         .left_join('users', null, 'users.email = email_address')
         .group('email_address')
         .order('amount', false)

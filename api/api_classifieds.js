@@ -45,6 +45,7 @@ router.get('/', function (req, res) {
             .field(`IFNULL(users.alias, 'DELETED USER')`, 'posterAlias')
             .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'posterStringUrl')
             .field('users.has_avatar', 'posterHasAvatar')
+            .field('users.avatarId', 'posterAvatarId')
 
             .field('users.is_designer', 'roleDesigner')
             .field('users.is_artist', 'roleArtist')
@@ -101,6 +102,7 @@ router.get('/', function (req, res) {
             .field(`IFNULL(games.alias, 'DELETED GAME')`, 'posterAlias')
             .field(`IFNULL(games.string_url, 'DELETED-GAME')`, 'posterStringUrl')
             .field('games.has_avatar', 'posterHasAvatar')
+            .field('games.avatarId', 'posterAvatarId')
 
             .field('games.seeking_designers', 'roleDesigner')
             .field('games.seeking_artists', 'roleArtist')
@@ -181,6 +183,7 @@ router.get('/', function (req, res) {
             record.posterDetails = {
                 alias: record.posterAlias,
                 hasAvatar: record.posterHasAvatar,
+                avatarId: record.posterAvatarId,
                 id: record.posterId,
                 stringUrl: record.posterStringUrl,
                 xpLevelData: getXpLevelData(record.xp)
@@ -195,6 +198,7 @@ router.get('/', function (req, res) {
 
             delete record.posterAlias;
             delete record.posterHasAvatar;
+            delete record.posterAvatarId;
             delete record.posterId;
             delete record.posterStringUrl;
         });

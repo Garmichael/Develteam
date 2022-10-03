@@ -156,6 +156,7 @@ router.get('/messages', function (req, res) {
                 .field(`IFNULL(users.alias, 'DELETED USER')`, 'senderAlias')
                 .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'senderStringUrl')
                 .field('users.has_avatar', 'senderHasAvatar')
+                .field('users.avatarId', 'senderAvatarId')
                 .left_join('users', null, 'users.id = senderId')
                 .where('chatId = ?', chatId)
                 .order('timestamp', 'desc')
@@ -175,12 +176,14 @@ router.get('/messages', function (req, res) {
                         'alias': record.senderAlias,
                         'stringUrl': record.senderStringUrl,
                         'hasAvatar': record.senderHasAvatar,
+                        'avatarId': record.senderAvatarId
                     };
 
                     delete record.senderId;
                     delete record.senderAlias;
                     delete record.senderStringUrl;
                     delete record.senderHasAvatar;
+                    delete record.senderAvatarId;
                 });
 
                 res.json(records.reverse());
@@ -392,6 +395,7 @@ router.get('/historyMessages', function (req, res) {
                 .field(`IFNULL(users.alias, 'DELETED USER')`, 'senderAlias')
                 .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'senderStringUrl')
                 .field('users.has_avatar', 'senderHasAvatar')
+                .field('users.avatarId', 'senderAvatarId')
                 .left_join('users', null, 'users.id = senderId')
                 .where('chatId = ?', chatId)
                 .where('timestamp >= ?', historyDateMin)
@@ -412,12 +416,14 @@ router.get('/historyMessages', function (req, res) {
                         'alias': record.senderAlias,
                         'stringUrl': record.senderStringUrl,
                         'hasAvatar': record.senderHasAvatar,
+                        'avatarId': record.senderAvatarId,
                     };
 
                     delete record.senderId;
                     delete record.senderAlias;
                     delete record.senderStringUrl;
                     delete record.senderHasAvatar;
+                    delete record.senderAvatarId;
                 });
 
                 res.json(records.reverse());

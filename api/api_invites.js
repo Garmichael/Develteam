@@ -307,6 +307,7 @@ router.get('', function (req, res) {
             .field('games.alias', 'gameAlias')
             .field('games.string_url', 'gameStringUrl')
             .field('games.has_avatar', 'gameHasAvatar')
+            .field('games.avatarId', 'gameAvatarId')
 
             .left_join('games_members', null, 'games_members.game_id = games.id AND games_members.mod_level = "owner"')
             .left_join('users', null, 'users.id = games_members.member_id')
@@ -332,6 +333,7 @@ router.get('', function (req, res) {
                     alias: record.gameAlias,
                     stringUrl: record.gameStringUrl,
                     hasAvatar: record.gameHasAvatar,
+                    avatarId: record.gameAvatarId,
                     ownerDetails: {
                         id: record.gameOwnerId,
                         alias: record.gameOwnerAlias,
@@ -343,6 +345,7 @@ router.get('', function (req, res) {
                 delete record.gameAlias;
                 delete record.gameStringUrl;
                 delete record.gameHasAvatar;
+                delete record.gameAvatarId;
                 delete record.gameOwnerId;
                 delete record.gameOwnerAlias;
                 delete record.gameOwnerStringUrl;
@@ -373,12 +376,14 @@ router.get('', function (req, res) {
                 .field(`IFNULL(users.alias, 'DELETED USER')`, 'devAlias')
                 .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'devStringUrl')
                 .field('users.has_avatar', 'devHasAvatar')
+                .field('users.avatarId', 'devAvatarId')
 
                 .left_join('games', null, 'games.id = invitations_from_members.game_id')
                 .field('games.id', 'gameId')
                 .field('games.alias', 'gameAlias')
                 .field('games.string_url', 'gameStringUrl')
-                .field('games.has_avatar', 'gameHasAvatar');
+                .field('games.has_avatar', 'gameHasAvatar')
+                .field('games.avatarId', 'gameAvatarId');
 
             if (ownerOfGamesId.length > 0) {
                 query.where('invitations_from_members.game_id in (' + ownerOfGamesId.join(',') + ')')
@@ -401,7 +406,8 @@ router.get('', function (req, res) {
                         id: record.gameId,
                         alias: record.gameAlias,
                         stringUrl: record.gameStringUrl,
-                        hasAvatar: record.gameHasAvatar
+                        hasAvatar: record.gameHasAvatar,
+                        avatarId: record.gameAvatarId
                     };
 
                     record.devDetails = {
@@ -409,6 +415,7 @@ router.get('', function (req, res) {
                         alias: record.devAlias,
                         stringUrl: record.devStringUrl,
                         hasAvatar: record.devHasAvatar,
+                        avatarId: record.devAvatarId,
                         ownerDetails: {
                             id: record.devOwnerId,
                             alias: record.devOwnerAlias,
@@ -420,10 +427,12 @@ router.get('', function (req, res) {
                     delete record.gameAlias;
                     delete record.gameStringUrl;
                     delete record.gameHasAvatar;
+                    delete record.gameAvatarId;
                     delete record.devId;
                     delete record.devAlias;
                     delete record.devStringUrl;
                     delete record.devHasAvatar;
+                    delete record.devAvatarId;
                     delete record.devOwnerId;
                     delete record.devOwnerAlias;
                     delete record.devOwnerStringUrl;
@@ -445,6 +454,7 @@ router.get('', function (req, res) {
                     .field('games.alias', 'gameAlias')
                     .field('games.string_url', 'gameStringUrl')
                     .field('games.has_avatar', 'gameHasAvatar')
+                    .field('games.avatarId', 'gameAvatarId')
 
                     .left_join('games_members', null, 'games_members.game_id = games.id AND games_members.mod_level = \'owner\'')
                     .left_join('users', null, 'users.id = games_members.member_id')
@@ -452,6 +462,7 @@ router.get('', function (req, res) {
                     .field(`IFNULL(users.alias, 'DELETED USER')`, 'devAlias')
                     .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'devStringUrl')
                     .field('users.has_avatar', 'devHasAvatar')
+                    .field('users.avatarId', 'devAvatarId')
 
                     .where('invitations_from_members.member_id = ?', loggedUser.info.id)
                     .toString();
@@ -470,7 +481,8 @@ router.get('', function (req, res) {
                             id: record.gameId,
                             alias: record.gameAlias,
                             stringUrl: record.gameStringUrl,
-                            hasAvatar: record.gameHasAvatar
+                            hasAvatar: record.gameHasAvatar,
+                            avatarId: record.gameAvatarId
                         };
 
                         record.devDetails = {
@@ -478,6 +490,7 @@ router.get('', function (req, res) {
                             alias: record.devAlias,
                             stringUrl: record.devStringUrl,
                             hasAvatar: record.devHasAvatar,
+                            avatarId: record.devAvatarId,
                             ownerDetails: {
                                 id: record.devOwnerId,
                                 alias: record.devOwnerAlias,
@@ -514,12 +527,14 @@ router.get('', function (req, res) {
                         .field(`IFNULL(users.alias, 'DELETED USER')`, 'devAlias')
                         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'devStringUrl')
                         .field('users.has_avatar', 'devHasAvatar')
+                        .field('users.avatarId', 'devAvatarId')
 
                         .left_join('games', null, 'games.id = invitations_to_games.game_id')
                         .field('games.id', 'gameId')
                         .field('games.alias', 'gameAlias')
                         .field('games.string_url', 'gameStringUrl')
-                        .field('games.has_avatar', 'gameHasAvatar');
+                        .field('games.has_avatar', 'gameHasAvatar')
+                        .field('games.avatarId', 'gameAvatarId');
 
                     if (ownerOfGamesId.length > 0) {
                         query.where('invitations_to_games.game_id in (' + ownerOfGamesId.join(',') + ')')
@@ -541,7 +556,8 @@ router.get('', function (req, res) {
                                 id: record.gameId,
                                 alias: record.gameAlias,
                                 stringUrl: record.gameStringUrl,
-                                hasAvatar: record.gameHasAvatar
+                                hasAvatar: record.gameHasAvatar,
+                                avatarId: record.gameAvatarId,
                             };
 
                             record.devDetails = {
@@ -549,6 +565,7 @@ router.get('', function (req, res) {
                                 alias: record.devAlias,
                                 stringUrl: record.devStringUrl,
                                 hasAvatar: record.devHasAvatar,
+                                avatarId: record.devAvatarId,
                                 ownerDetails: {
                                     id: record.devOwnerId,
                                     alias: record.devOwnerAlias,
@@ -560,10 +577,12 @@ router.get('', function (req, res) {
                             delete record.gameAlias;
                             delete record.gameStringUrl;
                             delete record.gameHasAvatar;
+                            delete record.gameAvatarId;
                             delete record.devId;
                             delete record.devAlias;
                             delete record.devStringUrl;
                             delete record.devHasAvatar;
+                            delete record.devAvatarId;
                             delete record.devOwnerId;
                             delete record.devOwnerAlias;
                             delete record.devOwnerStringUrl;

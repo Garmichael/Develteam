@@ -26,6 +26,7 @@ router.get('/', function (req, res) {
         .field('games.alias', 'alias')
         .field('games.string_url', 'stringUrl')
         .field('games.has_avatar', 'hasAvatar')
+        .field('games.avatarId', 'avatarId')
         .field('release_date', 'releaseDate')
         .field('rating', 'rating')
         .field('seeking_roles', 'seekingRoles')
@@ -493,6 +494,7 @@ router.post('/updateVitals', function (req, res) {
                             let updateHasAvatar = squel.update()
                                 .table('games')
                                 .set('has_avatar', 1)
+                                .set('avatarId', Date.now())
                                 .where('id = ?', gameId)
                                 .toString();
 

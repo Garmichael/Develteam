@@ -141,6 +141,7 @@ router.get('/', function (req, res) {
                 .field(`IFNULL(users.alias, 'DELETED USER')`, 'fromAlias')
                 .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'fromStringUrl')
                 .field('users.has_avatar', 'fromHasAvatar')
+                .field('users.avatarId', 'fromAvatarId')
                 .field('users.id', 'fromId')
                 .order('timestamp', 'asc')
 
@@ -160,13 +161,15 @@ router.get('/', function (req, res) {
                         id: record.fromId,
                         alias: record.fromAlias,
                         stringUrl: record.fromStringUrl,
-                        hasAvatar: record.fromHasAvatar
+                        hasAvatar: record.fromHasAvatar,
+                        avatarId: record.fromAvatarId
                     };
 
                     delete record.fromId;
                     delete record.fromAlias;
                     delete record.fromStringUrl;
                     delete record.fromHasAvatar;
+                    delete record.fromAvatarId;
                 });
 
                 res.json(records);

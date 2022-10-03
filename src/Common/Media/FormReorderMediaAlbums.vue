@@ -16,7 +16,7 @@
 
                     <div class="avatar-container">
                         <img v-if="album.hasAvatar"
-                             :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg`"
+                             :src="`https://www.develteam.com/userdata/avatars/media_${album.id}.jpg?v=${album.avatarId}`"
                              class="media-avatar"
                              :alt="album.title + ' album'" :title="album.title + ' album'"/>
                         <img v-else :src="`https://www.develteam.com/userdata/avatar_blank_100.jpg`"

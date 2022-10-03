@@ -30,6 +30,7 @@ router.get('/', function (req, res) {
             .field('users.lastname', 'lastName')
             .field('users.gender', 'gender')
             .field('users.has_avatar', 'hasAvatar')
+            .field('users.avatarId', 'avatarId')
             .field('users.last_active', 'lastOnline')
             .field('users.registrationDate', 'registrationDate')
             .field('users.location', 'location')
@@ -115,6 +116,7 @@ router.get('/', function (req, res) {
                 .field('games.string_url', 'stringUrl')
                 .field('games.id', 'id')
                 .field('games.has_avatar', 'hasAvatar')
+                .field('games.avatarId', 'avatarId')
                 .field('games.hasBanner', 'hasBanner')
                 .field('games_members.mod_level', 'moderatorLevel')
 
@@ -187,6 +189,7 @@ router.post('/uploadAvatar', function (req, res) {
                         let updateAvatarQuery = squel.update()
                             .table('users')
                             .set('has_avatar', 1)
+                            .set('avatarId', Date.now())
                             .where('id = ?', loggedUser.info.id)
                             .toString();
 

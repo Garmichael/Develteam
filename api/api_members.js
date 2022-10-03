@@ -31,6 +31,7 @@ router.get('/', function (req, res) {
         .field(`IFNULL(users.alias, 'DELETED USER')`, 'alias')
         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'stringUrl')
         .field('users.has_avatar', 'hasAvatar')
+        .field('users.avatarId', 'avatarId')
         .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
 
         .where('games_members.game_id = ?', parentId)
@@ -163,6 +164,7 @@ router.post('/update', function (req, res) {
                         .field(`IFNULL(users.alias, 'DELETED USER')`, 'alias')
                         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'stringUrl')
                         .field('users.has_avatar', 'hasAvatar')
+                        .field('users.avatarId', 'avatarId')
                         .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
 
                         .where('games_members.game_id = ?', gameId)
@@ -288,6 +290,7 @@ router.post('/remove', function (req, res) {
                         .field(`IFNULL(users.alias, 'DELETED USER')`, 'alias')
                         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'stringUrl')
                         .field('users.has_avatar', 'hasAvatar')
+                        .field('users.avatarId', 'avatarId')
                         .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
 
                         .where('games_members.game_id = ?', gameId)
@@ -660,6 +663,7 @@ function socketUpdatedMemberList(gameId) {
         .field(`IFNULL(users.alias, 'DELETED USER')`, 'alias')
         .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'stringUrl')
         .field('users.has_avatar', 'hasAvatar')
+        .field('users.avatarId', 'avatarId')
         .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'xp')
 
         .where('games_members.game_id = ?', gameId)

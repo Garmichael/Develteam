@@ -20,6 +20,7 @@ module.exports = {
             .field('id', 'id')
             .field('title', 'title')
             .field('has_avatar', 'hasAvatar')
+            .field('avatarId', 'avatarId')
             .field('string_url', 'stringUrl')
             .field('parent_type', 'parentType')
             .field('poster_id', 'posterId')
@@ -61,6 +62,7 @@ module.exports = {
             .field('rank', 'rank')
             .field('title', 'title')
             .field('has_avatar', 'hasAvatar')
+            .field('avatarId', 'avatarId')
             .field('string_url', 'stringUrl')
             .where('media_category = ?', 'album')
             .where('parent_type = ?', escape(data.pageType))
@@ -190,6 +192,7 @@ module.exports = {
                         query = squel.update()
                             .table('media')
                             .set('has_avatar', 1)
+                            .set('avatarId', Date.now())
                             .where('id = ?', response.insertId)
                             .toString();
 
@@ -340,6 +343,7 @@ module.exports = {
                             query = squel.update()
                                 .table('media')
                                 .set('has_avatar', 1)
+                                .set('avatarId', Date.now())
                                 .where('id = ?', albumId)
                                 .toString();
 
@@ -1289,6 +1293,7 @@ module.exports = {
             .field(`IFNULL(users.alias, 'DELETED USER')`, 'posterAlias')
             .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'posterStringUrl')
             .field('users.has_avatar', 'posterHasAvatar')
+            .field('users.avatarId', 'posterAvatarId')
             .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'posterXp')
 
             .left_join('games', null, 'games.id = posts.subposter_id AND posts.subposter_type = \'game\'')
@@ -1296,6 +1301,7 @@ module.exports = {
             .field('games.alias', 'subposterAlias')
             .field('games.string_url', 'subposterStringUrl')
             .field('games.has_avatar', 'subposterHasAvatar')
+            .field('games.avatarId', 'subposterAvatarId')
             .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=games.id AND receiver_type='game')", 'subposterXp')
 
             .left_join('posts', 'parentPost', 'parentPost.type = \'media\' AND parentPost.content = posts.parent_id')
@@ -1330,6 +1336,7 @@ module.exports = {
                 alias: comment.posterAlias,
                 stringUrl: comment.posterStringUrl,
                 hasAvatar: comment.posterHasAvatar,
+                avatarId: comment.posterAvatarId,
                 xpLevelData: getXpLevelData(comment.posterXp)
             };
 
@@ -1337,6 +1344,7 @@ module.exports = {
             delete comment.posterAlias;
             delete comment.posterStringUrl;
             delete comment.posterHasAvatar;
+            delete comment.posterAvatarId;
             delete comment.posterXp;
 
             if (comment.subposterId !== null) {
@@ -1345,6 +1353,7 @@ module.exports = {
                     alias: comment.subposterAlias,
                     stringUrl: comment.subposterStringUrl,
                     hasAvatar: comment.subposterHasAvatar,
+                    avatarId: comment.subposterAvatarId,
                     xpLevelData: getXpLevelData(comment.subposterXp)
                 }
             }
@@ -1353,7 +1362,7 @@ module.exports = {
             delete comment.subposterAlias;
             delete comment.subposterStringUrl;
             delete comment.subposterHasAvatar;
-            delete comment.subposterHasAvatar;
+            delete comment.subposterAvatarId;
             delete comment.subposterXp;
 
             parentData = {
@@ -1412,6 +1421,7 @@ module.exports = {
             .field(`IFNULL(users.alias, 'DELETED USER')`, 'posterAlias')
             .field(`IFNULL(users.string_url, 'DELETED-USER')`, 'posterStringUrl')
             .field('users.has_avatar', 'posterHasAvatar')
+            .field('users.avatarId', 'posterAvatarId')
             .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=users.id AND receiver_type='developer')", 'posterXp')
 
             .left_join('games', null, 'games.id = posts.subposter_id AND posts.subposter_type = \'game\'')
@@ -1419,6 +1429,7 @@ module.exports = {
             .field('games.alias', 'subposterAlias')
             .field('games.string_url', 'subposterStringUrl')
             .field('games.has_avatar', 'subposterHasAvatar')
+            .field('games.avatarId', 'subposterAvatarId')
             .field("(SELECT IFNULL(SUM(userXP.points),0) FROM community_points userXP WHERE receiver_id=games.id AND receiver_type='game')", 'subposterXp')
 
             .where('type = ?', 'comment')
@@ -1439,6 +1450,7 @@ module.exports = {
                     alias: record.posterAlias,
                     stringUrl: record.posterStringUrl,
                     hasAvatar: record.posterHasAvatar,
+                    avatarId: record.posterAvatarId,
                     xpLevelData: getXpLevelData(record.posterXp)
                 };
 
@@ -1446,6 +1458,7 @@ module.exports = {
                 delete record.posterAlias;
                 delete record.posterStringUrl;
                 delete record.posterHasAvatar;
+                delete record.posterAvatarId;
                 delete record.posterXp;
 
                 if (record.subposterId !== null) {
@@ -1454,6 +1467,7 @@ module.exports = {
                         alias: record.subposterAlias,
                         stringUrl: record.subposterStringUrl,
                         hasAvatar: record.subposterHasAvatar,
+                        avatarId: record.subposterAvatarId,
                         xpLevelData: getXpLevelData(record.subposterXp)
                     }
                 }
@@ -1462,6 +1476,7 @@ module.exports = {
                 delete record.subposterAlias;
                 delete record.subposterStringUrl;
                 delete record.subposterHasAvatar;
+                delete record.subposterAvatarId;
                 delete record.subposterXp;
             });
 
