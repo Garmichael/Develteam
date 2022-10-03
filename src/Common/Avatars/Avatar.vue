@@ -25,7 +25,7 @@
 
         computed: {
             imgSrc() {
-                return this.profileData.hasAvatarhasAvatar ?
+                return this.profileData.hasAvatar ?
                     `https://www.develteam.com/userdata/avatars/${this.profileType}_${this.profileData.id}.jpg` :
                     `https://www.develteam.com/userdata/avatar_blank_100.jpg`;
             },
