@@ -153,63 +153,65 @@ export default {
                 return;
             }
 
-            if (data.rating) {
+            console.log(data);
+
+            if (data.rating !== undefined) {
                 Vue.set(state.gameInformation, 'rating', data.rating);
             }
 
-            if (data.releaseDate) {
+            if (data.releaseDate !== undefined) {
                 Vue.set(state.gameInformation, 'releaseDate', data.releaseDate);
             }
 
-            if (data.platforms) {
+            if (data.platforms !== undefined) {
                 Vue.set(state.gameInformation, 'platforms', data.platforms);
             }
 
-            if (data.genres) {
+            if (data.genres !== undefined) {
                 Vue.set(state.gameInformation, 'genres', data.genres);
             }
 
-            if (data.recruitingDescription) {
+            if (data.recruitingDescription !== undefined) {
                 Vue.set(state.gameInformation, 'seekingDescription', data.recruitingDescription);
             }
 
-            if (data.roleTitles) {
+            if (data.roleTitles !== undefined) {
                 Vue.set(state.gameInformation, 'seekingRoles', data.roleTitles);
             }
 
-            if (data.recruitingProducers) {
+            if (data.recruitingProducers !== undefined) {
                 Vue.set(state.gameInformation, 'seekingProducers', data.recruitingProducers);
             }
 
-            if (data.recruitingDesigners) {
+            if (data.recruitingDesigners !== undefined) {
                 Vue.set(state.gameInformation, 'seekingDesigners', data.recruitingDesigners);
             }
 
-            if (data.recruitingArtists) {
+            if (data.recruitingArtists !== undefined) {
                 Vue.set(state.gameInformation, 'seekingArtists', data.recruitingArtists);
             }
 
-            if (data.recruitingProgrammers) {
+            if (data.recruitingProgrammers !== undefined) {
                 Vue.set(state.gameInformation, 'seekingProgrammers', data.recruitingProgrammers);
             }
 
-            if (data.recruitingMusicians) {
+            if (data.recruitingMusicians !== undefined) {
                 Vue.set(state.gameInformation, 'seekingMusicians', data.recruitingMusicians);
             }
 
-            if (data.recruitingSfxArtists) {
+            if (data.recruitingSfxArtists !== undefined) {
                 Vue.set(state.gameInformation, 'seekingSfxArtists', data.recruitingSfxArtists);
             }
 
-            if (data.recruitingWriters) {
+            if (data.recruitingWriters !== undefined) {
                 Vue.set(state.gameInformation, 'seekingWriters', data.recruitingWriters);
             }
 
-            if (data.recruitingTesters) {
+            if (data.recruitingTesters !== undefined) {
                 Vue.set(state.gameInformation, 'seekingTesters', data.recruitingTesters);
             }
 
-            if(data.skills){
+            if(data.skills !== undefined){
                 Vue.set(state.gameInformation, 'skills', data.skills);
             }
         },

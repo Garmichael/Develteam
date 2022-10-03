@@ -198,123 +198,107 @@ export default {
                 return;
             }
 
-            if (data.firstName) {
+            if (data.firstName !== undefined) {
                 Vue.set(state.developerInformation, 'firstName', data.firstName);
             }
 
-            if (data.lastName) {
+            if (data.lastName !== undefined) {
                 Vue.set(state.developerInformation, 'lastName', data.lastName);
             }
 
-            if (data.gender) {
+            if (data.gender !== undefined) {
                 Vue.set(state.developerInformation, 'gender', data.gender);
             }
 
-            if (data.location) {
+            if (data.location !== undefined) {
                 Vue.set(state.developerInformation, 'location', data.location);
             }
 
-            if (data.locationLat) {
+            if (data.locationLat !== undefined) {
                 Vue.set(state.developerInformation, 'locationLat', data.locationLat);
             }
 
-            if (data.locationLon) {
+            if (data.locationLon !== undefined) {
                 Vue.set(state.developerInformation, 'locationLon', data.locationLon);
             }
 
-            if (data.useBirth) {
+            if (data.useBirth !== undefined) {
                 Vue.set(state.developerInformation, 'useBirth', data.useBirth);
             }
 
-            if (data.birthMonth) {
+            if (data.birthMonth !== undefined) {
                 Vue.set(state.developerInformation, 'birthMonth', data.birthMonth);
             }
 
-            if (data.birthDay) {
+            if (data.birthDay !== undefined) {
                 Vue.set(state.developerInformation, 'birthDay', data.birthDay);
             }
 
-            if (data.birthYear) {
+            if (data.birthYear !== undefined) {
                 Vue.set(state.developerInformation, 'birthYear', data.birthYear);
             }
 
-            if (data.role) {
+            if (data.role !== undefined) {
                 Vue.set(state.developerInformation, 'role', data.role);
             }
 
-            if (data.skills) {
+            if (data.skills !== undefined) {
                 Vue.set(state.developerInformation, 'skills', data.skills);
             }
 
-            if (data.isDesigner) {
+            if (data.isDesigner !== undefined) {
                 Vue.set(state.developerInformation, 'isDesigner', data.isDesigner);
             }
 
-            if (data.isDesigner) {
+            if (data.isDesigner !== undefined) {
                 Vue.set(state.developerInformation, 'isDesigner', data.isDesigner);
             }
 
-            if (data.isArtist) {
+            if (data.isArtist !== undefined) {
                 Vue.set(state.developerInformation, 'isArtist', data.isArtist);
             }
 
-            if (data.isWriter) {
+            if (data.isWriter !== undefined) {
                 Vue.set(state.developerInformation, 'isWriter', data.isWriter);
             }
 
-            if (data.isMusician) {
+            if (data.isMusician !== undefined) {
                 Vue.set(state.developerInformation, 'isMusician', data.isMusician);
             }
 
-            if (data.isSfxArtist) {
+            if (data.isSfxArtist !== undefined) {
                 Vue.set(state.developerInformation, 'isSfxArtist', data.isSfxArtist);
             }
 
-            if (data.isProgrammer) {
+            if (data.isProgrammer !== undefined) {
                 Vue.set(state.developerInformation, 'isProgrammer', data.isProgrammer);
             }
 
-            if (data.isTester) {
+            if (data.isTester !== undefined) {
                 Vue.set(state.developerInformation, 'isTester', data.isTester);
             }
 
-            if (data.isProducer) {
+            if (data.isProducer !== undefined) {
                 Vue.set(state.developerInformation, 'isProducer', data.isProducer);
             }
 
-            if (data.lookingForDescription) {
+            if (data.lookingForDescription !== undefined) {
                 Vue.set(state.developerInformation, 'lookingForDescription', data.lookingForDescription);
             }
 
-            if (data.lookingForGame) {
+            if (data.lookingForGame !== undefined) {
                 Vue.set(state.developerInformation, 'lookingForGame', data.lookingForGame);
             }
 
-            if (data.websiteFacebook) {
-                Vue.set(state.developerInformation, 'websiteFacebook', data.websiteFacebook);
-            }
-
-            if (data.websiteTwitter) {
-                Vue.set(state.developerInformation, 'websiteTwitter', data.websiteTwitter);
-            }
-
-            if (data.websiteInstagram) {
-                Vue.set(state.developerInformation, 'websiteInstagram', data.websiteInstagram);
-            }
-
-            if (data.websiteLinkedIn) {
-                Vue.set(state.developerInformation, 'websiteLinkedIn', data.websiteLinkedIn);
-            }
-
-            if (data.personalWebsites) {
+            if (data.personalWebsites !== undefined) {
                 Vue.set(state.developerInformation, 'personalWebsites', data.personalWebsites);
             }
 
-            if (data.workHistory) {
+            if (data.workHistory !== undefined) {
                 Vue.set(state.developerInformation, 'workHistory', data.workHistory);
             }
 
-            if (data.educationHistory) {
+            if (data.educationHistory !== undefined) {
                 Vue.set(state.educationHistory, 'workHistory', data.educationHistory);
             }
         },
