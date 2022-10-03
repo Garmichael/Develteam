@@ -169,17 +169,17 @@ function ApplyEmailPreferences(callback) {
 function ApplyAvatarCaching(callback){
     console.log(">> Applying Avatar Caching");
 
-    databaseQuery("ALTER TABLE users ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+    databaseQuery("ALTER TABLE users ADD COLUMN avatarId varchar(14)  NOT NULL DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
         if (error) {
             console.log("ALTER TABLE ERROR: " + error);
         }
 
-        databaseQuery("ALTER TABLE games ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+        databaseQuery("ALTER TABLE games ADD COLUMN avatarId varchar(14)  NOT NULL DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
             if (error) {
                 console.log("ALTER TABLE ERROR: " + error);
             }
 
-            databaseQuery("ALTER TABLE media ADD COLUMN avatarId int(14) DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
+            databaseQuery("ALTER TABLE media ADD COLUMN avatarId varchar(14) NOT NULL DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
                 if (error) {
                     console.log("ALTER TABLE ERROR: " + error);
                 }

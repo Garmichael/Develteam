@@ -179,6 +179,7 @@ router.post('/uploadAvatar', function (req, res) {
                 console.log("MULTER: " + err);
                 res.json({response: 'unsuccessful'});
             } else if (req.file) {
+                console.log("ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ONE ")
                 graphicsMagick('tempuploads/' + req.file.filename)
                     .noProfile()
                     .setFormat('jpg')
@@ -194,6 +195,7 @@ router.post('/uploadAvatar', function (req, res) {
                             .toString();
 
                         databaseQuery(updateAvatarQuery, [], function (error, updateResponse) {
+                            console.log(error);
                             socketHandler.getIoInstance().emit('avatarUpdated', {
                                 type: 'developer',
                                 id: loggedUser.info.id
