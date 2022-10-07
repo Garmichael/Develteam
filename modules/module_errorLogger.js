@@ -1,6 +1,5 @@
 let squel = require('squel'),
-    databaseQuery = require('../modules/module_mysqlQuery'),
-    loggedUserBuilder = require('../modules/module_loggedUserBuilder');
+    databaseQuery = require('../modules/module_mysqlQuery');
 
 function logError(dbError, error, query, loggedUser) {
     let loggedUserId = loggedUser.isLoggedIn ? loggedUser.info.id : 0;

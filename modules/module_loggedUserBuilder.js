@@ -55,7 +55,7 @@ module.exports = {
                     .field('alias', 'alias')
                     .field('string_url', 'stringUrl')
                     .field('has_avatar', 'hasAvatar')
-                    // .field('avatarId', 'avatarId')
+                    .field('avatarId', 'avatarId')
                     .field('hasBanner', 'hasBanner')
                     .field('loc_lat', 'loc_lat')
                     .field('loc_lon', 'loc_lon')
@@ -98,7 +98,7 @@ module.exports = {
                         .field('games.string_url', 'stringUrl')
                         .field('games.id', 'id')
                         .field('games.has_avatar', 'hasAvatar')
-                        // .field('games.avatarId', 'avatarId')
+                        .field('games.avatarId', 'avatarId')
                         .field('games.hasBanner', 'hasBanner')
                         .field('games_members.mod_level', 'moderatorLevel')
 
