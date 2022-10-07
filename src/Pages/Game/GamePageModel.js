@@ -154,8 +154,6 @@ export default {
                 return;
             }
 
-            console.log(data);
-
             if (data.rating !== undefined) {
                 Vue.set(state.gameInformation, 'rating', data.rating);
             }
