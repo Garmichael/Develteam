@@ -1,6 +1,5 @@
 <template>
-    <section id="edit-game-vitals">
-
+    <section id="edit-game-vitals" class="edit-container">
         <div v-if="isSaving" class="companion-content-subsection">
             <saver-large></saver-large>
         </div>
