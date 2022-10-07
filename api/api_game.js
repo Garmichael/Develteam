@@ -29,6 +29,7 @@ router.get('/', function (req, res) {
         .field('games.avatarId', 'avatarId')
         .field('release_date', 'releaseDate')
         .field('rating', 'rating')
+        .field('devStatus', 'devStatus')
         .field('seeking_roles', 'seekingRoles')
         .field('seeking_designers', 'seekingDesigners')
         .field('seeking_programmers', 'seekingProgrammers')
@@ -259,6 +260,7 @@ router.post('/update', function (req, res) {
             genres = req.body.genres,
             releaseDate = req.body.releaseDate || '',
             rating = req.body.rating,
+            devStatus = req.body.devStatus,
             query;
 
         (isNaN(gameId) || gameId === 0) && errors.push('No Game Id Set');
@@ -273,6 +275,14 @@ router.post('/update', function (req, res) {
 
         if (['everyone', 'teen', 'mature', 'adult'].indexOf(rating) === -1) {
             rating = 'everyone'
+        }
+
+        if (typeof devStatus === 'string') {
+            devStatus = devStatus.toLowerCase();
+        }
+
+        if (['indevelopment', 'abandoned', 'completed'].indexOf(devStatus) === -1) {
+            devStatus = 'indevelopment'
         }
 
         if (errors.length > 0) {
@@ -306,6 +316,7 @@ router.post('/update', function (req, res) {
                 .table('games')
                 .set('release_date', releaseDate)
                 .set('rating', rating)
+                .set('devStatus', devStatus)
                 .where('id = ?', gameId)
                 .toString();
 
@@ -402,6 +413,7 @@ router.post('/update', function (req, res) {
                                         gameId: gameId,
                                         rating: rating,
                                         releaseDate: releaseDate,
+                                        devStatus: devStatus,
                                         genres: gameInfo[0].genres,
                                         platforms: gameInfo[0].platforms
                                     });

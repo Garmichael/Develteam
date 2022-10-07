@@ -343,6 +343,7 @@ CREATE TABLE IF NOT EXISTS `games` (
   `avatarId` varchar(14) NOT NULL DEFAULT '0',
   `release_date` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `rating` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `devStatus` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'indevelopment',
   `seeking_roles` varchar(250) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `seeking_is` int(1) NOT NULL DEFAULT '0',
   `seeking_designers` int(1) NOT NULL DEFAULT '0',

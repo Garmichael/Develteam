@@ -19,8 +19,10 @@ router.get('/', function (req, res) {
             ApplyWorkHistory(() => {
                 ApplyEducationHistory(() => {
                     ApplyEmailPreferences(() => {
-                        ApplyAvatarCaching(()=>{
+                        ApplyAvatarCaching(() => {
+                            ApplyGameProjectStatus(()=>{
 
+                            });
                         });
                     });
                 });
@@ -166,7 +168,7 @@ function ApplyEmailPreferences(callback) {
     });
 }
 
-function ApplyAvatarCaching(callback){
+function ApplyAvatarCaching(callback) {
     console.log(">> Applying Avatar Caching");
 
     databaseQuery("ALTER TABLE users ADD COLUMN avatarId varchar(14)  NOT NULL DEFAULT 0 AFTER has_avatar;", [], (error, results) => {
@@ -190,4 +192,16 @@ function ApplyAvatarCaching(callback){
 
     });
 }
+
+function ApplyGameProjectStatus(callback) {
+    console.log(">> Applying Game Project Dev Status");
+
+    databaseQuery("ALTER TABLE games ADD COLUMN devStatus varchar(32)  NOT NULL DEFAULT 'indevelopment' AFTER rating;", [], (error, results) => {
+        if (error) {
+            console.log("ALTER TABLE ERROR: " + error);
+        }
+
+    });
+}
+
 module.exports = router;

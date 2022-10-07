@@ -27,6 +27,11 @@
                     <span class="info">{{game.rating | capitalizeFirstLetter}}</span>
                 </div>
 
+                <div class="dev-status">
+                    <h3>Dev Status</h3>
+                    <span class="info">{{getDevStatus(game.devStatus)}}</span>
+                </div>
+
                 <div v-if="game.releaseDate" class="release-date">
                     <h3>Release Date</h3>
                     <span class="info">{{game.releaseDate}}</span>
@@ -279,6 +284,14 @@
 
                 this.savingFollowingChange = true;
                 this.$store.dispatch('gamePage/updateFollowStatus');
+            },
+
+            getDevStatus(statusCode){
+                if(statusCode === 'indevelopment'){
+                    return 'In Development'
+                } else {
+                    return statusCode.charAt(0).toUpperCase() + statusCode.slice(1);
+                }
             }
         },
 

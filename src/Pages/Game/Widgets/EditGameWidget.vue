@@ -1,67 +1,80 @@
 <template>
     <section id="edit-game-properties">
+        <div class="edit-container">
 
-        <saver-large v-if="isSaving"></saver-large>
+          <saver-large v-if="isSaving"></saver-large>
 
-        <template v-if="!isSaving">
+            <template v-if="!isSaving">
 
-            <div class="edit-platforms">
-                <h1 @click="togglePlatforms" class="toggleable">
-                    Platform
-                    <i v-if="platformsOpen" class="fas fa-chevron-circle-up"></i>
-                    <i v-if="!platformsOpen" class="fas fa-chevron-circle-down"></i>
-                </h1>
+                <h1>Game Details</h1>
+                <div class="edit-platforms">
+                    <label @click="togglePlatforms" class="toggleable">
+                        Platform
+                        <i v-if="platformsOpen" class="fas fa-chevron-circle-up"></i>
+                        <i v-if="!platformsOpen" class="fas fa-chevron-circle-down"></i>
+                    </label>
 
-                <div v-for="category in platforms" v-if="platformsOpen" class="platform-group">
-                    <h3>{{category.label}}</h3>
-                    <div class="options">
-                        <label v-for="platform in category.platforms" v-show="!platform.initiallyHidden || category.showHidden">
-                            <input type="checkbox" v-model="platform.checked" @change="clearErrorMessage"/><span>{{platform.label}}</span>
-                        </label>
+                    <div v-for="category in platforms" v-if="platformsOpen" class="platform-group">
+                        <h3>{{category.label}}</h3>
+                        <div class="options">
+                            <label v-for="platform in category.platforms" v-show="!platform.initiallyHidden || category.showHidden">
+                                <input type="checkbox" v-model="platform.checked" @change="clearErrorMessage"/><span>{{platform.label}}</span>
+                            </label>
+                        </div>
+
+                        <span class="show-all">
+                        <a v-if="!category.showHidden && category.hasHidden" @click.prevent="showHidden(category)">Show All {{category.label}}</a>
+                    </span>
                     </div>
-
-                    <span class="show-all">
-                    <a v-if="!category.showHidden && category.hasHidden" @click.prevent="showHidden(category)">Show All {{category.label}}</a>
-                </span>
                 </div>
-            </div>
 
-            <div class="edit-genres">
-                <h1 @click="toggleGenres" class="toggleable">
-                    Genre
-                    <i v-if="genresOpen" class="fas fa-chevron-circle-up"></i>
-                    <i v-if="!genresOpen" class="fas fa-chevron-circle-down"></i>
-                </h1>
+                <div class="edit-genres">
+                    <label @click="toggleGenres" class="toggleable">
+                        Genre
+                        <i v-if="genresOpen" class="fas fa-chevron-circle-up"></i>
+                        <i v-if="!genresOpen" class="fas fa-chevron-circle-down"></i>
+                    </label>
 
-                <div class="options" v-if="genresOpen">
-                    <label v-for="genre in genres"><input type="checkbox" v-model="genre.checked" @change="clearErrorMessage"/><span>{{genre.label}}</span></label>
+                    <div class="options" v-if="genresOpen">
+                        <label v-for="genre in genres"><input type="checkbox" v-model="genre.checked" @change="clearErrorMessage"/><span>{{genre.label}}</span></label>
+                    </div>
                 </div>
-            </div>
 
-            <div class="edit-rated">
-                <h1>Rated</h1>
+                <div class="edit-rated">
+                    <label>Rated</label>
 
-                <select v-model="rating">
-                    <option value="everyone">Everyone</option>
-                    <option value="teen">Teen</option>
-                    <option value="mature">Mature</option>
-                    <option value="adult">Adult</option>
-                </select>
-            </div>
+                    <select v-model="rating">
+                        <option value="everyone">Everyone</option>
+                        <option value="teen">Teen</option>
+                        <option value="mature">Mature</option>
+                        <option value="adult">Adult</option>
+                    </select>
+                </div>
 
-            <div class="edit-release-date">
-                <h1>Release Date</h1>
+                <div class="edit-release-date">
+                    <label>Release Date</label>
 
-                <input type="text" v-model="releaseDate"/>
-            </div>
+                    <input type="text" v-model="releaseDate"/>
+                </div>
 
-            <div v-if="errorMessage" class="validation-messages error">{{errorMessage}}</div>
+                <div class="edit-rated">
+                    <label>Dev Status</label>
 
-            <div class="companion-content-subsection buttons">
-                <button class="button minor" @click.prevent="cancelChanges">Cancel</button>
-                <button class="button" @click.prevent="saveChanges">Save</button>
-            </div>
-        </template>
+                    <select v-model="devStatus">
+                        <option value="indevelopment">In Development</option>
+                        <option value="abandoned">Abandoned</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div v-if="errorMessage" class="validation-messages error">{{errorMessage}}</div>
+
+                <div class="companion-content-subsection buttons">
+                    <button class="button minor" @click.prevent="cancelChanges">Cancel</button>
+                    <button class="button" @click.prevent="saveChanges">Save</button>
+                </div>
+            </template>
+        </div>
     </section>
 </template>
 
@@ -78,6 +91,7 @@
                 platforms: {},
                 rating: '',
                 releaseDate: '',
+                devStatus: '',
                 platformsOpen: false,
                 genresOpen: false,
                 errorMessage: '',
@@ -91,6 +105,7 @@
             this.platforms = _.cloneDeep(this.$store.state.develteamDataModel.platforms);
             this.rating = this.$store.state.gamePageModel.gameInformation.rating;
             this.releaseDate = this.$store.state.gamePageModel.gameInformation.releaseDate;
+            this.devStatus = this.$store.state.gamePageModel.gameInformation.devStatus;
             this.alias = this.$store.state.gamePageModel.gameInformation.alias;
             this.setChecked();
         },
@@ -179,7 +194,8 @@
                     platforms: platformsSelected,
                     genres: genresSelected,
                     rating: this.rating,
-                    releaseDate: this.releaseDate
+                    releaseDate: this.releaseDate,
+                    devStatus: this.devStatus
                 });
 
                 document.getElementById('game-companion-content').scrollIntoView();

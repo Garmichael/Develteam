@@ -107,7 +107,8 @@ export default {
                 platforms: data.platforms,
                 genres: data.genres,
                 rating: data.rating,
-                releaseDate: data.releaseDate
+                releaseDate: data.releaseDate,
+                devStatus: data.devStatus
             });
         },
 
@@ -157,6 +158,10 @@ export default {
 
             if (data.rating !== undefined) {
                 Vue.set(state.gameInformation, 'rating', data.rating);
+            }
+
+            if (data.devStatus !== undefined) {
+                Vue.set(state.gameInformation, 'devStatus', data.devStatus);
             }
 
             if (data.releaseDate !== undefined) {
