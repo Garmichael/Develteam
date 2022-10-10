@@ -218,5 +218,31 @@
 
     .new-post-form {
         .content-box;
+
+        .help-button {
+            color: @colorA;
+            cursor: pointer;
+            margin-bottom: @spacing-small;
+            display: block;
+            background-color: transparent;
+            border: none;
+            padding: 0;
+
+            &:hover {
+                color: @colorB;
+            }
+        }
+
+        .help-rollout {
+
+
+            p {
+                margin-bottom: @spacing-small;
+
+                em {
+                    .font-bold;
+                }
+            }
+        }
     }
 }

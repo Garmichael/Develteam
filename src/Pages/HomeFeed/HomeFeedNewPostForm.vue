@@ -15,6 +15,23 @@
                 </template>
                 <input type="text" placeholder="Subject (optional)" v-model="newPostSubject"/>
                 <markdown-editor v-model="newPostContent" placeholder="Post Content"></markdown-editor>
+
+                <div class="help-button" v-if="!helpShown" @click.stop="showHelpRollout()">
+                    <i class="fa fa-fw fa-question-circle"></i> Help submitting a DevLog
+                </div>
+
+                <div class="help-rollout" v-else>
+                    <p>
+                        A Developer's Log (or <em>DevLog</em> for short) is a bit like a diary or Blog post for your game
+                        development related topics. It's not a recruitment tool (that is what Classifieds are for)
+                        but anything else about your game dev journey that you want to write about is fair game.
+                        Some might use it to write about an interesting thing they worked on, or a gamedev challenge
+                        they faced and how they solved it, or something they just learned.
+                    </p>
+
+                    <div class="help-button" @click.stop="hideHelpRollout()">Hide Help</div>
+                </div>
+
                 <button class="button" @click.prevent="submitNewPost">Submit</button>
                 <button class="button minor" @click.prevent="expanded = false">Cancel</button>
             </form>
@@ -31,7 +48,8 @@
                 expanded: false,
                 newPostContent: '',
                 newPostSubject: '',
-                selectedPostAs: 'developer'
+                selectedPostAs: 'developer',
+                helpShown: false
             }
         },
 
@@ -62,6 +80,14 @@
         },
 
         methods: {
+            showHelpRollout(){
+                this.helpShown = true;
+            },
+
+            hideHelpRollout(){
+                this.helpShown = false;
+            },
+
             submitNewPost() {
                 let postAs = this.selectedPostAs === 'developer' ? 'developer' : 'game';
                 let postAsId = this.selectedPostAs === 'developer' ? 0 : this.selectedPostAs;
